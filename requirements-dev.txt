@@ -1,5 +1,6 @@
 -r requirements.txt
 pytest
+ruff         # linter + formatter (settings in pyproject.toml)
 numpy        # tools/make_sounds.py
 pillow       # tools/make_icon.py and the Linux icon in tools/build.py
 pyinstaller  # tools/build.py

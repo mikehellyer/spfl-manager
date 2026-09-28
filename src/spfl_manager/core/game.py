@@ -8,8 +8,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from . import data
-from .database import START_YEAR, SquadDB
 from . import playoffs as po
+from .database import START_YEAR, SquadDB
 from .fixtures import cup_draw, league_schedule
 from .match import MatchResult, penalty_shootout, simulate_match
 from .models import Club, Player, round_money
@@ -98,7 +98,7 @@ class Game:
 
     # ------------------------------------------------------------------ setup
     @classmethod
-    def new(cls, manager: str, club_name: str, seed: int | None = None, db: SquadDB | None = None) -> "Game":
+    def new(cls, manager: str, club_name: str, seed: int | None = None, db: SquadDB | None = None) -> Game:
         g = cls()
         g.rng = random.Random(seed)
         g.manager = manager or "Manager"
@@ -107,8 +107,16 @@ class Game:
             for info in clubs:
                 rating = db.rating(info.name)
                 club = Club(
-                    info.name, info.short, div, info.shirt, info.shorts, info.stadium,
-                    info.capacity, rating, pattern=info.pattern, shirt2=info.shirt2,
+                    info.name,
+                    info.short,
+                    div,
+                    info.shirt,
+                    info.shorts,
+                    info.stadium,
+                    info.capacity,
+                    rating,
+                    pattern=info.pattern,
+                    shirt2=info.shirt2,
                 )
                 g.clubs[info.name] = club
                 g.divisions[div].append(info.name)
@@ -252,8 +260,11 @@ class Game:
         self.news.insert(0, "The Premiership has split! Top six: " + ", ".join(top) + ".")
 
     def position(self, club: str | None = None) -> int:
+        """League position, or 0 for a club outside the SPFL (a pyramid play-off challenger)."""
         club = club or self.club_name
         div = self.clubs[club].division
+        if not 0 <= div < len(self.divisions) or club not in self.divisions[div]:
+            return 0
         return [n for n, _ in self.table(div)].index(club) + 1
 
     def event_label(self, idx: int | None = None) -> str:
@@ -336,15 +347,28 @@ class Game:
         entrant = hl if self.rng.random() < 0.5 + (hl["rating"] - ll["rating"]) / 100 else ll
         other = ll if entrant is hl else hl
         entrant, other = data.ClubInfo(**{k: v for k, v in entrant.items() if k != "league"}), other["name"]
-        club = Club(entrant.name, entrant.short, 4, tuple(entrant.shirt), tuple(entrant.shorts), entrant.stadium,
-                    entrant.capacity, entrant.rating, pattern=entrant.pattern, shirt2=tuple(entrant.shirt2))
+        club = Club(
+            entrant.name,
+            entrant.short,
+            4,
+            tuple(entrant.shirt),
+            tuple(entrant.shorts),
+            entrant.stadium,
+            entrant.capacity,
+            entrant.rating,
+            pattern=entrant.pattern,
+            shirt2=tuple(entrant.shirt2),
+        )
         self.clubs[club.name] = club
         for pos in SQUAD_TEMPLATE:
             self._new_player(club.name, pos, club.rating)
         club.selected = self.auto_pick(club.name)
         self.playoffs = po.create(finals, club.name)
-        self.news.insert(0, f"Pyramid play-off: {entrant.name} beat {other} and will play "
-                            f"{finals[3][9]} for a place in League Two.")
+        self.news.insert(
+            0,
+            f"Pyramid play-off: {entrant.name} beat {other} and will play "
+            f"{finals[3][9]} for a place in League Two.",
+        )
 
     def league_fixture_list(self) -> list[tuple[int, str, str]]:
         out = []
@@ -447,9 +471,7 @@ class Game:
                     if res.winner == self.club_name:
                         prize = data.CUP_PRIZE[n]
                         self.balance += prize
-                        report.news.append(
-                            f"Through in the {data.CUP_NAME}! £{prize:,} prize money."
-                        )
+                        report.news.append(f"Through in the {data.CUP_NAME}! £{prize:,} prize money.")
                     else:
                         self.cup["out"] = True
                         report.news.append(f"Knocked out of the {data.CUP_NAME}.")
@@ -478,7 +500,9 @@ class Game:
                     home_game = h == self.club_name
 
                 def shootout(t=tie):
-                    return penalty_shootout(self.selected_players(t["a"]), self.selected_players(t["b"]), self.rng)
+                    return penalty_shootout(
+                        self.selected_players(t["a"]), self.selected_players(t["b"]), self.rng
+                    )
 
                 line = po.record_leg(self.playoffs, tie, res.home_goals, res.away_goals, shootout)
                 if line:
@@ -707,7 +731,7 @@ class Game:
         p.club = dest
         return ""
 
-    def copy(self) -> "Game":
+    def copy(self) -> Game:
         return Game.from_dict(self.to_dict())
 
     def _top_up_squad(self, club: str, target: int = 0):
@@ -730,12 +754,20 @@ class Game:
         """A club relegated out of the SPFL joins the pyramid and can come back later."""
         c = self.clubs[name]
         if not any(n["name"] == name for n in self.non_league):
-            self.non_league.append({
-                "league": self.rng.choice(["HL", "LL"]), "name": c.name, "short": c.short,
-                "shirt": list(c.shirt), "shorts": list(c.shorts), "stadium": c.stadium,
-                "capacity": c.capacity, "rating": max(25, c.rating - 3), "pattern": c.pattern,
-                "shirt2": list(c.shirt2),
-            })
+            self.non_league.append(
+                {
+                    "league": self.rng.choice(["HL", "LL"]),
+                    "name": c.name,
+                    "short": c.short,
+                    "shirt": list(c.shirt),
+                    "shorts": list(c.shorts),
+                    "stadium": c.stadium,
+                    "capacity": c.capacity,
+                    "rating": max(25, c.rating - 3),
+                    "pattern": c.pattern,
+                    "shirt2": list(c.shirt2),
+                }
+            )
         self._remove_club(name)
 
     def _remove_club(self, name: str):
@@ -760,7 +792,7 @@ class Game:
     def _end_season(self) -> dict:
         summary = {"season": self.season_label, "champions": [], "promoted": [], "relegated": []}
         finals = [[n for n, _ in self.table(d)] for d in range(4)]
-        for d, order in enumerate(finals):
+        for order in finals:
             summary["champions"].append(order[0])
         my_div = self.club.division
         my_pos = finals[my_div].index(self.club_name) + 1
@@ -780,7 +812,9 @@ class Game:
         for key, d in (("prem_f", 0), ("champ_f", 1), ("l1_f", 2)):
             tie = po.get(self.playoffs, key)
             if tie and tie["winner"]:
-                summary["playoffs"].append(f"{po.tie_name(tie)}: {tie['winner']} beat {tie['loser']} ({tie['note']})")
+                summary["playoffs"].append(
+                    f"{po.tie_name(tie)}: {tie['winner']} beat {tie['loser']} ({tie['note']})"
+                )
                 if tie["winner"] != tie["stay"]:
                     moves += [(tie["winner"], d), (tie["stay"], d + 1)]
         for name, d in moves:
@@ -790,7 +824,9 @@ class Game:
 
         tie = po.get(self.playoffs, "l2_f")
         if tie and tie["winner"]:
-            summary["playoffs"].append(f"{po.tie_name(tie)}: {tie['winner']} beat {tie['loser']} ({tie['note']})")
+            summary["playoffs"].append(
+                f"{po.tie_name(tie)}: {tie['winner']} beat {tie['loser']} ({tie['note']})"
+            )
             challenger = self.playoffs["entrant"]
             if tie["winner"] == challenger:
                 dropped = tie["stay"]
@@ -819,7 +855,12 @@ class Game:
             summary["top_scorer"] = f"{top_scorer.name} ({top_scorer.club}) {top_scorer.goals} goals"
 
         self.history.append(
-            {"season": self.season_label, "club": self.club_name, "division": summary["division"], "position": my_pos}
+            {
+                "season": self.season_label,
+                "club": self.club_name,
+                "division": summary["division"],
+                "position": my_pos,
+            }
         )
 
         # ageing, development and retirements
@@ -887,9 +928,11 @@ class Game:
         }
 
     @classmethod
-    def from_dict(cls, d: dict) -> "Game":
+    def from_dict(cls, d: dict) -> Game:
         if d.get("version", 1) < SAVE_VERSION:
-            raise ValueError("this save is from an older version with made-up squads - please start a new game")
+            raise ValueError(
+                "this save is from an older version with made-up squads - please start a new game"
+            )
         g = cls()
         v, internal, gauss = d["rng"]
         g.rng.setstate((v, tuple(internal), gauss))
@@ -924,7 +967,7 @@ class Game:
         path.write_text(json.dumps(self.to_dict()))
 
     @classmethod
-    def load(cls, path: Path) -> "Game":
+    def load(cls, path: Path) -> Game:
         return cls.from_dict(json.loads(path.read_text()))
 
 

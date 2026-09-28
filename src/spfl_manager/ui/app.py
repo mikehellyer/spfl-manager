@@ -12,7 +12,7 @@ from .sound import SoundBank
 
 
 class Scene:
-    def __init__(self, app: "App"):
+    def __init__(self, app: App):
         self.app = app
 
     def handle(self, ev):
@@ -33,7 +33,9 @@ class App:
         pygame.init()
         pygame.display.set_caption(f"{APP_NAME} v{__version__}")
         try:
-            pygame.display.set_icon(pygame.image.load(str(Path(__file__).resolve().parents[1] / "assets" / "icon.png")))
+            pygame.display.set_icon(
+                pygame.image.load(str(Path(__file__).resolve().parents[1] / "assets" / "icon.png"))
+            )
         except (pygame.error, FileNotFoundError):
             pass
         self.window = pygame.display.set_mode((T.CANVAS_W * 2, T.CANVAS_H * 2), pygame.RESIZABLE)
@@ -94,7 +96,9 @@ class App:
                 elif ev.type == pygame.KEYDOWN and ev.key == pygame.K_F11:
                     pygame.display.toggle_fullscreen()
                 elif ev.type in (pygame.MOUSEMOTION, pygame.MOUSEBUTTONDOWN, pygame.MOUSEBUTTONUP):
-                    self.scene.handle(pygame.event.Event(ev.type, {**ev.dict, "pos": self._to_canvas(ev.pos)}))
+                    self.scene.handle(
+                        pygame.event.Event(ev.type, {**ev.dict, "pos": self._to_canvas(ev.pos)})
+                    )
                 else:
                     self.scene.handle(ev)
                 if not self.scenes:

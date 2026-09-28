@@ -24,10 +24,19 @@ COMP_NAMES = {
 
 def _tie(key, comp, rnd, a, b, weeks, a_from="", b_from="", stay=""):
     return {
-        "key": key, "comp": comp, "round": rnd, "a": a, "b": b, "weeks": weeks,
-        "a_from": a_from, "b_from": b_from,
+        "key": key,
+        "comp": comp,
+        "round": rnd,
+        "a": a,
+        "b": b,
+        "weeks": weeks,
+        "a_from": a_from,
+        "b_from": b_from,
         "stay": stay,  # the higher-division club defending its place (finals only)
-        "legs": [], "winner": "", "loser": "", "note": "",
+        "legs": [],
+        "winner": "",
+        "loser": "",
+        "note": "",
     }
 
 
@@ -37,11 +46,29 @@ def create(tables: list[list[str]], entrant: str) -> dict:
     ties = [
         _tie("prem_qf", "prem", "Quarter-final", champ[3], champ[2], [0, 1]),
         _tie("prem_sf", "prem", "Semi-final", "?", champ[1], [2, 3], a_from="prem_qf"),
-        _tie("prem_f", "prem", "Final", "?", prem[10] if prem else "?", [4, 5], a_from="prem_sf",
-             stay=prem[10] if prem else ""),
+        _tie(
+            "prem_f",
+            "prem",
+            "Final",
+            "?",
+            prem[10] if prem else "?",
+            [4, 5],
+            a_from="prem_sf",
+            stay=prem[10] if prem else "",
+        ),
         _tie("champ_sf1", "champ", "Semi-final", l1[3], champ[8], [0, 1]),
         _tie("champ_sf2", "champ", "Semi-final", l1[2], l1[1], [0, 1]),
-        _tie("champ_f", "champ", "Final", "?", "?", [2, 3], a_from="champ_sf2", b_from="champ_sf1", stay=champ[8]),
+        _tie(
+            "champ_f",
+            "champ",
+            "Final",
+            "?",
+            "?",
+            [2, 3],
+            a_from="champ_sf2",
+            b_from="champ_sf1",
+            stay=champ[8],
+        ),
         _tie("l1_sf1", "l1", "Semi-final", l2[3], l1[8], [0, 1]),
         _tie("l1_sf2", "l1", "Semi-final", l2[2], l2[1], [0, 1]),
         _tie("l1_f", "l1", "Final", "?", "?", [2, 3], a_from="l1_sf2", b_from="l1_sf1", stay=l1[8]),

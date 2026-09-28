@@ -69,7 +69,7 @@ class Player:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, d: dict) -> "Player":
+    def from_dict(cls, d: dict) -> Player:
         return cls(**d)
 
 
@@ -99,7 +99,7 @@ class Club:
         return d
 
     @classmethod
-    def from_dict(cls, d: dict) -> "Club":
+    def from_dict(cls, d: dict) -> Club:
         d = dict(d)
         for k in ("shirt", "shorts", "shirt2"):
             if k in d:
@@ -138,9 +138,7 @@ def team_strength(players: list[Player]) -> Strength:
     if keepers:
         keeper = eff[keepers[0].id]
         # spare keepers play outfield, badly
-        dfs = sum(eff[p.id] for p in players if p.pos == "DEF") + 0.5 * sum(
-            eff[p.id] for p in keepers[1:]
-        )
+        dfs = sum(eff[p.id] for p in players if p.pos == "DEF") + 0.5 * sum(eff[p.id] for p in keepers[1:])
     else:
         keeper = 0.35 * max((eff[p.id] for p in outfield), default=1)
         dfs = sum(eff[p.id] for p in players if p.pos == "DEF")

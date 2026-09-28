@@ -2,8 +2,8 @@ import random
 from collections import Counter
 
 from spfl_manager.core import data
-from spfl_manager.core.fixtures import league_schedule, round_robin
 from spfl_manager.core.database import SquadDB
+from spfl_manager.core.fixtures import league_schedule, round_robin
 from spfl_manager.core.game import Game
 from spfl_manager.core.match import simulate_match
 from spfl_manager.core.models import team_strength
@@ -175,7 +175,9 @@ def test_save_game_editing():
     edit = g.copy()
     hester = next(p for p in edit.squad("Elgin City") if p.name == "Kane Hester")
     hester.skill = 70
-    assert next(p for p in g.squad("Elgin City") if p.name == "Kane Hester").skill != 70  # copy is independent
+    assert (
+        next(p for p in g.squad("Elgin City") if p.name == "Kane Hester").skill != 70
+    )  # copy is independent
     picked = edit.club.selected[0]
     assert edit.move_player(picked, "Clyde") == ""
     assert picked not in edit.club.selected and edit.players[picked].club == "Clyde"
@@ -200,7 +202,6 @@ def test_playoffs_structure_and_movement():
     summary = None
     while summary is None:
         summary = g.play_week().season_summary
-    from spfl_manager.core import playoffs as po
     # (can't inspect g.playoffs any more - a new season has started - so check the outcome)
     assert [len(d) for d in g.divisions] == [12, 10, 10, 10]
     assert len(summary["playoffs"]) == 4
@@ -214,13 +215,13 @@ def test_playoffs_structure_and_movement():
 
 
 def test_pyramid_club_can_replace_league_two_bottom():
-    from spfl_manager.core import playoffs as po
 
     g = Game.new("Mike", "Celtic", seed=22, db=SquadDB.load_default())
     _play_to_playoffs(g)
     bottom = g.table(3)[-1][0]
     g._ensure_playoffs()
     challenger = g.playoffs["entrant"]
+    assert g.position(challenger) == 0  # non-league clubs have no SPFL position (used to crash)
     for p in g.squad(challenger):
         p.skill = 99  # make sure the Highland/Lowland side wins
     for p in g.squad(bottom):
@@ -306,7 +307,7 @@ def test_premiership_playoff_final_uses_final_11th():
     summary = None
     while summary is None:
         summary = g.play_week().season_summary
-    line = next(l for l in summary["playoffs"] if l.startswith("Premiership"))
+    line = next(entry for entry in summary["playoffs"] if entry.startswith("Premiership"))
     assert eleventh in line
 
 

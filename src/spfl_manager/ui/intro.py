@@ -124,7 +124,10 @@ class TitleScene(Scene):
         self.title2 = _letter_images("MANAGER", 3)
         self.scroll_imgs = {}
         self.flag = self._make_flag()
-        self.stars = [(random.randint(0, T.CANVAS_W), random.randint(0, T.CANVAS_H), random.choice([1, 2, 3])) for _ in range(70)]
+        self.stars = [
+            (random.randint(0, T.CANVAS_W), random.randint(0, T.CANVAS_H), random.choice([1, 2, 3]))
+            for _ in range(70)
+        ]
         has_save = save_path().exists()
         self.menu = Menu(
             [
@@ -199,7 +202,7 @@ class TitleScene(Scene):
         surf.fill(T.BLACK)
 
         # starfield
-        for i, (x, y, sp) in enumerate(self.stars):
+        for x, y, sp in self.stars:
             xx = (x - t * 20 * sp) % T.CANVAS_W
             surf.set_at((int(xx), y), [T.DARK_GREY, T.GREY, T.WHITE][sp - 1])
 
@@ -226,7 +229,13 @@ class TitleScene(Scene):
             surf.blit(_tint(img, T.WHITE), (x, y))
             x += img.get_width() + 4
 
-        T.text(surf, "SCOTTISH FOOTBALL  -  PREMIERSHIP TO LEAGUE TWO", (T.CANVAS_W // 2, 186), T.YELLOW, center=True)
+        T.text(
+            surf,
+            "SCOTTISH FOOTBALL  -  PREMIERSHIP TO LEAGUE TWO",
+            (T.CANVAS_W // 2, 186),
+            T.YELLOW,
+            center=True,
+        )
 
         # waving saltire
         fx, fy = 36, 200
@@ -250,7 +259,9 @@ class TitleScene(Scene):
             if self.message:
                 T.text(surf, self.message, (T.CANVAS_W // 2, 316), T.LIGHT_RED, center=True, size=11)
         elif int(t * 1.5) % 2 == 0:
-            T.big_text(surf, "PRESS SPACE", (T.CANVAS_W // 2, 240), T.WHITE, scale=2, center=True, shadow=T.BLUE)
+            T.big_text(
+                surf, "PRESS SPACE", (T.CANVAS_W // 2, 240), T.WHITE, scale=2, center=True, shadow=T.BLUE
+            )
 
         # sine scroller
         self._draw_scroller(surf, t)
@@ -265,7 +276,9 @@ class TitleScene(Scene):
             ch = SCROLL_TEXT[(start + i) % len(SCROLL_TEXT)]
             if ch not in self.scroll_imgs:
                 img = T.font(13, True).render(ch, False, T.WHITE)
-                self.scroll_imgs[ch] = pygame.transform.scale(img, (img.get_width() * 2, img.get_height() * 2))
+                self.scroll_imgs[ch] = pygame.transform.scale(
+                    img, (img.get_width() * 2, img.get_height() * 2)
+                )
             x = i * char_w - offset % char_w
             y = base_y + math.sin(t * 4 + x * 0.03) * 8
             col = TITLE_CYCLE[int(x / 40 + t * 4) % len(TITLE_CYCLE)]

@@ -1,5 +1,7 @@
 """Name pools for generating fictional players."""
 
+# Keep these lists compact (the formatter would put one name per line).
+# fmt: off
 FIRST_NAMES = [
     "Alan", "Alex", "Andy", "Callum", "Calum", "Cameron", "Craig", "Darren", "David",
     "Declan", "Euan", "Ewan", "Fraser", "Gary", "Gordon", "Graeme", "Grant", "Greg",
@@ -25,3 +27,4 @@ SURNAMES = [
     "Tait", "Thomson", "Wallace", "Watson", "Wilson", "Wright", "Young", "Boyle",
     "Christie", "Forrest", "Kennedy", "Naismith", "Rhodes", "Shinnie", "Gauld",
 ]
+# fmt: on

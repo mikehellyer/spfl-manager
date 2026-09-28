@@ -9,8 +9,18 @@ from ..core.game import Game, save_path
 from . import theme as T
 from .app import Scene
 from .screens import (
-    L, TOP, FinanceScene, FixturesScene, MarketScene, MessageScene, NewsScene,
-    PreMatchScene, SquadScene, TableScene, open_update, ordinal,
+    TOP,
+    FinanceScene,
+    FixturesScene,
+    L,
+    MarketScene,
+    MessageScene,
+    NewsScene,
+    PreMatchScene,
+    SquadScene,
+    TableScene,
+    open_update,
+    ordinal,
 )
 from .widgets import Menu
 
@@ -97,7 +107,10 @@ class HubScene(Scene):
             ("Bank balance", T.money(g.balance)),
             ("Bank loan", T.money(g.loan)),
             ("Weekly wages", T.money(g.wage_bill())),
-            ("Scottish Cup", "Winners!" if g.cup.get("winner") == g.club_name else ("Out" if g.cup["out"] else "Still in")),
+            (
+                "Scottish Cup",
+                "Winners!" if g.cup.get("winner") == g.club_name else ("Out" if g.cup["out"] else "Still in"),
+            ),
         ]
         for label, val in stats:
             T.text(surf, label, (x, y), T.LIGHT_GREY)
@@ -118,7 +131,11 @@ class HubScene(Scene):
             opp = a if h == g.club_name else h
             opp_pos = g.position(opp)
             same_div = g.clubs[opp].division == club.division
-            extra = f" ({ordinal(opp_pos)})" if same_div else f" ({data.division_name(g.clubs[opp].division, False)})"
+            extra = (
+                f" ({ordinal(opp_pos)})"
+                if same_div
+                else f" ({data.division_name(g.clubs[opp].division, False)})"
+            )
             T.text(surf, f"{venue} v {opp}{extra}", (x + 4, y + 24), T.WHITE)
             if "play-off" in fx[2]:
                 T.text(surf, fx[2].split(" (")[0], (x + 4, y + 38), T.YELLOW, size=10)
@@ -130,6 +147,12 @@ class HubScene(Scene):
             for i, line in enumerate(T.wrap(g.news[0], 88)[:2]):
                 T.text(surf, line, (L, T.CANVAS_H - T.BORDER - 46 + i * 13), T.LIGHT_GREEN, size=11)
         if g.board_warnings:
-            T.text(surf, f"BOARD WARNING {g.board_warnings}/3 - reduce the overdraft!", (T.CANVAS_W - 250, TOP + 216), T.LIGHT_RED, size=11)
+            T.text(
+                surf,
+                f"BOARD WARNING {g.board_warnings}/3 - reduce the overdraft!",
+                (T.CANVAS_W - 250, TOP + 216),
+                T.LIGHT_RED,
+                size=11,
+            )
         self.menu.draw(surf)
         T.footer(surf, "Number keys, arrows + RETURN, or mouse.  F11: fullscreen   ESC: save & quit to title")

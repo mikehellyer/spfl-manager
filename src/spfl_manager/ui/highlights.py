@@ -68,8 +68,12 @@ class Sprite:
         lean = int(self.dive * 6 * k)
         # legs
         stride = int(math.sin(self.phase) * 3 * k) if self.moving else 0
-        pygame.draw.line(surf, SKIN, (sx - 1 * k + lean // 2, sy - 6 * k), (sx - 2 * k + stride, sy), max(1, int(2 * k)))
-        pygame.draw.line(surf, SKIN, (sx + 1 * k + lean // 2, sy - 6 * k), (sx + 2 * k - stride, sy), max(1, int(2 * k)))
+        pygame.draw.line(
+            surf, SKIN, (sx - 1 * k + lean // 2, sy - 6 * k), (sx - 2 * k + stride, sy), max(1, int(2 * k))
+        )
+        pygame.draw.line(
+            surf, SKIN, (sx + 1 * k + lean // 2, sy - 6 * k), (sx + 2 * k - stride, sy), max(1, int(2 * k))
+        )
         # shorts, shirt, head
         pygame.draw.rect(surf, self.shorts, (sx - 3 * k + lean // 2, sy - 9 * k, 6 * k, 4 * k))
         T.draw_shirt(surf, (sx - 3.5 * k + lean, sy - 16 * k, 7 * k, 8 * k), self.kit)
@@ -140,7 +144,7 @@ class Chance:
 
         # players
         self.attackers = []
-        for i, (wu, wv) in enumerate(wps[1:]):
+        for wu, wv in wps[1:]:
             su, sv = self._to_xy(wu - rng.uniform(8, 16), wv + rng.uniform(-8, 8))
             self.attackers.append(Sprite(su, sv, atk_kit, speed=rng.uniform(7, 9)))
         su, sv = self._to_xy(*wps[0])
@@ -254,7 +258,15 @@ class HighlightsScene(Scene):
         surf = pygame.Surface((T.CANVAS_W - 2 * T.BORDER, 44))
         surf.fill((40, 40, 50))
         rng = random.Random(7)
-        cols = [self.hc.shirt] * 2 + [self.hc.shirt2, self.ac.shirt, T.WHITE, T.LIGHT_GREY, T.GREY, T.BROWN, SKIN]
+        cols = [self.hc.shirt] * 2 + [
+            self.hc.shirt2,
+            self.ac.shirt,
+            T.WHITE,
+            T.LIGHT_GREY,
+            T.GREY,
+            T.BROWN,
+            SKIN,
+        ]
         for row in range(10):
             for x in range(0, surf.get_width(), 3):
                 c = rng.choice(cols)
@@ -276,7 +288,10 @@ class HighlightsScene(Scene):
 
         poly([(0, 0), (105, 0), (105, 68), (0, 68)])
         poly([(52.5, 0), (52.5, 68)], closed=False)
-        circle = [(52.5 + 9.15 * math.cos(a / 24 * 2 * math.pi), 34 + 9.15 * math.sin(a / 24 * 2 * math.pi)) for a in range(24)]
+        circle = [
+            (52.5 + 9.15 * math.cos(a / 24 * 2 * math.pi), 34 + 9.15 * math.sin(a / 24 * 2 * math.pi))
+            for a in range(24)
+        ]
         poly(circle)
         for gx, d in ((0, 1), (105, -1)):
             poly([(gx, 13.85), (gx + d * 16.5, 13.85), (gx + d * 16.5, 54.15), (gx, 54.15)], closed=False)
@@ -383,9 +398,11 @@ class HighlightsScene(Scene):
             self.app.sound.play("goal", volume=1.0 if e.side == "home" else (0.75 if away_is_mine else 0.55))
             self.timer = 2.4
         else:
-            words = {"saved": ("SAVED!", f"{e.player}'s shot is saved by {e.keeper}."),
-                     "miss": ("WIDE!", f"{e.player} fires wide."),
-                     "post": ("OFF THE POST!", f"{e.player} hits the woodwork!")}[e.kind]
+            words = {
+                "saved": ("SAVED!", f"{e.player}'s shot is saved by {e.keeper}."),
+                "miss": ("WIDE!", f"{e.player} fires wide."),
+                "post": ("OFF THE POST!", f"{e.player} hits the woodwork!"),
+            }[e.kind]
             self.caption, self.commentary = words[0], f"{e.minute}'  {words[1]}"
             self.caption_col = T.CYAN
             loud = 1.0 if e.side == "home" else 0.55
@@ -530,8 +547,21 @@ class HighlightsScene(Scene):
         pygame.draw.rect(surf, T.BLACK, (x0, y0, w, 42))
         T.kit_swatch(surf, x0 + 10, y0 + 8, self.kits["home"], 14, 18)
         T.kit_swatch(surf, x0 + w - 24, y0 + 8, self.kits["away"], 14, 18)
-        T.text(surf, self.hc.name.upper(), (x0 + 32, y0 + 6), T.YELLOW if self.hc.name == self.g.club_name else T.WHITE, bold=True)
-        T.text(surf, self.ac.name.upper(), (x0 + w - 32, y0 + 6), T.YELLOW if self.ac.name == self.g.club_name else T.WHITE, bold=True, right=True)
+        T.text(
+            surf,
+            self.hc.name.upper(),
+            (x0 + 32, y0 + 6),
+            T.YELLOW if self.hc.name == self.g.club_name else T.WHITE,
+            bold=True,
+        )
+        T.text(
+            surf,
+            self.ac.name.upper(),
+            (x0 + w - 32, y0 + 6),
+            T.YELLOW if self.ac.name == self.g.club_name else T.WHITE,
+            bold=True,
+            right=True,
+        )
         T.big_text(surf, f"{self.score[0]} - {self.score[1]}", (CX, y0 + 2), T.WHITE, center=True, scale=2)
         comp = self.comp if len(self.comp) <= 48 else self.comp.split(" (")[0]
         T.text(surf, f"{int(self.minute)}'", (x0 + 32, y0 + 24), T.CYAN)

@@ -15,7 +15,7 @@ from ..core.database import POSITIONS, SquadDB, user_file
 from ..core.game import Game, save_path
 from . import theme as T
 from .app import Scene
-from .screens import L, TOP, MessageScene
+from .screens import TOP, L, MessageScene
 from .widgets import Table
 
 DIV_OF = {c.name: d for d, div in enumerate(data.CLUBS) for c in div}
@@ -95,7 +95,13 @@ class Form:
                     self._move(1)
             elif on_buttons and ev.key in (pygame.K_LEFT, pygame.K_RIGHT):
                 pass
-            elif f and ev.key in (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_MINUS, pygame.K_EQUALS, pygame.K_PLUS):
+            elif f and ev.key in (
+                pygame.K_LEFT,
+                pygame.K_RIGHT,
+                pygame.K_MINUS,
+                pygame.K_EQUALS,
+                pygame.K_PLUS,
+            ):
                 if f.kind != "text":
                     up = ev.key in (pygame.K_RIGHT, pygame.K_EQUALS, pygame.K_PLUS)
                     self._adjust(f, (5 if shift else 1) * (1 if up else -1))
@@ -159,7 +165,14 @@ class Form:
             bx = self.x + j * 220
             pygame.draw.rect(surf, T.HILITE if on_buttons and j == 0 else T.BLACK, (bx, y, 200, 20))
             pygame.draw.rect(surf, T.LIGHT_BLUE, (bx, y, 200, 20), 1)
-            T.text(surf, label, (bx + 100, y + 3), T.BLACK if on_buttons and j == 0 else T.WHITE, center=True, bold=True)
+            T.text(
+                surf,
+                label,
+                (bx + 100, y + 3),
+                T.BLACK if on_buttons and j == 0 else T.WHITE,
+                center=True,
+                bold=True,
+            )
 
 
 # ----------------------------------------------------------------------------- backends
@@ -170,7 +183,14 @@ class DatabaseBackend:
     can_rate = True
     can_reset = True
     note = "Changes apply to NEW games"
-    columns = [("No", 0, "l"), ("Name", 30, "l"), ("Pos", 260, "l"), ("Skill", 330, "r"), ("Age", 380, "r"), ("Notes", 400, "l")]
+    columns = [
+        ("No", 0, "l"),
+        ("Name", 30, "l"),
+        ("Pos", 260, "l"),
+        ("Skill", 330, "r"),
+        ("Age", 380, "r"),
+        ("Notes", 400, "l"),
+    ]
     legend = "~ = estimate (not set yet)   green = set by you   changes apply to NEW games"
 
     def __init__(self):
@@ -196,7 +216,14 @@ class DatabaseBackend:
         skill, age, es, ea = self.db.stats(club, r)
         notes = (["loan"] if r.get("loan") else []) + (["~ estimate"] if es or ea else [])
         color = T.LIGHT_GREEN if ("skill" in r or "age" in r) else (T.LIGHT_GREY if es or ea else T.WHITE)
-        cells = [r.get("no", ""), r["name"][:28], r["pos"], f"{skill}{'~' if es else ''}", f"{age}{'~' if ea else ''}", "  ".join(notes)]
+        cells = [
+            r.get("no", ""),
+            r["name"][:28],
+            r["pos"],
+            f"{skill}{'~' if es else ''}",
+            f"{age}{'~' if ea else ''}",
+            "  ".join(notes),
+        ]
         return cells, color
 
     def rating(self, club) -> int:
@@ -269,8 +296,16 @@ class SaveBackend:
     title = "EDIT SAVE GAME"
     can_rate = False
     can_reset = False
-    columns = [("Name", 0, "l"), ("Pos", 200, "l"), ("Skill", 272, "r"), ("Age", 312, "r"), ("Fit", 360, "r"),
-               ("Inj", 400, "r"), ("Gls", 440, "r"), ("Notes", 458, "l")]
+    columns = [
+        ("Name", 0, "l"),
+        ("Pos", 200, "l"),
+        ("Skill", 272, "r"),
+        ("Age", 312, "r"),
+        ("Fit", 360, "r"),
+        ("Inj", 400, "r"),
+        ("Gls", 440, "r"),
+        ("Notes", 458, "l"),
+    ]
     legend = "Changes apply to your CURRENT career when you save.   Yellow = in the starting XI"
 
     def __init__(self, app, game: Game | None = None):
@@ -299,7 +334,16 @@ class SaveBackend:
         picked = p.id in self.game.clubs[club].selected
         notes = "PICKED" if picked else ""
         color = T.LIGHT_RED if p.injury else (T.YELLOW if picked else T.WHITE)
-        cells = [p.name[:24], p.pos, str(p.skill), str(p.age), f"{p.energy}%", str(p.injury or ""), str(p.goals), notes]
+        cells = [
+            p.name[:24],
+            p.pos,
+            str(p.skill),
+            str(p.age),
+            f"{p.energy}%",
+            str(p.injury or ""),
+            str(p.goals),
+            notes,
+        ]
         return cells, color
 
     def rating(self, club) -> int:
@@ -349,7 +393,7 @@ class SaveBackend:
 
 # ----------------------------------------------------------------------------- player form
 class PlayerFormScene(Scene):
-    def __init__(self, app, editor: "EditorScene", club: str, player):
+    def __init__(self, app, editor: EditorScene, club: str, player):
         super().__init__(app)
         self.editor, self.club, self.player = editor, club, player
         self.fields = editor.backend.fields(club, player)
@@ -379,8 +423,13 @@ class PlayerFormScene(Scene):
     def draw(self, surf):
         T.frame(surf)
         T.header(surf, "NEW PLAYER" if self.player is None else "EDIT PLAYER", self.club)
-        T.text(surf, "UP/DOWN: choose field   LEFT/RIGHT or type digits: change value   SHIFT: steps of 5",
-               (L, TOP + 10), T.LIGHT_GREY, size=11)
+        T.text(
+            surf,
+            "UP/DOWN: choose field   LEFT/RIGHT or type digits: change value   SHIFT: steps of 5",
+            (L, TOP + 10),
+            T.LIGHT_GREY,
+            size=11,
+        )
         hint = "Mouse: click < > or use the wheel"
         if isinstance(self.editor.backend, DatabaseBackend):
             hint = "DEL on skill/age: go back to the automatic estimate   " + hint
@@ -396,10 +445,22 @@ class ClubPickerScene(Scene):
     def __init__(self, app, title, divisions, on_pick, exclude=""):
         super().__init__(app)
         self.title, self.on_pick = title, on_pick
-        self.table = Table([("Club", 0, "l"), ("Division", 300, "l")], L, TOP + 6, 580, visible=17,
-                           line_h=15, on_activate=self.pick, sound=app.sound)
-        rows = [([c, data.DIVISION_FULL[d]], T.WHITE, c)
-                for d, div in enumerate(divisions) for c in div if c != exclude]
+        self.table = Table(
+            [("Club", 0, "l"), ("Division", 300, "l")],
+            L,
+            TOP + 6,
+            580,
+            visible=17,
+            line_h=15,
+            on_activate=self.pick,
+            sound=app.sound,
+        )
+        rows = [
+            ([c, data.DIVISION_FULL[d]], T.WHITE, c)
+            for d, div in enumerate(divisions)
+            for c in div
+            if c != exclude
+        ]
         self.table.set_rows(rows)
 
     def pick(self, name):
@@ -432,12 +493,33 @@ class EditorScene(Scene):
         self.club: str | None = None
         self.msg = ""
         self.clubs_table = Table(
-            [("Club", 0, "l"), ("Players", 250, "r"), ("GK", 290, "r"), ("DEF", 330, "r"), ("MID", 370, "r"),
-             ("ATT", 410, "r"), ("Strength", 490, "r")],
-            L, TOP + 26, 580, visible=12, line_h=17, on_activate=self.open_club, sound=app.sound,
+            [
+                ("Club", 0, "l"),
+                ("Players", 250, "r"),
+                ("GK", 290, "r"),
+                ("DEF", 330, "r"),
+                ("MID", 370, "r"),
+                ("ATT", 410, "r"),
+                ("Strength", 490, "r"),
+            ],
+            L,
+            TOP + 26,
+            580,
+            visible=12,
+            line_h=17,
+            on_activate=self.open_club,
+            sound=app.sound,
         )
-        self.players_table = Table(self.backend.columns, L, TOP + 26, 580, visible=15, line_h=15,
-                                   on_activate=self.edit_player, sound=app.sound)
+        self.players_table = Table(
+            self.backend.columns,
+            L,
+            TOP + 26,
+            580,
+            visible=15,
+            line_h=15,
+            on_activate=self.edit_player,
+            sound=app.sound,
+        )
         self.refresh()
         if isinstance(self.backend, SaveBackend) and self.backend.game.club_name in divs[self.division]:
             self.clubs_table.index = divs[self.division].index(self.backend.game.club_name)
@@ -459,8 +541,21 @@ class EditorScene(Scene):
                 sq = b.players(name)
                 cnt = {p: sum(1 for r in sq if b.pos(r) == p) for p in POSITIONS}
                 thin = cnt["GK"] < 2 or cnt["DEF"] < 4 or cnt["MID"] < 4 or cnt["ATT"] < 2
-                rows.append(([name, str(len(sq)), str(cnt["GK"]), str(cnt["DEF"]), str(cnt["MID"]), str(cnt["ATT"]),
-                              str(b.rating(name))], T.LIGHT_RED if thin else T.WHITE, name))
+                rows.append(
+                    (
+                        [
+                            name,
+                            str(len(sq)),
+                            str(cnt["GK"]),
+                            str(cnt["DEF"]),
+                            str(cnt["MID"]),
+                            str(cnt["ATT"]),
+                            str(b.rating(name)),
+                        ],
+                        T.LIGHT_RED if thin else T.WHITE,
+                        name,
+                    )
+                )
             self.clubs_table.set_rows(rows)
         else:
             rows = []
@@ -480,7 +575,9 @@ class EditorScene(Scene):
         name = self.clubs_table.current
         if name and self.backend.can_rate:
             self.backend.set_rating(name, self.backend.rating(name) + step)
-            self.changed(f"{name} strength {self.backend.rating(name)} - players' estimated skills follow it.")
+            self.changed(
+                f"{name} strength {self.backend.rating(name)} - players' estimated skills follow it."
+            )
 
     # player level ------------------------------------------------------------
     def edit_player(self, p):
@@ -503,7 +600,9 @@ class EditorScene(Scene):
             else:
                 self.changed(f"{name} deleted.")
 
-        self.app.push(MessageScene(self.app, "DELETE PLAYER", [f"Remove {name} from {self.club}?"], on_yes=yes))
+        self.app.push(
+            MessageScene(self.app, "DELETE PLAYER", [f"Remove {name} from {self.club}?"], on_yes=yes)
+        )
 
     def move_player(self):
         p = self.players_table.current
@@ -518,7 +617,11 @@ class EditorScene(Scene):
             else:
                 self.changed(f"{name} moved to {dest}.")
 
-        self.app.push(ClubPickerScene(self.app, f"MOVE {name.upper()} TO...", self.backend.divisions(), picked, exclude=src))
+        self.app.push(
+            ClubPickerScene(
+                self.app, f"MOVE {name.upper()} TO...", self.backend.divisions(), picked, exclude=src
+            )
+        )
 
     # file level ---------------------------------------------------------------
     def save(self):
@@ -528,7 +631,11 @@ class EditorScene(Scene):
             self.app.push(MessageScene(self.app, "SAVE FAILED", [str(exc)]))
             return
         self.dirty = False
-        self.msg = "Saved." + ("  New games will use your edited squads." if self.backend.can_reset else "  Your career has been updated.")
+        self.msg = "Saved." + (
+            "  New games will use your edited squads."
+            if self.backend.can_reset
+            else "  Your career has been updated."
+        )
         self.refresh()
 
     def reset(self):
@@ -541,9 +648,14 @@ class EditorScene(Scene):
             self.changed("Back to the original Wikipedia squads.")
             self.dirty = False
 
-        self.app.push(MessageScene(self.app, "RESET ALL EDITS",
-                                   ["Throw away ALL your edits and go back to the original squads?", "This can't be undone."],
-                                   on_yes=yes))
+        self.app.push(
+            MessageScene(
+                self.app,
+                "RESET ALL EDITS",
+                ["Throw away ALL your edits and go back to the original squads?", "This can't be undone."],
+                on_yes=yes,
+            )
+        )
 
     def leave(self):
         if not self.dirty:
@@ -555,10 +667,18 @@ class EditorScene(Scene):
             if not self.dirty:
                 self.app.pop()
 
-        self.app.push(MessageScene(self.app, "UNSAVED CHANGES",
-                                   ["Save your changes before leaving?", "(ESC to stay in the editor)"],
-                                   on_yes=save_and_leave, on_no=self.app.pop, yes_label="Save", no_label="Discard",
-                                   esc_cancels=True))
+        self.app.push(
+            MessageScene(
+                self.app,
+                "UNSAVED CHANGES",
+                ["Save your changes before leaving?", "(ESC to stay in the editor)"],
+                on_yes=save_and_leave,
+                on_no=self.app.pop,
+                yes_label="Save",
+                no_label="Discard",
+                esc_cancels=True,
+            )
+        )
 
     # input / draw -----------------------------------------------------------
     def handle(self, ev):
@@ -607,25 +727,51 @@ class EditorScene(Scene):
         if self.club is None:
             T.header(surf, b.title, source)
             T.text(surf, data.DIVISION_FULL[self.division], (L, TOP + 6), T.YELLOW, bold=True)
-            T.text(surf, "<  LEFT/RIGHT: division  >", (T.CANVAS_W - L - 4, TOP + 6), T.LIGHT_GREY, size=11, right=True)
+            T.text(
+                surf,
+                "<  LEFT/RIGHT: division  >",
+                (T.CANVAS_W - L - 4, TOP + 6),
+                T.LIGHT_GREY,
+                size=11,
+                right=True,
+            )
             self.clubs_table.draw(surf)
             y = TOP + 26 + 13 * 17 + 4
             T.text(surf, "Red: squad is short of a position.", (L, y), T.LIGHT_GREY, size=11)
             if b.can_rate:
-                T.text(surf, "Strength sets the estimated skill of players you haven't rated yourself.", (L, y + 13), T.LIGHT_GREY, size=11)
+                T.text(
+                    surf,
+                    "Strength sets the estimated skill of players you haven't rated yourself.",
+                    (L, y + 13),
+                    T.LIGHT_GREY,
+                    size=11,
+                )
             else:
-                T.text(surf, "You're editing your current career - nothing changes until you press S.", (L, y + 13), T.YELLOW, size=11)
+                T.text(
+                    surf,
+                    "You're editing your current career - nothing changes until you press S.",
+                    (L, y + 13),
+                    T.YELLOW,
+                    size=11,
+                )
             if self.msg:
                 T.text(surf, self.msg, (L, y + 30), T.CYAN, size=11)
-            keys = "RETURN: open club   +/-: strength   S: save   R: reset all   ESC: exit" if b.can_reset else \
-                "RETURN: open club   S: save   ESC: exit"
+            keys = (
+                "RETURN: open club   +/-: strength   S: save   R: reset all   ESC: exit"
+                if b.can_reset
+                else "RETURN: open club   S: save   ESC: exit"
+            )
             T.footer(surf, keys)
         else:
             divs = b.divisions()
             d = next((i for i, div in enumerate(divs) if self.club in div), 0)
             T.header(surf, self.club.upper(), source)
-            T.text(surf, f"{data.DIVISION_FULL[d]}  -  strength {b.rating(self.club)}  -  {len(b.players(self.club))} players",
-                   (L, TOP + 6), T.YELLOW)
+            T.text(
+                surf,
+                f"{data.DIVISION_FULL[d]}  -  strength {b.rating(self.club)}  -  {len(b.players(self.club))} players",
+                (L, TOP + 6),
+                T.YELLOW,
+            )
             self.players_table.draw(surf)
             y = TOP + 26 + 16 * 15 + 2
             T.text(surf, self.msg or b.legend, (L, y), T.CYAN if self.msg else T.LIGHT_GREY, size=11)
@@ -647,14 +793,23 @@ def open_editor(app):
             return
         app.push(EditorScene(app, backend))
 
-    app.push(MessageScene(
-        app, "SQUAD EDITOR",
-        ["What would you like to edit?", "",
-         "Squad database: the players every NEW game starts with.",
-         "Current save: your career in progress."],
-        on_yes=lambda: app.push(EditorScene(app)), on_no=edit_save,
-        yes_label="Squad database", no_label="Current save", esc_cancels=True,
-    ))
+    app.push(
+        MessageScene(
+            app,
+            "SQUAD EDITOR",
+            [
+                "What would you like to edit?",
+                "",
+                "Squad database: the players every NEW game starts with.",
+                "Current save: your career in progress.",
+            ],
+            on_yes=lambda: app.push(EditorScene(app)),
+            on_no=edit_save,
+            yes_label="Squad database",
+            no_label="Current save",
+            esc_cancels=True,
+        )
+    )
 
 
 def edits_file_label() -> str:

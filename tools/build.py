@@ -39,16 +39,30 @@ def freeze():
     """PyInstaller: bundle Python, pygame, the game code and its data files."""
     sep = ";" if os.name == "nt" else ":"
     icon = {"Darwin": "icon.icns", "Windows": "icon.ico"}.get(SYSTEM, "icon.png")
-    run([
-        sys.executable, "-m", "PyInstaller", "--noconfirm", "--clean", "--windowed",
-        "--name", APP_NAME,
-        "--paths", "src",
-        "--icon", str(PACK / icon),
-        "--add-data", f"src/spfl_manager/assets{sep}spfl_manager/assets",
-        "--add-data", f"src/spfl_manager/core/squads.json{sep}spfl_manager/core",
-        "--osx-bundle-identifier", "com.mikehellyer.spflmanager",
-        "main.py",
-    ], cwd=ROOT)
+    run(
+        [
+            sys.executable,
+            "-m",
+            "PyInstaller",
+            "--noconfirm",
+            "--clean",
+            "--windowed",
+            "--name",
+            APP_NAME,
+            "--paths",
+            "src",
+            "--icon",
+            str(PACK / icon),
+            "--add-data",
+            f"src/spfl_manager/assets{sep}spfl_manager/assets",
+            "--add-data",
+            f"src/spfl_manager/core/squads.json{sep}spfl_manager/core",
+            "--osx-bundle-identifier",
+            "com.mikehellyer.spflmanager",
+            "main.py",
+        ],
+        cwd=ROOT,
+    )
 
 
 def build_mac() -> Path:
@@ -66,8 +80,11 @@ def build_mac() -> Path:
 
 
 def find_iscc() -> str:
-    for candidate in (shutil.which("iscc"), r"C:\Program Files (x86)\Inno Setup 6\ISCC.exe",
-                      r"C:\Program Files\Inno Setup 6\ISCC.exe"):
+    for candidate in (
+        shutil.which("iscc"),
+        r"C:\Program Files (x86)\Inno Setup 6\ISCC.exe",
+        r"C:\Program Files\Inno Setup 6\ISCC.exe",
+    ):
         if candidate and Path(candidate).exists():
             return candidate
     raise SystemExit("Inno Setup (ISCC.exe) not found - install it with: choco install innosetup")

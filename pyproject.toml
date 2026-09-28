@@ -1,0 +1,21 @@
+# Tool settings only - the project still installs with requirements.txt.
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+extend-exclude = ["build", "dist"]
+
+[tool.ruff.lint]
+# E/W: style errors and warnings (pycodestyle)   F: real bugs (pyflakes)
+# I: import order   B: likely bugs (bugbear)   UP: modern Python syntax (pyupgrade)
+select = ["E", "W", "F", "I", "B", "UP"]
+ignore = [
+    "E501",  # long lines: the formatter handles these, and long strings are fine
+    "B905",  # zip() without strict= : not needed here
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["spfl_manager"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

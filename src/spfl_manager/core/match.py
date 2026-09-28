@@ -64,7 +64,7 @@ class MatchResult:
         return d
 
     @classmethod
-    def from_dict(cls, d: dict) -> "MatchResult":
+    def from_dict(cls, d: dict) -> MatchResult:
         d = dict(d)
         d["events"] = [MatchEvent(**e) for e in d.get("events", [])]
         return cls(**d)
@@ -133,9 +133,7 @@ def simulate_match(
                 kind = "goal"
             else:
                 kind = rng.choices(["saved", "miss", "post"], weights=[50, 38, 12])[0]
-            events.append(
-                MatchEvent(rng.randint(1, 90), side, kind, shooter.name, keeper_name, shooter.id)
-            )
+            events.append(MatchEvent(rng.randint(1, 90), side, kind, shooter.name, keeper_name, shooter.id))
             if kind == "goal":
                 if side == "home":
                     result.home_goals += 1
@@ -166,7 +164,9 @@ def simulate_match(
     return result
 
 
-def penalty_shootout(a_xi: list[Player], b_xi: list[Player], rng: random.Random, a_boost=1.0, b_boost=1.0) -> tuple[int, int]:
+def penalty_shootout(
+    a_xi: list[Player], b_xi: list[Player], rng: random.Random, a_boost=1.0, b_boost=1.0
+) -> tuple[int, int]:
     """Returns (a, b) penalties scored. The stronger side is a little more likely to win."""
     a_ov, b_ov = team_strength(a_xi).overall * a_boost, team_strength(b_xi).overall * b_boost
     a_wins = rng.random() < 0.5 + (a_ov - b_ov) / 200

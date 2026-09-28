@@ -90,7 +90,17 @@ CLUBS = [
         C("Dumbarton", "DUM", (253, 200, 20), BLACK, "The Rock", 2020, 37),
         C("Stirling Albion", "STA", RED, RED, "Forthbank Stadium", 3808, 37),
         C("Clyde", "CLY", WHITE, BLACK, "New Douglas Park", 6018, 36),
-        C("Forfar Athletic", "FOR", (120, 196, 255), (25, 45, 84), "Station Park", 6777, 36, "stripes", (25, 45, 84)),
+        C(
+            "Forfar Athletic",
+            "FOR",
+            (120, 196, 255),
+            (25, 45, 84),
+            "Station Park",
+            6777,
+            36,
+            "stripes",
+            (25, 45, 84),
+        ),
         C("Elgin City", "ELG", BLACK, BLACK, "Borough Briggs", 4520, 35, "stripes", WHITE),
         C("Stranraer", "STR", BLUE, WHITE, "Stair Park", 4178, 35),
         C("Edinburgh City", "EDC", WHITE, BLACK, "Meadowbank Stadium", 1280, 35),
@@ -115,7 +125,7 @@ PYRAMID_CLUBS = [
 def division_name(div: int, full: bool = True) -> str:
     if 0 <= div < len(DIVISIONS):
         return DIVISION_FULL[div] if full else DIVISIONS[div]
-    return NON_LEAGUE
+    return NON_LEAGUE if full else "non-league"
 
 
 # Money (all in pounds)

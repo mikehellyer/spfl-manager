@@ -84,7 +84,7 @@ def applause(n, start, density, length):
     for _ in range(count):
         t0 = int((start + rng.uniform(0, length) ** 1.3 / length**0.3) * SR)
         if t0 + clap_len < n:
-            out[t0:t0 + clap_len] += rng.normal(0, 1, clap_len) * clap_env * rng.uniform(0.3, 1)
+            out[t0 : t0 + clap_len] += rng.normal(0, 1, clap_len) * clap_env * rng.uniform(0.3, 1)
     return band_noise_like(out, 800, 6000)
 
 
@@ -116,7 +116,7 @@ def fade(sig, fade_in=0.02, fade_out=0.2):
     a, b = int(fade_in * SR), int(fade_out * SR)
     sig = sig.copy()
     sig[:a] *= np.linspace(0, 1, a)
-    sig[n - b:] *= np.linspace(1, 0, b)
+    sig[n - b :] *= np.linspace(1, 0, b)
     return sig
 
 

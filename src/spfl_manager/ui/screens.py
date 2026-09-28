@@ -26,7 +26,9 @@ def is_back(ev) -> bool:
 class MessageScene(Scene):
     """Modal message box. Optional yes/no."""
 
-    def __init__(self, app, title, lines, on_yes=None, on_no=None, yes_label="Yes", no_label="No", esc_cancels=False):
+    def __init__(
+        self, app, title, lines, on_yes=None, on_no=None, yes_label="Yes", no_label="No", esc_cancels=False
+    ):
         super().__init__(app)
         self.esc_cancels = esc_cancels  # ESC just closes the box instead of meaning "No"
         self.title, self.lines = title, []
@@ -41,7 +43,11 @@ class MessageScene(Scene):
             w = max(160, 8 * max(len(yes_label), len(no_label)) + 50)
             self.menu = Menu(
                 [(f"{yes_label} (Y)", self._yes), (f"{no_label} (N)", self._no)],
-                self.rect.centerx - w // 2, self.rect.bottom - 48, w=w, sound=app.sound, numbered=False,
+                self.rect.centerx - w // 2,
+                self.rect.bottom - 48,
+                w=w,
+                sound=app.sound,
+                numbered=False,
             )
 
     def _yes(self):
@@ -90,8 +96,17 @@ class NewGameScene(Scene):
         self.input = TextInput(L + 150, 90, 240, "", 20)
         self.division = 3
         self.div_menu = Menu(
-            [(f"{data.DIVISION_FULL[i]}" + ("  (classic start)" if i == 3 else ""), lambda i=i: self.pick_div(i)) for i in range(4)],
-            L + 150, 150, w=300, sound=app.sound,
+            [
+                (
+                    f"{data.DIVISION_FULL[i]}" + ("  (classic start)" if i == 3 else ""),
+                    lambda i=i: self.pick_div(i),
+                )
+                for i in range(4)
+            ],
+            L + 150,
+            150,
+            w=300,
+            sound=app.sound,
         )
         self.div_menu.index = 3
         self.club_table = None
@@ -101,7 +116,12 @@ class NewGameScene(Scene):
         self.step = 2
         self.club_table = Table(
             [("Club", 26, "l"), ("Ground", 230, "l"), ("Cap", 470, "r"), ("Squad", 530, "l")],
-            L, TOP + 40, 570, visible=12, on_activate=self.pick_club, sound=self.app.sound,
+            L,
+            TOP + 40,
+            570,
+            visible=12,
+            on_activate=self.pick_club,
+            sound=self.app.sound,
         )
         rows = []
         weakest = min(c.rating for c in data.CLUBS[i])
@@ -167,7 +187,14 @@ class NewGameScene(Scene):
             T.big_text(surf, "CHOOSE A DIVISION", (T.CANVAS_W // 2, 50), T.YELLOW, center=True)
             T.text(surf, f"Manager: {self.input.value}", (T.CANVAS_W // 2, 100), T.WHITE, center=True)
             self.div_menu.draw(surf)
-            T.text(surf, "Like the original, starting at the bottom is the real challenge.", (T.CANVAS_W // 2, 250), T.LIGHT_BLUE, center=True, size=11)
+            T.text(
+                surf,
+                "Like the original, starting at the bottom is the real challenge.",
+                (T.CANVAS_W // 2, 250),
+                T.LIGHT_BLUE,
+                center=True,
+                size=11,
+            )
             T.footer(surf, "UP/DOWN + RETURN or click to choose   ESC back")
         else:
             T.text(surf, data.DIVISION_FULL[self.division], (L, TOP + 10), T.YELLOW, bold=True)
@@ -177,7 +204,9 @@ class NewGameScene(Scene):
                 if i >= len(self.club_table.rows):
                     break
                 c = data.CLUBS[self.division][i]
-                T.kit_swatch(surf, L + 6, TOP + 40 + (vi + 1) * 15, (c.shirt, c.shorts, c.pattern, c.shirt2), 10, 12)
+                T.kit_swatch(
+                    surf, L + 6, TOP + 40 + (vi + 1) * 15, (c.shirt, c.shorts, c.pattern, c.shirt2), 10, 12
+                )
             T.footer(surf, "Double-click or RETURN to take charge   ESC back")
 
 
@@ -187,9 +216,25 @@ class SquadScene(Scene):
         super().__init__(app)
         self.g: Game = app.game
         self.table = Table(
-            [("", 0, "l"), ("Name", 16, "l"), ("Pos", 150, "l"), ("Skill", 222, "r"), ("Fit", 262, "r"),
-             ("Age", 296, "r"), ("Value", 370, "r"), ("Wage", 430, "r"), ("Gls", 466, "r"), ("Status", 480, "l")],
-            L, TOP + 58, 580, visible=14, line_h=15, on_activate=self.toggle, sound=app.sound,
+            [
+                ("", 0, "l"),
+                ("Name", 16, "l"),
+                ("Pos", 150, "l"),
+                ("Skill", 222, "r"),
+                ("Fit", 262, "r"),
+                ("Age", 296, "r"),
+                ("Value", 370, "r"),
+                ("Wage", 430, "r"),
+                ("Gls", 466, "r"),
+                ("Status", 480, "l"),
+            ],
+            L,
+            TOP + 58,
+            580,
+            visible=14,
+            line_h=15,
+            on_activate=self.toggle,
+            sound=app.sound,
         )
         self.msg = ""
         self.refresh()
@@ -205,8 +250,22 @@ class SquadScene(Scene):
             status = f"INJ {p.injury}w" if p.injury else ("PICKED" if p.id in sel else "")
             color = T.YELLOW if p.id in sel else (T.LIGHT_RED if p.injury else T.WHITE)
             rows.append(
-                (["*" if p.id in sel else "", p.short_name, p.pos, str(p.skill), f"{p.energy}%", str(p.age),
-                  T.money(p.value), T.money(p.wage), str(p.goals), status], color, p.id)
+                (
+                    [
+                        "*" if p.id in sel else "",
+                        p.short_name,
+                        p.pos,
+                        str(p.skill),
+                        f"{p.energy}%",
+                        str(p.age),
+                        T.money(p.value),
+                        T.money(p.wage),
+                        str(p.goals),
+                        status,
+                    ],
+                    color,
+                    p.id,
+                )
             )
         self.table.set_rows(rows)
 
@@ -235,9 +294,15 @@ class SquadScene(Scene):
             self.refresh()
 
         self.app.push(
-            MessageScene(self.app, "TRANSFER OFFER",
-                         [f"{buyer} offer {T.money(fee)} for {p.name} ({p.pos}, skill {p.skill}).",
-                          f"His valuation is {T.money(p.value)}. Accept the offer?"], on_yes=accept)
+            MessageScene(
+                self.app,
+                "TRANSFER OFFER",
+                [
+                    f"{buyer} offer {T.money(fee)} for {p.name} ({p.pos}, skill {p.skill}).",
+                    f"His valuation is {T.money(p.value)}. Accept the offer?",
+                ],
+                on_yes=accept,
+            )
         )
 
     def handle(self, ev):
@@ -265,7 +330,9 @@ class SquadScene(Scene):
         counts = {pos: sum(1 for p in xi if p.pos == pos) for pos in ("GK", "DEF", "MID", "ATT")}
         shape = f"{counts['DEF']}-{counts['MID']}-{counts['ATT']}"
         col = T.LIGHT_GREEN if len(xi) == 11 else T.LIGHT_RED
-        T.text(surf, f"PICKED {len(xi)}/11   FORMATION {shape}   GK {counts['GK']}", (L, TOP + 2), col, bold=True)
+        T.text(
+            surf, f"PICKED {len(xi)}/11   FORMATION {shape}   GK {counts['GK']}", (L, TOP + 2), col, bold=True
+        )
         s = team_strength(xi)
         for i, (label, v) in enumerate((("DEF", s.defence), ("MID", s.midfield), ("ATT", s.attack))):
             x = L + i * 190
@@ -277,7 +344,9 @@ class SquadScene(Scene):
         if self.msg:
             T.text(surf, self.msg, (L + 210, TOP + 38), T.LIGHT_RED, size=11)
         self.table.draw(surf)
-        T.footer(surf, "RETURN/right-click: pick/drop   A: auto-pick   X: clear   L: list for sale   ESC: back")
+        T.footer(
+            surf, "RETURN/right-click: pick/drop   A: auto-pick   X: clear   L: list for sale   ESC: back"
+        )
 
 
 # --------------------------------------------------------------------------- tables
@@ -287,9 +356,25 @@ class TableScene(Scene):
         self.g: Game = app.game
         self.div = self.g.club.division
         self.table = Table(
-            [("Pos", 0, "l"), ("Club", 34, "l"), ("P", 270, "r"), ("W", 300, "r"), ("D", 330, "r"), ("L", 360, "r"),
-             ("F", 395, "r"), ("A", 430, "r"), ("GD", 470, "r"), ("Pts", 510, "r"), ("Form", 528, "l")],
-            L, TOP + 20, 580, visible=12, line_h=17, sound=app.sound,
+            [
+                ("Pos", 0, "l"),
+                ("Club", 34, "l"),
+                ("P", 270, "r"),
+                ("W", 300, "r"),
+                ("D", 330, "r"),
+                ("L", 360, "r"),
+                ("F", 395, "r"),
+                ("A", 430, "r"),
+                ("GD", 470, "r"),
+                ("Pts", 510, "r"),
+                ("Form", 528, "l"),
+            ],
+            L,
+            TOP + 20,
+            580,
+            visible=12,
+            line_h=17,
+            sound=app.sound,
         )
         self.refresh()
 
@@ -307,12 +392,33 @@ class TableScene(Scene):
                 color = T.LIGHT_RED  # automatic relegation
             elif self.div > 0 and pos in (2, 3, 4):
                 color = T.CYAN  # promotion play-off
-            elif (self.div == 0 and pos == 11) or (self.div in (1, 2) and pos == 9) or (self.div == 3 and pos == n):
+            elif (
+                (self.div == 0 and pos == 11)
+                or (self.div in (1, 2) and pos == 9)
+                or (self.div == 3 and pos == n)
+            ):
                 color = (230, 150, 70)  # relegation play-off
             else:
                 color = T.WHITE
-            rows.append(([str(i + 1), name, str(r["P"]), str(r["W"]), str(r["D"]), str(r["L"]), str(r["F"]),
-                          str(r["A"]), f"{r['F'] - r['A']:+d}", str(r["Pts"]), r["form"]], color, name))
+            rows.append(
+                (
+                    [
+                        str(i + 1),
+                        name,
+                        str(r["P"]),
+                        str(r["W"]),
+                        str(r["D"]),
+                        str(r["L"]),
+                        str(r["F"]),
+                        str(r["A"]),
+                        f"{r['F'] - r['A']:+d}",
+                        str(r["Pts"]),
+                        r["form"],
+                    ],
+                    color,
+                    name,
+                )
+            )
         self.table.set_rows(rows)
 
     def handle(self, ev):
@@ -330,14 +436,24 @@ class TableScene(Scene):
         extra = ""
         if self.div == 0:
             extra = "  (split: top 6 / bottom 6)" if self.g.split else "  (splits after 33 games)"
-        T.header(surf, data.DIVISION_FULL[self.div].upper() + extra, f"{self.g.season_label}  {self.g.event_label()}")
+        T.header(
+            surf,
+            data.DIVISION_FULL[self.div].upper() + extra,
+            f"{self.g.season_label}  {self.g.event_label()}",
+        )
         self.table.draw(surf)
         if self.div == 0 and self.g.split and self.table.top <= 6:
             ly = TOP + 20 + (7 - self.table.top) * 17 - 2
             pygame.draw.line(surf, T.YELLOW, (L - 4, ly), (L + 584, ly), 1)
             T.text(surf, "SPLIT", (L + 590, ly - 6), T.YELLOW, size=9)
         y = TOP + 20 + 13 * 17 + 6
-        T.text(surf, "Green: promoted  Cyan: promotion play-off  Orange: relegation play-off  Red: relegated", (L, y), T.LIGHT_GREY, size=11)
+        T.text(
+            surf,
+            "Green: promoted  Cyan: promotion play-off  Orange: relegation play-off  Red: relegated",
+            (L, y),
+            T.LIGHT_GREY,
+            size=11,
+        )
         T.footer(surf, "LEFT/RIGHT: other divisions   ESC: back")
 
 
@@ -349,7 +465,12 @@ class FixturesScene(Scene):
         self.g = g
         self.table = Table(
             [("Wk", 0, "l"), ("Home", 40, "l"), ("Score", 300, "r"), ("Away", 320, "l")],
-            L, TOP + 6, 580, visible=17, line_h=15, sound=app.sound,
+            L,
+            TOP + 6,
+            580,
+            visible=17,
+            line_h=15,
+            sound=app.sound,
         )
         played = {}
         for r in g.player_results:
@@ -361,7 +482,9 @@ class FixturesScene(Scene):
             if res:
                 score = f"{res['home_goals']}-{res['away_goals']}"
                 me_h = h == g.club_name
-                gf, ga = (res["home_goals"], res["away_goals"]) if me_h else (res["away_goals"], res["home_goals"])
+                gf, ga = (
+                    (res["home_goals"], res["away_goals"]) if me_h else (res["away_goals"], res["home_goals"])
+                )
                 color = T.LIGHT_GREEN if gf > ga else (T.LIGHT_RED if gf < ga else T.YELLOW)
             else:
                 score, color = "v", T.WHITE
@@ -432,10 +555,29 @@ class BidScene(Scene):
         pygame.draw.rect(surf, T.BLUE, r)
         pygame.draw.rect(surf, T.YELLOW, r, 2)
         T.text(surf, "MAKE A BID", (r.centerx, r.y + 8), T.YELLOW, bold=True, center=True)
-        T.text(surf, f"{p.name}  {p.pos}  skill {p.skill}  age {p.age}  ({p.club})", (r.centerx, r.y + 30), T.WHITE, center=True)
-        T.text(surf, f"Asking price {T.money(self.asking)}   You have {T.money(self.g.balance)}", (r.centerx, r.y + 48), T.LIGHT_GREY, center=True)
+        T.text(
+            surf,
+            f"{p.name}  {p.pos}  skill {p.skill}  age {p.age}  ({p.club})",
+            (r.centerx, r.y + 30),
+            T.WHITE,
+            center=True,
+        )
+        T.text(
+            surf,
+            f"Asking price {T.money(self.asking)}   You have {T.money(self.g.balance)}",
+            (r.centerx, r.y + 48),
+            T.LIGHT_GREY,
+            center=True,
+        )
         T.big_text(surf, f"£{self.amount:,}", (r.centerx, r.y + 70), T.LIGHT_GREEN, center=True)
-        T.text(surf, "UP/DOWN or wheel to change  RETURN/click to bid  ESC cancel", (r.centerx, r.bottom - 20), T.LIGHT_GREY, size=11, center=True)
+        T.text(
+            surf,
+            "UP/DOWN or wheel to change  RETURN/click to bid  ESC cancel",
+            (r.centerx, r.bottom - 20),
+            T.LIGHT_GREY,
+            size=11,
+            center=True,
+        )
 
 
 class MarketScene(Scene):
@@ -443,8 +585,22 @@ class MarketScene(Scene):
         super().__init__(app)
         self.g: Game = app.game
         self.table = Table(
-            [("Name", 0, "l"), ("Pos", 130, "l"), ("Club", 172, "l"), ("Skill", 380, "r"), ("Age", 420, "r"), ("Asking", 500, "r"), ("Wage", 570, "r")],
-            L, TOP + 36, 580, visible=8, line_h=17, on_activate=self.bid, sound=app.sound,
+            [
+                ("Name", 0, "l"),
+                ("Pos", 130, "l"),
+                ("Club", 172, "l"),
+                ("Skill", 380, "r"),
+                ("Age", 420, "r"),
+                ("Asking", 500, "r"),
+                ("Wage", 570, "r"),
+            ],
+            L,
+            TOP + 36,
+            580,
+            visible=8,
+            line_h=17,
+            on_activate=self.bid,
+            sound=app.sound,
         )
         self.refresh()
 
@@ -452,7 +608,13 @@ class MarketScene(Scene):
         rows = []
         for pid, asking in self.g.market:
             p = self.g.players[pid]
-            rows.append(([p.short_name, p.pos, p.club, str(p.skill), str(p.age), T.money(asking), T.money(p.wage)], T.WHITE, (pid, asking)))
+            rows.append(
+                (
+                    [p.short_name, p.pos, p.club, str(p.skill), str(p.age), T.money(asking), T.money(p.wage)],
+                    T.WHITE,
+                    (pid, asking),
+                )
+            )
         self.table.set_rows(rows)
 
     def bid(self, payload):
@@ -474,7 +636,13 @@ class MarketScene(Scene):
             T.text(surf, "Nobody available - check back next week.", (L, TOP + 60), T.LIGHT_GREY)
         self.table.draw(surf)
         y = TOP + 36 + 10 * 17
-        T.text(surf, f"Squad size {len(g.squad(g.club_name))}/{MAX_SQUAD}.  To sell a player go to the Squad screen and press L.", (L, y), T.LIGHT_GREY, size=11)
+        T.text(
+            surf,
+            f"Squad size {len(g.squad(g.club_name))}/{MAX_SQUAD}.  To sell a player go to the Squad screen and press L.",
+            (L, y),
+            T.LIGHT_GREY,
+            size=11,
+        )
         T.text(surf, "The market changes every week.", (L, y + 14), T.LIGHT_GREY, size=11)
         T.footer(surf, "RETURN/double-click: make a bid   ESC: back")
 
@@ -493,7 +661,10 @@ class FinanceScene(Scene):
                 ("Repay £100K", lambda: self.act(self.g.repay, 100_000)),
                 ("Back", app.pop),
             ],
-            T.CANVAS_W - 230, TOP + 40, w=200, sound=app.sound,
+            T.CANVAS_W - 230,
+            TOP + 40,
+            w=200,
+            sound=app.sound,
         )
 
     def act(self, fn, amount):
@@ -539,7 +710,13 @@ class FinanceScene(Scene):
         if "_crowd" in g.last_finance:
             T.text(surf, f"Crowd: {g.last_finance['_crowd']:,}", (L, y + 4), T.LIGHT_GREY, size=11)
         if g.board_warnings:
-            T.text(surf, f"BOARD WARNINGS: {g.board_warnings}/3", (T.CANVAS_W - 230, TOP + 150), T.LIGHT_RED, bold=True)
+            T.text(
+                surf,
+                f"BOARD WARNINGS: {g.board_warnings}/3",
+                (T.CANVAS_W - 230, TOP + 150),
+                T.LIGHT_RED,
+                bold=True,
+            )
         self.menu.draw(surf)
         if self.msg:
             T.text(surf, self.msg, (T.CANVAS_W - 230, TOP + 136), T.YELLOW, size=11)
@@ -613,7 +790,11 @@ class PreMatchScene(Scene):
                 if not g.cup["out"] and g.club_name in g.cup["byes"]:
                     msg = "Your club has a bye this round."
             elif g.playoff_week() is not None:
-                msg = "Your play-off tie is later on." if g.in_playoffs() else "Your season is over - the play-offs go on."
+                msg = (
+                    "Your play-off tie is later on."
+                    if g.in_playoffs()
+                    else "Your season is over - the play-offs go on."
+                )
             else:
                 msg = "Your league programme is finished."
             T.text(surf, msg, (T.CANVAS_W // 2, 140), T.WHITE, center=True)
@@ -626,8 +807,12 @@ class PreMatchScene(Scene):
         T.big_text(surf, hc.short, (T.CANVAS_W // 2 - 150, TOP + 22), T.WHITE, center=True, scale=3)
         T.big_text(surf, "V", (T.CANVAS_W // 2, TOP + 30), T.YELLOW, center=True, scale=2)
         T.big_text(surf, ac.short, (T.CANVAS_W // 2 + 150, TOP + 22), T.WHITE, center=True, scale=3)
-        T.text(surf, h, (T.CANVAS_W // 2 - 150, TOP + 76), T.YELLOW if h == g.club_name else T.WHITE, center=True)
-        T.text(surf, a, (T.CANVAS_W // 2 + 150, TOP + 76), T.YELLOW if a == g.club_name else T.WHITE, center=True)
+        T.text(
+            surf, h, (T.CANVAS_W // 2 - 150, TOP + 76), T.YELLOW if h == g.club_name else T.WHITE, center=True
+        )
+        T.text(
+            surf, a, (T.CANVAS_W // 2 + 150, TOP + 76), T.YELLOW if a == g.club_name else T.WHITE, center=True
+        )
         T.kit_swatch(surf, T.CANVAS_W // 2 - 240, TOP + 30, hc.kit, 16, 20)
         T.kit_swatch(surf, T.CANVAS_W // 2 + 224, TOP + 30, T.away_kit(hc.kit, ac.kit), 16, 20)
         T.text(surf, f"at {hc.stadium}", (T.CANVAS_W // 2, TOP + 96), T.LIGHT_GREY, center=True)
@@ -635,8 +820,12 @@ class PreMatchScene(Scene):
         hs = team_strength(g.selected_players(h))
         as_ = team_strength(g.selected_players(a))
         y = TOP + 120
-        for label, hv, av in (("DEFENCE", hs.defence, as_.defence), ("MIDFIELD", hs.midfield, as_.midfield),
-                              ("ATTACK", hs.attack, as_.attack), ("MORALE", hc.morale, ac.morale)):
+        for label, hv, av in (
+            ("DEFENCE", hs.defence, as_.defence),
+            ("MIDFIELD", hs.midfield, as_.midfield),
+            ("ATTACK", hs.attack, as_.attack),
+            ("MORALE", hc.morale, ac.morale),
+        ):
             T.text(surf, label, (T.CANVAS_W // 2, y), T.LIGHT_GREY, center=True, size=11)
             w = 180
             fill = int(w * min(1, hv / 99))
@@ -646,10 +835,24 @@ class PreMatchScene(Scene):
             y += 20
         tired = [p for p in g.selected_players(g.club_name) if p.energy < 70]
         if len(g.club.selected) < 11:
-            T.text(surf, "You have fewer than 11 picked - the rest will be filled automatically.", (T.CANVAS_W // 2, 244), T.LIGHT_RED, center=True, size=11)
+            T.text(
+                surf,
+                "You have fewer than 11 picked - the rest will be filled automatically.",
+                (T.CANVAS_W // 2, 244),
+                T.LIGHT_RED,
+                center=True,
+                size=11,
+            )
         elif tired:
             names = ", ".join(p.name.split()[-1] for p in tired[:4]) + ("..." if len(tired) > 4 else "")
-            T.text(surf, f"Tired players in your XI: {names} - consider resting them.", (T.CANVAS_W // 2, 244), T.LIGHT_RED, center=True, size=11)
+            T.text(
+                surf,
+                f"Tired players in your XI: {names} - consider resting them.",
+                (T.CANVAS_W // 2, 244),
+                T.LIGHT_RED,
+                center=True,
+                size=11,
+            )
         self.menu.draw(surf)
 
 
@@ -684,9 +887,22 @@ class ResultsScene(Scene):
         y = TOP + 4
         if rep.player_result:
             r = rep.player_result
-            T.big_text(surf, f"{g.clubs[r.home].short} {r.home_goals} - {r.away_goals} {g.clubs[r.away].short}", (T.CANVAS_W // 2, y), T.YELLOW, center=True)
+            T.big_text(
+                surf,
+                f"{g.clubs[r.home].short} {r.home_goals} - {r.away_goals} {g.clubs[r.away].short}",
+                (T.CANVAS_W // 2, y),
+                T.YELLOW,
+                center=True,
+            )
             if r.pens:
-                T.text(surf, f"{r.winner} win {r.pens} on penalties", (T.CANVAS_W // 2, y + 30), T.WHITE, center=True, size=11)
+                T.text(
+                    surf,
+                    f"{r.winner} win {r.pens} on penalties",
+                    (T.CANVAS_W // 2, y + 30),
+                    T.WHITE,
+                    center=True,
+                    size=11,
+                )
                 y += 12
             if "play-off" in rep.player_comp:
                 T.text(surf, rep.player_comp, (T.CANVAS_W // 2, y + 30), T.CYAN, center=True, size=11)
@@ -694,13 +910,22 @@ class ResultsScene(Scene):
                 mine = next((n for n in rep.news if "aggregate" in n and g.club_name in n), "")
                 if mine:
                     won = f"{g.club_name} beat" in mine
-                    T.text(surf, mine.split(": ", 1)[-1], (T.CANVAS_W // 2, y + 30),
-                           T.LIGHT_GREEN if won else T.LIGHT_RED, center=True, size=11)
+                    T.text(
+                        surf,
+                        mine.split(": ", 1)[-1],
+                        (T.CANVAS_W // 2, y + 30),
+                        T.LIGHT_GREEN if won else T.LIGHT_RED,
+                        center=True,
+                        size=11,
+                    )
                     y += 12
             y += 32
             goals = [e for e in r.events if e.kind == "goal"]
             rows = 0
-            for side, x, right in (("home", T.CANVAS_W // 2 - 20, True), ("away", T.CANVAS_W // 2 + 20, False)):
+            for side, x, right in (
+                ("home", T.CANVAS_W // 2 - 20, True),
+                ("away", T.CANVAS_W // 2 + 20, False),
+            ):
                 mine = [e for e in goals if e.side == side]
                 for i, e in enumerate(mine):
                     T.text(surf, f"{e.player} {e.minute}'", (x, y + i * 13), T.WHITE, size=11, right=right)
@@ -715,7 +940,7 @@ class ResultsScene(Scene):
             heading = "Cup results"
         T.text(surf, heading, (L, y), T.LIGHT_GREY, size=11)
         y += 14
-        shown = [r for r in lines if r is not rep.player_result][:16 if cup else 8]
+        shown = [r for r in lines if r is not rep.player_result][: 16 if cup else 8]
         col_w = 300
         for i, r in enumerate(shown):
             cx = L + (i // 8) * col_w
@@ -724,7 +949,13 @@ class ResultsScene(Scene):
             T.text(surf, f"{r.home[:18]:>18} {score:^5} {r.away[:18]}", (cx, cy), T.WHITE, size=11)
         y += min(8, len(shown)) * 14 + 8
         pos = g.position()
-        T.text(surf, f"League position: {pos}  |  Bank: {T.money(g.balance)}  |  Week net: {T.money(rep.finance.get('Net', 0))}", (L, y), T.CYAN, size=11)
+        T.text(
+            surf,
+            f"League position: {pos}  |  Bank: {T.money(g.balance)}  |  Week net: {T.money(rep.finance.get('Net', 0))}",
+            (L, y),
+            T.CYAN,
+            size=11,
+        )
         y += 18
         bottom = T.CANVAS_H - T.BORDER - 30
         for item in rep.news:
@@ -758,9 +989,17 @@ class SeasonEndScene(Scene):
         T.frame(surf, T.YELLOW, T.BLUE)
         T.header(surf, f"END OF SEASON {s['season']}")
         y = TOP + 4
-        T.big_text(surf, f"YOU FINISHED {ordinal(s['position'])}", (T.CANVAS_W // 2, y), T.YELLOW, center=True)
+        T.big_text(
+            surf, f"YOU FINISHED {ordinal(s['position'])}", (T.CANVAS_W // 2, y), T.YELLOW, center=True
+        )
         y += 32
-        T.text(surf, f"in the {s['division']}  -  prize money {T.money(s['prize'])}", (T.CANVAS_W // 2, y), T.WHITE, center=True)
+        T.text(
+            surf,
+            f"in the {s['division']}  -  prize money {T.money(s['prize'])}",
+            (T.CANVAS_W // 2, y),
+            T.WHITE,
+            center=True,
+        )
         y += 20
         for d in range(4):
             T.text(surf, f"{data.DIVISION_FULL[d]} champions:", (L + 20, y), T.LIGHT_GREY, size=12)
@@ -769,7 +1008,10 @@ class SeasonEndScene(Scene):
         T.text(surf, f"{data.CUP_NAME} winners:", (L + 20, y), T.LIGHT_GREY, size=12)
         T.text(surf, s.get("cup_winner", ""), (L + 280, y), T.CYAN, size=12)
         y += 20
-        for label, names, col in (("Promoted: ", s["promoted"], T.LIGHT_GREEN), ("Relegated: ", s["relegated"], T.LIGHT_RED)):
+        for label, names, col in (
+            ("Promoted: ", s["promoted"], T.LIGHT_GREEN),
+            ("Relegated: ", s["relegated"], T.LIGHT_RED),
+        ):
             for line in T.wrap(label + ", ".join(names), 84)[:2]:
                 T.text(surf, line, (L + 20, y), col, size=11)
                 y += 13
@@ -782,7 +1024,13 @@ class SeasonEndScene(Scene):
             T.text(surf, f"Division top scorer: {s['top_scorer']}", (L + 20, y), T.WHITE, size=11)
             y += 16
         if s.get("new_division"):
-            T.text(surf, f"Next season you will play in the {s['new_division']}.", (T.CANVAS_W // 2, y + 4), T.YELLOW, center=True)
+            T.text(
+                surf,
+                f"Next season you will play in the {s['new_division']}.",
+                (T.CANVAS_W // 2, y + 4),
+                T.YELLOW,
+                center=True,
+            )
         T.footer(surf, "Press any key to start the new season")
 
 
@@ -808,7 +1056,13 @@ class GameOverScene(Scene):
             reason = g.game_over_reason or f"The board of {g.club.name} have run out of patience."
             T.text(surf, reason, (T.CANVAS_W // 2, 180), T.WHITE, center=True)
             seasons = len(g.history)
-            T.text(surf, f"{g.manager} managed {seasons} full season(s).", (T.CANVAS_W // 2, 200), T.LIGHT_GREY, center=True)
+            T.text(
+                surf,
+                f"{g.manager} managed {seasons} full season(s).",
+                (T.CANVAS_W // 2, 200),
+                T.LIGHT_GREY,
+                center=True,
+            )
         T.text(surf, "Press any key", (T.CANVAS_W // 2, 260), T.GREY, center=True)
 
 

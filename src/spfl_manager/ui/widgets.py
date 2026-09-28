@@ -128,7 +128,12 @@ class Table:
         if not self.rows:
             return False
         if ev.type == pygame.KEYDOWN:
-            step = {pygame.K_UP: -1, pygame.K_DOWN: 1, pygame.K_PAGEUP: -self.visible, pygame.K_PAGEDOWN: self.visible}
+            step = {
+                pygame.K_UP: -1,
+                pygame.K_DOWN: 1,
+                pygame.K_PAGEUP: -self.visible,
+                pygame.K_PAGEDOWN: self.visible,
+            }
             if ev.key in step:
                 self.index = max(0, min(len(self.rows) - 1, self.index + step[ev.key]))
                 self._scroll()
@@ -159,7 +164,9 @@ class Table:
     def draw(self, surf):
         for title, off, align in self.columns:
             T.text(surf, title, (self.x + off, self.y), T.TITLE, right=align == "r")
-        pygame.draw.line(surf, T.FG, (self.x, self.y + self.line_h - 2), (self.x + self.w, self.y + self.line_h - 2))
+        pygame.draw.line(
+            surf, T.FG, (self.x, self.y + self.line_h - 2), (self.x + self.w, self.y + self.line_h - 2)
+        )
         for vi in range(self.visible):
             i = self.top + vi
             if i >= len(self.rows):
@@ -169,7 +176,7 @@ class Table:
             if i == self.index:
                 pygame.draw.rect(surf, T.HILITE, (self.x - 3, y - 1, self.w + 6, self.line_h))
                 color = T.BLACK
-            for (title, off, align), cell in zip(self.columns, cells):
+            for (_title, off, align), cell in zip(self.columns, cells):
                 T.text(surf, cell, (self.x + off, y), color, right=align == "r")
         if len(self.rows) > self.visible:
             h = self.visible * self.line_h

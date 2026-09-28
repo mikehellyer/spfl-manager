@@ -41,7 +41,7 @@ class SquadDB:
 
     # ------------------------------------------------------------ load/save
     @classmethod
-    def load_default(cls) -> "SquadDB":
+    def load_default(cls) -> SquadDB:
         try:
             raw = json.loads(DEFAULT_FILE.read_text(encoding="utf-8"))
             return cls(raw.get("clubs", {}))
@@ -49,7 +49,7 @@ class SquadDB:
             return cls({})
 
     @classmethod
-    def load(cls, path: Path | None = None) -> "SquadDB":
+    def load(cls, path: Path | None = None) -> SquadDB:
         path = path or user_file()
         if path.exists():
             try:
@@ -69,7 +69,7 @@ class SquadDB:
         self.custom = True
 
     @staticmethod
-    def reset(path: Path | None = None) -> "SquadDB":
+    def reset(path: Path | None = None) -> SquadDB:
         path = path or user_file()
         try:
             path.unlink()
@@ -77,7 +77,7 @@ class SquadDB:
             pass
         return SquadDB.load_default()
 
-    def copy(self) -> "SquadDB":
+    def copy(self) -> SquadDB:
         return SquadDB(copy.deepcopy(self.clubs), dict(self.ratings), self.custom)
 
     # ------------------------------------------------------------ queries
