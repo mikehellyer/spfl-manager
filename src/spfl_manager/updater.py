@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import threading
 import urllib.request
 
@@ -34,8 +35,20 @@ def check_for_update(timeout: float = 5.0) -> dict | None:
         release = json.load(resp)
     tag = release.get("tag_name", "")
     if tag and is_newer(tag):
-        return {"version": tag.lstrip("v"), "url": release.get("html_url", ""), "notes": release.get("body", "")}
+        assets = [{"name": a["name"], "url": a["browser_download_url"]} for a in release.get("assets", [])]
+        return {
+            "version": tag.lstrip("v"),
+            "url": release.get("html_url", ""),
+            "notes": release.get("body", ""),
+            "download": pick_installer(assets),
+        }
     return None
+
+
+def pick_installer(assets: list[dict], platform: str = sys.platform) -> str:
+    """The download link for this computer's installer ('' if there isn't one)."""
+    suffix = ".dmg" if platform == "darwin" else ".exe" if platform.startswith("win") else ".deb"
+    return next((a["url"] for a in assets if a["name"].lower().endswith(suffix)), "")
 
 
 def check_async(callback) -> None:

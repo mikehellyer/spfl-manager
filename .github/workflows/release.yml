@@ -1,0 +1,88 @@
+name: release
+
+# Push a version tag (e.g. v0.8.0) to build the Mac, Windows and Linux installers
+# and attach them to that GitHub Release. "Run workflow" builds them without
+# publishing, so you can test a build first.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install build tools
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: python -m pytest -q
+        env:
+          SDL_VIDEODRIVER: dummy
+          SDL_AUDIODRIVER: dummy
+
+      - name: Install Inno Setup
+        if: runner.os == 'Windows'
+        run: choco install innosetup -y --no-progress
+
+      - name: Build installer
+        run: python tools/build.py
+
+      - name: Self-test the packaged app (macOS)
+        if: runner.os == 'macOS'
+        run: '"dist/SPFL Manager.app/Contents/MacOS/SPFL Manager" --self-test selftest.txt; code=$?; cat selftest.txt; exit $code'
+
+      - name: Self-test the packaged app (Linux)
+        if: runner.os == 'Linux'
+        run: '"dist/SPFL Manager/SPFL Manager" --self-test selftest.txt; code=$?; cat selftest.txt; exit $code'
+
+      - name: Self-test the packaged app (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath "dist\SPFL Manager\SPFL Manager.exe" -ArgumentList "--self-test","selftest.txt" -Wait -PassThru
+          Get-Content selftest.txt
+          exit $p.ExitCode
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer-${{ runner.os }}
+          path: |
+            dist/*.dmg
+            dist/*.exe
+            dist/*.deb
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: installers
+          merge-multiple: true
+
+      - name: Attach installers to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          ls -la installers
+          gh release view "$TAG" --repo "$REPO" > /dev/null 2>&1 || \
+            gh release create "$TAG" --repo "$REPO" --title "SPFL Manager $TAG" --generate-notes
+          gh release upload "$TAG" installers/* --repo "$REPO" --clobber

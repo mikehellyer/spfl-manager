@@ -817,5 +817,9 @@ def ordinal(n: int) -> str:
 
 
 def open_update(app):
-    if app.update_info and app.update_info.get("url"):
-        webbrowser.open(app.update_info["url"])
+    """Only runs when the player chooses Update: fetch this platform's installer in the
+    browser (or open the release page if there's no installer for this system)."""
+    info = app.update_info or {}
+    target = info.get("download") or info.get("url")
+    if target:
+        webbrowser.open(target)

@@ -6,7 +6,24 @@ with their real squads.
 
 > Unofficial fan project, not affiliated with or endorsed by the SPFL, its clubs or Commodore.
 
-## Run it
+## Install
+
+Download the installer for your computer from the
+[latest release](https://github.com/mikehellyer/spfl-manager/releases/latest):
+
+- **Mac** (Apple Silicon): `SPFL-Manager-x.y.z-macOS.dmg`. Open it and drag *SPFL Manager* to
+  Applications. The app isn't signed with an Apple developer certificate, so the first time you
+  open it macOS will block it. Go to *System Settings → Privacy & Security* and click
+  **Open Anyway**.
+- **Windows**: `SPFL-Manager-x.y.z-Windows-Setup.exe`. It adds a Start Menu shortcut and,
+  optionally, a desktop icon. If SmartScreen warns you, click *More info → Run anyway*.
+- **Linux** (Pop!_OS / Ubuntu / Debian): `spfl-manager_x.y.z_amd64.deb`. Install it with
+  `sudo apt install ./spfl-manager_x.y.z_amd64.deb`. It appears in your app menu.
+
+When a new version comes out, the game's main menu shows **Update available**. Choosing it
+downloads the installer for your computer.
+
+## Run from source
 
 ```bash
 python3 -m venv .venv
@@ -90,6 +107,17 @@ To tweak them, edit that script and run it (it needs numpy, which is in requirem
 
 ```bash
 .venv/bin/python tools/make_sounds.py
+```
+
+## Building installers
+
+`tools/build.py` builds the installer for the computer it runs on, using PyInstaller plus
+`hdiutil` (Mac), Inno Setup (Windows) or `dpkg-deb` (Linux). You don't normally run it
+yourself: pushing a version tag makes GitHub Actions build all three, self-test each packaged
+app and attach the installers to the release:
+
+```bash
+git tag v0.8.0 && git push origin v0.8.0
 ```
 
 ## Tests

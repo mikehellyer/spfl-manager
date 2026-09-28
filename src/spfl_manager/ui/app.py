@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pygame
 
 from .. import APP_NAME, __version__, updater
@@ -30,6 +32,10 @@ class App:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption(f"{APP_NAME} v{__version__}")
+        try:
+            pygame.display.set_icon(pygame.image.load(str(Path(__file__).resolve().parents[1] / "assets" / "icon.png")))
+        except (pygame.error, FileNotFoundError):
+            pass
         self.window = pygame.display.set_mode((T.CANVAS_W * 2, T.CANVAS_H * 2), pygame.RESIZABLE)
         self.canvas = pygame.Surface((T.CANVAS_W, T.CANVAS_H))
         self.clock = pygame.time.Clock()
