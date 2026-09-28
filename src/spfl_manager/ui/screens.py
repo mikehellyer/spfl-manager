@@ -157,7 +157,9 @@ class NewGameScene(Scene):
                 if self.input.value.strip():
                     self.step = 1
                     self.app.sound.play("select")
-            elif ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+            elif (ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE) or (
+                ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 3
+            ):
                 self.app.pop()
             else:
                 self.input.handle(ev)
@@ -235,6 +237,7 @@ class SquadScene(Scene):
             line_h=15,
             on_activate=self.toggle,
             sound=app.sound,
+            click_activates=True,  # one left-click picks/drops a player
         )
         self.msg = ""
         self.refresh()
@@ -306,7 +309,7 @@ class SquadScene(Scene):
         )
 
     def handle(self, ev):
-        if is_back(ev) and not (ev.type == pygame.MOUSEBUTTONDOWN):
+        if is_back(ev):  # ESC, Backspace or right-click
             self.app.pop()
             return
         if ev.type == pygame.KEYDOWN:
@@ -344,9 +347,7 @@ class SquadScene(Scene):
         if self.msg:
             T.text(surf, self.msg, (L + 210, TOP + 38), T.LIGHT_RED, size=11)
         self.table.draw(surf)
-        T.footer(
-            surf, "RETURN/right-click: pick/drop   A: auto-pick   X: clear   L: list for sale   ESC: back"
-        )
+        T.footer(surf, "Click/RETURN: pick/drop   A: auto-pick   X: clear   L: sell   Right-click/ESC: back")
 
 
 # --------------------------------------------------------------------------- tables
@@ -454,7 +455,7 @@ class TableScene(Scene):
             T.LIGHT_GREY,
             size=11,
         )
-        T.footer(surf, "LEFT/RIGHT: other divisions   ESC: back")
+        T.footer(surf, "LEFT/RIGHT: other divisions   Right-click/ESC: back")
 
 
 # --------------------------------------------------------------------------- fixtures
@@ -644,7 +645,7 @@ class MarketScene(Scene):
             size=11,
         )
         T.text(surf, "The market changes every week.", (L, y + 14), T.LIGHT_GREY, size=11)
-        T.footer(surf, "RETURN/double-click: make a bid   ESC: back")
+        T.footer(surf, "RETURN/double-click: make a bid   Right-click/ESC: back")
 
 
 # --------------------------------------------------------------------------- finance
@@ -720,7 +721,7 @@ class FinanceScene(Scene):
         self.menu.draw(surf)
         if self.msg:
             T.text(surf, self.msg, (T.CANVAS_W - 230, TOP + 136), T.YELLOW, size=11)
-        T.footer(surf, "Stay inside the overdraft limit or the board will sack you!   ESC: back")
+        T.footer(surf, "Stay inside the overdraft limit or the board will sack you!   Right-click/ESC: back")
 
 
 class NewsScene(Scene):
@@ -744,7 +745,7 @@ class NewsScene(Scene):
         T.frame(surf)
         T.header(surf, "NEWS", self.g.event_label())
         self.table.draw(surf)
-        T.footer(surf, "ESC: back")
+        T.footer(surf, "Right-click/ESC: back")
 
 
 # --------------------------------------------------------------------------- match flow

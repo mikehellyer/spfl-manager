@@ -39,6 +39,8 @@ class BootScene(Scene):
 
     def update(self, dt):
         self.t += dt
+        if self.app.update_info and not self._menu_has_update:
+            self._build_menu()  # the background update check has just found a new version
         if self.t > 6.2:
             self.app.replace(TitleScene(self.app))
 
@@ -128,20 +130,27 @@ class TitleScene(Scene):
             (random.randint(0, T.CANVAS_W), random.randint(0, T.CANVAS_H), random.choice([1, 2, 3]))
             for _ in range(70)
         ]
-        has_save = save_path().exists()
-        self.menu = Menu(
-            [
-                ("New Game", self.new_game),
-                ("Continue Saved Game", self.load_game, has_save),
-                ("Squad Editor", self.editor),
-                ("Quit", self.quit),
-            ],
-            T.CANVAS_W // 2 - 110,
-            238,
-            w=220,
-            sound=app.sound,
-        )
+        self._build_menu()
         self.message = ""
+
+    def _build_menu(self):
+        has_save = save_path().exists()
+        items = [
+            ("New Game", self.new_game),
+            ("Continue Saved Game", self.load_game, has_save),
+            ("Squad Editor", self.editor),
+            ("Quit", self.quit),
+        ]
+        info = self.app.update_info
+        if info:
+            items.insert(0, (f"UPDATE TO v{info['version']}", self.download_update, True, "alert"))
+        self.menu = Menu(items, T.CANVAS_W // 2 - 110, 238 - (18 if info else 0), w=220, sound=self.app.sound)
+        self._menu_has_update = bool(info)
+
+    def download_update(self):
+        from .screens import open_update
+
+        open_update(self.app)
 
     def on_enter(self):
         self.app.sound.play("tune", loops=-1)
@@ -253,8 +262,9 @@ class TitleScene(Scene):
         pygame.draw.circle(surf, T.BLACK, (int(bx + math.sin(t * 8) * 3), int(by)), 2)
 
         if self.show_menu:
-            pygame.draw.rect(surf, T.BLUE, (T.CANVAS_W // 2 - 124, 228, 248, 86))
-            pygame.draw.rect(surf, T.LIGHT_BLUE, (T.CANVAS_W // 2 - 124, 228, 248, 86), 2)
+            box = pygame.Rect(T.CANVAS_W // 2 - 124, self.menu.y - 10, 248, len(self.menu.items) * 18 + 14)
+            pygame.draw.rect(surf, T.BLUE, box)
+            pygame.draw.rect(surf, T.LIGHT_BLUE, box, 2)
             self.menu.draw(surf)
             if self.message:
                 T.text(surf, self.message, (T.CANVAS_W // 2, 316), T.LIGHT_RED, center=True, size=11)
@@ -266,6 +276,11 @@ class TitleScene(Scene):
         # sine scroller
         self._draw_scroller(surf, t)
         T.text(surf, f"v{__version__}", (T.CANVAS_W - 6, 4), T.DARK_GREY, size=10, right=True)
+        info = self.app.update_info
+        if info and int(t * 2.5) % 2 == 0:  # flashing, so it can't be missed
+            T.text(
+                surf, f"NEW VERSION v{info['version']} AVAILABLE!", (6, 4), (230, 50, 50), size=11, bold=True
+            )
 
     def _draw_scroller(self, surf, t):
         char_w = 16

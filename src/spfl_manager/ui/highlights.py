@@ -438,7 +438,7 @@ class HighlightsScene(Scene):
             f"Half time at {self.hc.stadium}:  {self.hc.name} {self.score[0]}-{self.score[1]} {self.ac.name}"
         )
         self.chance = None
-        self.app.sound.play("whistle")
+        self.app.sound.play("whistle_ht")  # peep-peep
         self.app.sound.play("goal", volume=0.3)  # applause as they go off
         for sp in self.idle:
             sp.tx, sp.ty = TUNNEL  # jog off down the tunnel
@@ -467,7 +467,7 @@ class HighlightsScene(Scene):
         if r.pens:
             self.commentary += f"  ({r.winner} win {r.pens} on penalties)"
         self.chance = None
-        self.app.sound.play("whistle")
+        self.app.sound.play("whistle_ft")  # peep, peep, peeeeep
         if r.winner == r.home and not r.pens:
             self.app.sound.play("goal", volume=0.45)  # home win: applause round the ground
         elif r.winner == r.away and not r.pens:

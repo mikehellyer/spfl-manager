@@ -45,7 +45,14 @@ class HubScene(Scene):
             ("Quit to Title", self.quit),
         ]
         if app.update_info:
-            items.append((f"Update available (v{app.update_info['version']})", lambda: open_update(app)))
+            items.append(
+                (
+                    f"U. UPDATE TO v{app.update_info['version']}",
+                    lambda: open_update(app),
+                    True,
+                    "alert",
+                )
+            )
         self.menu = Menu(items, T.CANVAS_W - 250, TOP + 20, w=228, line_h=19, sound=app.sound)
         self._had_update = bool(app.update_info)
 
@@ -78,6 +85,9 @@ class HubScene(Scene):
     def handle(self, ev):
         if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
             self.quit()
+            return
+        if ev.type == pygame.KEYDOWN and ev.key == pygame.K_u and self.app.update_info:
+            open_update(self.app)
             return
         self.menu.handle(ev)
 
@@ -150,7 +160,7 @@ class HubScene(Scene):
             T.text(
                 surf,
                 f"BOARD WARNING {g.board_warnings}/3 - reduce the overdraft!",
-                (T.CANVAS_W - 250, TOP + 216),
+                (T.CANVAS_W - 250, self.menu.y + len(self.menu.items) * self.menu.line_h + 4),
                 T.LIGHT_RED,
                 size=11,
             )

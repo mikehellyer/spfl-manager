@@ -16,7 +16,15 @@ import pygame
 SR = 22050
 ASSETS = Path(__file__).resolve().parents[1] / "assets" / "sounds"
 # crowd samples made by tools/make_sounds.py: file name -> sound name
-CROWD_FILES = {"cheer": "goal", "ooh": "ooh", "boo": "boo", "murmur": "crowd"}
+CROWD_FILES = {
+    "cheer": "goal",
+    "ooh": "ooh",
+    "boo": "boo",
+    "murmur": "crowd",
+    "whistle": "whistle",
+    "whistle_ht": "whistle_ht",
+    "whistle_ft": "whistle_ft",
+}
 
 
 def _square(freq, n, vol, duty=0.5):
@@ -193,6 +201,8 @@ class SoundBank:
                 pass  # keep the synthesised fallback (or silence for boo/crowd)
 
     def play(self, name, loops=0, volume=1.0):
+        if name.startswith("whistle") and name not in self.sounds:
+            name = "whistle"  # half/full-time patterns fall back to a single blast
         if self.enabled and self.sounds.get(name):
             channel = self.sounds[name].play(loops=loops)
             if channel is not None:

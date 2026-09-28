@@ -6,12 +6,15 @@ import pygame
 
 from . import theme as T
 
+ALERT_RED = (220, 40, 40)
+
 
 class Menu:
     """A numbered FM2-style menu. Items are (label, callback) or (label, callback, enabled)."""
 
     def __init__(self, items, x, y, w=260, line_h=18, numbered=True, sound=None):
-        self.items = [list(i) + [True] * (3 - len(i)) for i in items]
+        # each item: [label, callback, enabled, style]; style "alert" flashes red
+        self.items = [list(i) + [True, ""][len(i) - 2 :] for i in items]
         self.x, self.y, self.w, self.line_h = x, y, w, line_h
         self.numbered = numbered
         self.index = 0
@@ -77,20 +80,35 @@ class Menu:
             self.sound.play("blip")
 
     def draw(self, surf):
-        for i, (label, _, enabled) in enumerate(self.items):
+        flash_on = (pygame.time.get_ticks() // 400) % 2 == 0
+        for i, (label, _, enabled, style) in enumerate(self.items):
             y = self.y + i * self.line_h
             sel = i == self.index
-            if sel:
-                pygame.draw.rect(surf, T.HILITE, (self.x, y, self.w, self.line_h - 2))
-            color = T.BLACK if sel else (T.TEXT if enabled else T.GREY)
+            alert = style == "alert"
+            if alert and (sel or flash_on):
+                pygame.draw.rect(surf, ALERT_RED, (self.x, y, self.w, self.line_h - 2))
+                color = T.WHITE
+            elif alert:
+                color = ALERT_RED
+            else:
+                if sel:
+                    pygame.draw.rect(surf, T.HILITE, (self.x, y, self.w, self.line_h - 2))
+                color = T.BLACK if sel else (T.TEXT if enabled else T.GREY)
             prefix = f"{(i + 1) % 10}. " if self.numbered and i < 10 else ""
-            T.text(surf, prefix + label, (self.x + 6, y + 1), color)
+            T.text(surf, prefix + label, (self.x + 6, y + 1), color, bold=alert)
 
 
 class Table:
-    """Scrolling table with a cursor. rows: list of (cells, colour, payload)."""
+    """Scrolling table with a cursor. rows: list of (cells, colour, payload).
 
-    def __init__(self, columns, x, y, w, visible=14, line_h=15, on_activate=None, sound=None):
+    Mouse: left-click selects a row and a second click on it activates it (or a
+    single click activates when click_activates=True). Right-click is left to
+    the screen, which treats it as "back" everywhere.
+    """
+
+    def __init__(
+        self, columns, x, y, w, visible=14, line_h=15, on_activate=None, sound=None, click_activates=False
+    ):
         self.columns = columns  # [(title, x_offset, align)]  align: "l" or "r"
         self.x, self.y, self.w = x, y, w
         self.visible, self.line_h = visible, line_h
@@ -99,6 +117,7 @@ class Table:
         self.top = 0
         self.on_activate = on_activate
         self.sound = sound
+        self.click_activates = click_activates
         self.marked: set = set()
 
     def set_rows(self, rows):
@@ -149,15 +168,10 @@ class Table:
         elif ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
             i = self._row_at(ev.pos)
             if i is not None:
-                if i == self.index and self.on_activate:
+                already = i == self.index
+                self.index = i
+                if (already or self.click_activates) and self.on_activate:
                     self.on_activate(self.current)
-                self.index = i
-                return True
-        elif ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 3:
-            i = self._row_at(ev.pos)
-            if i is not None and self.on_activate:
-                self.index = i
-                self.on_activate(self.current)
                 return True
         return False
 

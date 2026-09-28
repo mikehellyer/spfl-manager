@@ -78,6 +78,9 @@ class Form:
             f.set(f.choices[(i + (1 if step > 0 else -1)) % len(f.choices)])
 
     def handle(self, ev):
+        if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 3:
+            self.on_cancel()  # right-click = back, as everywhere else
+            return
         on_buttons = self.focus == len(self.fields)
         f = None if on_buttons else self.fields[self.focus]
         if ev.type == pygame.KEYDOWN:
@@ -437,7 +440,7 @@ class PlayerFormScene(Scene):
         self.form.draw(surf)
         if self.error:
             T.text(surf, self.error, (L + 60, TOP + 250), T.LIGHT_RED)
-        T.footer(surf, "RETURN on SAVE to keep changes   ESC: cancel")
+        T.footer(surf, "RETURN on SAVE to keep changes   Right-click/ESC: cancel")
 
 
 # ----------------------------------------------------------------------------- club picker
@@ -468,7 +471,9 @@ class ClubPickerScene(Scene):
         self.on_pick(name)
 
     def handle(self, ev):
-        if ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE:
+        if (ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE) or (
+            ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 3
+        ):
             self.app.pop()
         else:
             self.table.handle(ev)
@@ -477,7 +482,7 @@ class ClubPickerScene(Scene):
         T.frame(surf)
         T.header(surf, self.title)
         self.table.draw(surf)
-        T.footer(surf, "RETURN/double-click: choose   ESC: cancel")
+        T.footer(surf, "RETURN/double-click: choose   Right-click/ESC: cancel")
 
 
 # ----------------------------------------------------------------------------- editor
@@ -682,6 +687,9 @@ class EditorScene(Scene):
 
     # input / draw -----------------------------------------------------------
     def handle(self, ev):
+        if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 3:
+            # right-click = back, exactly like ESC
+            ev = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE, unicode="", mod=0)
         if ev.type == pygame.KEYDOWN:
             k = ev.key
             if k == pygame.K_s:
@@ -757,9 +765,9 @@ class EditorScene(Scene):
             if self.msg:
                 T.text(surf, self.msg, (L, y + 30), T.CYAN, size=11)
             keys = (
-                "RETURN: open club   +/-: strength   S: save   R: reset all   ESC: exit"
+                "RETURN: open club   +/-: strength   S: save   R: reset all   Right-click/ESC: exit"
                 if b.can_reset
-                else "RETURN: open club   S: save   ESC: exit"
+                else "RETURN: open club   S: save   Right-click/ESC: exit"
             )
             T.footer(surf, keys)
         else:
@@ -775,7 +783,7 @@ class EditorScene(Scene):
             self.players_table.draw(surf)
             y = TOP + 26 + 16 * 15 + 2
             T.text(surf, self.msg or b.legend, (L, y), T.CYAN if self.msg else T.LIGHT_GREY, size=11)
-            T.footer(surf, "RETURN/E: edit  N: new  D: delete  M: move to club  S: save  ESC: clubs")
+            T.footer(surf, "RETURN/E: edit  N: new  D: delete  M: move  S: save  Right-click/ESC: clubs")
 
 
 # ----------------------------------------------------------------------------- chooser

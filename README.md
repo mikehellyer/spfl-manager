@@ -31,7 +31,7 @@ python3 -m venv .venv
 .venv/bin/python main.py
 ```
 
-Controls: number keys / arrows + RETURN, or the mouse. **F11** toggles fullscreen.
+Controls: number keys / arrows + RETURN, or the mouse. Left-click selects, and **right-click (or ESC) goes back** on every screen. On the squad screen one click picks or drops a player. **F11** toggles fullscreen.
 In the highlights, **SPACE** switches to fast-forward and **ESC** skips to full time.
 
 ## What's in v0.1

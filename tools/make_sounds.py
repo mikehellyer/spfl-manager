@@ -1,4 +1,4 @@
-"""Generate the crowd sound effects used in match highlights.
+"""Generate the crowd and referee sound effects used in match highlights.
 
     .venv/bin/python tools/make_sounds.py
 
@@ -156,6 +156,39 @@ def make_boo():
     return fade(normalise(mix, 0.8), 0.03, 0.5)
 
 
+def whistle_blast(seconds, pitch=3100.0):
+    """One blast of a referee's pea whistle.
+
+    A real pea whistle is a high tone (about 3 kHz) that the little cork ball
+    ("pea") spinning inside chops and wobbles about 30 times a second, which
+    gives the trill. The pitch and loudness are modulated at that rate
+    (irregularly - it's a real ball), and a hiss of breath noise is added.
+    """
+    n = int(seconds * SR)
+    t = np.arange(n) / SR
+    wobble = np.cumsum(rng.normal(0, 1, n))
+    wobble = wobble / (np.abs(wobble).max() + 1e-9)
+    pea_rate = 32 + 4 * np.sin(2 * np.pi * 0.7 * t) + 3 * wobble
+    pea = np.sin(np.cumsum(2 * np.pi * pea_rate / SR))
+    onset = np.clip(t / 0.04, 0, 1)  # the pitch settles as the breath builds
+    freq = pitch * (0.96 + 0.04 * onset) * (1 + 0.035 * pea)
+    phase = np.cumsum(2 * np.pi * freq / SR)
+    tone = np.sin(phase) + 0.25 * np.sin(2 * phase) + 0.06 * np.sin(3 * phase)
+    flutter = 1 - 0.45 * (0.5 + 0.5 * np.sin(np.cumsum(2 * np.pi * pea_rate / SR) + 0.6))
+    breath = band_noise(n, 2000, 7000) * 0.2
+    env = envelope(n, [(0, 0), (0.015, 1), (max(0.02, seconds - 0.04), 0.95), (seconds, 0)])
+    return (tone * flutter + breath) * env
+
+
+def whistle_pattern(blasts):
+    """blasts: [(length_s, gap_after_s), ...]"""
+    parts = []
+    for length, gap in blasts:
+        parts.append(whistle_blast(length))
+        parts.append(np.zeros(int(gap * SR)))
+    return normalise(np.concatenate(parts), 0.6)
+
+
 def make_murmur():
     """Background crowd hum for the highlights - loops seamlessly."""
     secs = 6.0
@@ -192,3 +225,6 @@ if __name__ == "__main__":
     write_wav("ooh", make_ooh())
     write_wav("boo", make_boo())
     write_wav("murmur", make_murmur())
+    write_wav("whistle", whistle_pattern([(0.45, 0.05)]))  # kick-off, restarts, decisions
+    write_wav("whistle_ht", whistle_pattern([(0.28, 0.12), (0.4, 0.05)]))  # half time: peep-peep
+    write_wav("whistle_ft", whistle_pattern([(0.25, 0.12), (0.25, 0.15), (0.95, 0.05)]))  # full time
