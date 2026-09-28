@@ -43,7 +43,10 @@ In the highlights, **SPACE** switches to fast-forward and **ESC** skips to full 
   six, each club plays the other five in its half once, and nobody can cross the split
 - 36-game Championship, League One and League Two. Their play-offs start while the Premiership
   plays its last two rounds
-- Scottish Cup (6 rounds, penalties for drawn ties)
+- The Scottish Cup in the official 2026-27 format: three preliminary rounds and Round One for
+  95 real non-league clubs, League Two enter in Round Two, League One and the Championship in
+  Round Three, the Premiership in Round Four, and the semi-finals and final at Hampden. Every
+  round's results appear as they happen
 - Transfer market (bid for players) and selling players
 - Finances: gate receipts, TV money, wages, bank loans, board warnings and the sack
 - Animated match highlights with club kits, goals, saves, misses and the woodwork

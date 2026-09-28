@@ -112,7 +112,7 @@ CLUBS = [
 # and challenge League Two's bottom club. Squads for these clubs are generated.
 NON_LEAGUE = "Highland/Lowland League"
 PYRAMID_CLUBS = [
-    ("HL", C("Brechin City", "BRE", RED, WHITE, "Glebe Park", 4083, 33)),
+    ("LL", C("Brechin City", "BRE", RED, WHITE, "Glebe Park", 4083, 33)),
     ("HL", C("Buckie Thistle", "BUC", (0, 120, 60), WHITE, "Victoria Park", 5400, 31, "hoops", WHITE)),
     ("HL", C("Brora Rangers", "BRO", RED, WHITE, "Dudgeon Park", 4000, 30)),
     ("HL", C("Fraserburgh", "FRA", BLACK, BLACK, "Bellslea Park", 1800, 30, "stripes", WHITE)),
@@ -134,17 +134,154 @@ WEEKLY_INCOME = [90_000, 16_000, 9_000, 6_000]  # TV / sponsorship per week
 SEASON_PRIZE_TOP = [3_000_000, 400_000, 150_000, 80_000]  # champions' prize money
 LOAN_LIMIT = [2_000_000, 500_000, 250_000, 150_000]
 OVERDRAFT_LIMIT = [2_500_000, 600_000, 300_000, 200_000]
-CUP_PRIZE = [10_000, 20_000, 40_000, 90_000, 200_000, 500_000]
 LOAN_WEEKLY_INTEREST = 0.005
 
+# ----------------------------------------------------------------------------
+# Scottish Cup - the official 2026-27 format (Scottish FA "Format & Composition").
+# (round name, league week it's played in, who enters in this round, byes)
+# The first four rounds only involve non-league clubs: they're played on the
+# same weekend as that league week. From Round Two the SPFL clubs join, and
+# each round is its own cup weekend after that league week.
 CUP_NAME = "Scottish Cup"
 CUP_ROUNDS = [
-    "First Round",
-    "Second Round",
-    "Third Round",
-    "Quarter-Final",
-    "Semi-Final",
-    "Final",
+    ("Preliminary Round One", 1, "prelim", 35),
+    ("Preliminary Round Two", 4, "", 0),
+    ("Preliminary Round Three", 7, "", 0),
+    ("First Round", 10, "senior_non_league", 0),
+    ("Second Round", 12, "league_two", 0),
+    ("Third Round", 16, "league_one_championship", 0),
+    ("Fourth Round", 22, "premiership", 0),
+    ("Fifth Round", 25, "", 0),
+    ("Quarter-Final", 29, "", 0),
+    ("Semi-Final", 33, "", 0),
+    ("Final", 38, "", 0),
 ]
-# Cup round N is played after this many league weeks
-CUP_AFTER_LEAGUE_WEEK = {4: 0, 10: 1, 16: 2, 22: 3, 28: 4, 33: 5}
+FIRST_SPFL_ROUND = 4  # rounds before this are non-league only (shown as results)
+NEUTRAL_VENUE_ROUNDS = {9, 10}  # semi-finals and final
+NEUTRAL_VENUE = "Hampden Park"
+# prize money for winning a round (the manager's club)
+CUP_PRIZE = [0, 0, 0, 0, 15_000, 25_000, 50_000, 75_000, 120_000, 250_000, 600_000]
+
+# Non-league entrants, 2026-27. Ratings are rough game estimates.
+CUP_PRELIM_CLUBS = [
+    "Dundee North End",
+    "Stonehaven",
+    "Shortlees Amateurs",
+    "Benburb",
+    "Blackburn United",
+    "Bonnyton Thistle",
+    "Broughty Athletic",
+    "Burntisland Shipyard",
+    "Camelon Juniors",
+    "Carluke Rovers",
+    "Coldstream",
+    "Creetown",
+    "Dalkeith Thistle",
+    "Darvel",
+    "Drumchapel United",
+    "Dunbar United",
+    "Dundonald Bluebell",
+    "Easthouses Lily MWFC",
+    "Edinburgh University",
+    "Girvan",
+    "Glasgow University",
+    "Glenafton Athletic",
+    "Golspie Sutherland",
+    "Haddington Athletic",
+    "Hawick Royal Albert",
+    "Hutchison Vale",
+    "Irvine Meadow XI",
+    "Jeanfield Swifts",
+    "Kirkintilloch Rob Roy",
+    "Newtongrange Star",
+    "Penicuik Athletic",
+    "Preston Athletic",
+    "Rutherglen Glencairn",
+    "Sauchie Juniors",
+    "St Andrews United",
+    "St Cadocs",
+    "St Cuthbert Wanderers",
+    "Tayport",
+    "Threave Rovers",
+    "Tweedmouth Rangers",
+    "Tynecastle",
+    "Vale of Leithen",
+    "Whitehill Welfare",
+    "Whitletts Victoria",
+    "Wigtown & Bladnoch",
+]
+CUP_HIGHLAND_CLUBS = [
+    "Banks O'Dee",
+    "Brora Rangers",
+    "Buckie Thistle",
+    "Clachnacuddin",
+    "Deveronvale",
+    "Formartine United",
+    "Forres Mechanics",
+    "Fraserburgh",
+    "Huntly",
+    "Invergordon",
+    "Inverurie Loco Works",
+    "Keith",
+    "Lossiemouth",
+    "Nairn County",
+    "Rothes",
+    "Strathspey Thistle",
+    "Turriff United",
+    "Wick Academy",
+]
+CUP_LOWLAND_CLUBS = [
+    # East
+    "Berwick Rangers",
+    "Bo'ness United",
+    "Bonnyrigg Rose",
+    "Brechin City",
+    "Broxburn Athletic",
+    "Civil Service Strollers",
+    "Cowdenbeath",
+    "Dunipace",
+    "East Stirlingshire",
+    "Gala Fairydean Rovers",
+    "Hill of Beath Hawthorn",
+    "Linlithgow Rose",
+    "Lochee United",
+    "Musselburgh Athletic",
+    "Tranent",
+    "University of Stirling",
+    # West
+    "Albion Rovers",
+    "Auchinleck Talbot",
+    "Beith Juniors",
+    "Caledonian Braves",
+    "Clydebank",
+    "Cumbernauld Colts",
+    "Cumnock Juniors",
+    "Dalbeattie Star",
+    "Gretna 2008",
+    "Johnstone Burgh",
+    "Kilwinning Rangers",
+    "Largs Thistle",
+    "Newton Stewart",
+    "Pollok",
+    "Renfrew",
+    "Troon",
+]
+NON_LEAGUE_RATING = {"prelim": 22, "highland": 28, "lowland": 27}
+NON_LEAGUE_RATINGS = {  # stronger-than-average non-league sides
+    "Darvel": 27,
+    "Brechin City": 33,
+    "Bonnyrigg Rose": 32,
+    "Buckie Thistle": 31,
+    "Cowdenbeath": 30,
+    "Brora Rangers": 30,
+    "Fraserburgh": 30,
+    "Linlithgow Rose": 30,
+    "Formartine United": 29,
+    "Banks O'Dee": 29,
+    "Berwick Rangers": 29,
+    "East Stirlingshire": 29,
+    "Albion Rovers": 29,
+    "Clydebank": 29,
+    "Auchinleck Talbot": 29,
+    "Bo'ness United": 29,
+}

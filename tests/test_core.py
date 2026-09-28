@@ -39,7 +39,8 @@ def test_new_game_setup():
     assert g.club.division == 3
     assert all(len(g.squad(c)) >= 12 for c in g.clubs)
     assert len(g.club.selected) == 11
-    assert len(g.cup["ties"]) == 10 and len(g.cup["byes"]) == 22
+    # Preliminary Round One: 45 non-league clubs, 5 ties and 35 byes (2026-27 format)
+    assert len(g.cup["ties"]) == 5 and len(g.cup["byes"]) == 35
 
 
 def test_strength_formation_tradeoff():
@@ -322,3 +323,89 @@ def test_decisions_are_flavour_only():
         assert len(goals) == r.home_goals + r.away_goals
         seen |= {e.detail for e in r.events if e.kind == "decision"}
     assert seen == {"offside", "penalty", "free_kick", "booking"}
+
+
+def _play_season(g):
+    rounds, summary = {}, None
+    while summary is None:
+        rep = g.play_week()
+        for name, results in rep.cup_rounds:
+            rounds[name.replace("Scottish Cup ", "")] = results
+        summary = rep.season_summary
+    return rounds, summary
+
+
+def test_scottish_cup_follows_the_official_format():
+    from spfl_manager.core import data
+
+    # a Premiership manager, so the season can't end early with the club dropping out of the SPFL
+    g = Game.new("Mike", "Hibernian", seed=91, db=SquadDB.load_default())
+    divisions = [set(d) for d in g.divisions]
+    rounds, summary = _play_season(g)
+    assert {name: len(res) for name, res in rounds.items()} == {
+        "Preliminary Round One": 5,
+        "Preliminary Round Two": 20,
+        "Preliminary Round Three": 10,
+        "First Round": 30,
+        "Second Round": 20,
+        "Third Round": 20,
+        "Fourth Round": 16,
+        "Fifth Round": 8,
+        "Quarter-Final": 4,
+        "Semi-Final": 2,
+        "Final": 1,
+    }
+
+    def first_round(clubs):
+        for i, (name, *_rest) in enumerate(data.CUP_ROUNDS):
+            if {t for r in rounds[name] for t in (r.home, r.away)} & clubs:
+                return i
+        return None
+
+    # League Two enter in Round Two, League One and the Championship in Round Three,
+    # and the Premiership in Round Four
+    assert first_round(divisions[3]) == 4
+    assert first_round(divisions[2] | divisions[1]) == 5
+    assert first_round(divisions[0]) == 6
+    spfl = set().union(*divisions)
+    for name in ("Preliminary Round One", "Preliminary Round Two", "Preliminary Round Three", "First Round"):
+        assert not any({r.home, r.away} & spfl for r in rounds[name])
+    assert summary["cup_winner"]
+    # every non-league side has gone home by the new season
+    assert all(c.division < 4 for c in g.clubs.values()) and len(g.clubs) == 42
+
+
+def test_non_league_opponent_exists_from_the_draw_until_the_week_after():
+    g = Game.new("Mike", "Elgin City", seed=93, db=SquadDB.load_default())
+    while g.cup["round"] < 4:  # up to the Round Two draw, when League Two enter
+        g.play_week()
+    spfl = {c for d in g.divisions for c in d}
+    mixed = [(h, a) for h, a in g.cup["ties"] if (h in spfl) != (a in spfl)]
+    assert mixed  # some League Two clubs have drawn non-league sides
+    assert all(h in g.clubs and a in g.clubs for h, a in mixed)  # squads ready for pre-match
+    while g._event()[0] != "cup":
+        g.play_week()
+    rep = g.play_week()  # Round Two
+    for res in rep.cup_rounds[0][1]:
+        if res.home in spfl or res.away in spfl:
+            assert res.home in g.clubs and res.away in g.clubs  # still there for the results screen
+    g.play_week()
+    alive = set(g.cup["remaining"]) | set(g.cup["byes"]) | {t for x in g.cup["ties"] for t in x}
+    assert all(c.division < 4 or n in alive for n, c in g.clubs.items())  # the beaten ones went home
+
+
+def test_legacy_save_moves_onto_the_new_cup():
+    g = Game.new("Mike", "Elgin City", seed=92, db=SquadDB.load_default())
+    for _ in range(3):
+        g.play_week()
+    d = g.to_dict()
+    # what a v0.9 save looked like at the same point: old calendar index 3, old-style cup
+    d["cup"] = {"round": 0, "ties": [["Clyde", "Stranraer"]], "byes": ["Celtic"], "winner": "", "out": False}
+    d["week"] = 3
+    h = Game.from_dict(d)
+    assert "remaining" in h.cup
+    assert h.calendar[h.week] == ["league", 3]
+    assert h.cup["round"] == 1  # Preliminary Round One (league week 1) has been caught up
+    for _ in range(12):
+        h.play_week()
+    assert h.cup["round"] >= 5

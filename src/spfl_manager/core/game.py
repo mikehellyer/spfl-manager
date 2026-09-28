@@ -7,10 +7,11 @@ import random
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from . import cup as cupmod
 from . import data
 from . import playoffs as po
 from .database import START_YEAR, SquadDB
-from .fixtures import cup_draw, league_schedule
+from .fixtures import league_schedule
 from .match import MatchResult, penalty_shootout, simulate_match
 from .models import Club, Player, round_money
 from .names import FIRST_NAMES, SURNAMES
@@ -31,6 +32,8 @@ class WeekReport:
     news: list = field(default_factory=list)
     finance: dict = field(default_factory=dict)
     player_comp: str = ""  # competition label for the manager's match
+    venue: str = ""  # set for neutral-venue matches (cup semi-finals and final)
+    cup_rounds: list = field(default_factory=list)  # [(round label, [MatchResult, ...])]
     season_summary: dict | None = None
 
 
@@ -52,8 +55,24 @@ def build_calendar() -> list[list]:
         if r >= LOWER_LEAGUE_WEEKS:
             ev.append(r - LOWER_LEAGUE_WEEKS)
         cal.append(ev)
-        if r + 1 in data.CUP_AFTER_LEAGUE_WEEK:
-            cal.append(["cup", data.CUP_AFTER_LEAGUE_WEEK[r + 1]])
+        for idx in cupmod.event_rounds(r + 1):  # cup weekends with SPFL clubs
+            cal.append(["cup", idx])
+    for w in range(LEAGUE_WEEKS - LOWER_LEAGUE_WEEKS, po.PLAYOFF_WEEKS):
+        cal.append(["playoff", w])
+    return cal
+
+
+def legacy_calendar() -> list[list]:
+    """The calendar used by saves from v0.6-v0.9 (six cup rounds), for migrating them."""
+    old_cup_after = {4: 0, 10: 1, 16: 2, 22: 3, 28: 4, 33: 5}
+    cal = []
+    for r in range(LEAGUE_WEEKS):
+        ev = ["league", r]
+        if r >= LOWER_LEAGUE_WEEKS:
+            ev.append(r - LOWER_LEAGUE_WEEKS)
+        cal.append(ev)
+        if r + 1 in old_cup_after:
+            cal.append(["cup", old_cup_after[r + 1]])
     for w in range(LEAGUE_WEEKS - LOWER_LEAGUE_WEEKS, po.PLAYOFF_WEEKS):
         cal.append(["playoff", w])
     return cal
@@ -170,14 +189,8 @@ class Game:
             cycles = data.LEAGUE_CYCLES[len(teams)]
             self.fixtures.append(league_schedule(teams, cycles, self.rng))
         self.tables = {name: empty_row() for name in self.clubs}
-        lower = self.divisions[2] + self.divisions[3]
-        self.cup = {
-            "round": 0,
-            "ties": cup_draw(lower, self.rng),
-            "byes": self.divisions[0] + self.divisions[1],
-            "winner": "",
-            "out": False,
-        }
+        self.cup = cupmod.new_cup()
+        self._cup_draw()
         self.player_results = []
         self.playoffs = {}
         self.split = {}
@@ -278,7 +291,7 @@ class Game:
             return f"League Week {n + 1}"
         if kind == "playoff":
             return f"Play-offs Week {n + 1}"
-        return f"{data.CUP_NAME} {data.CUP_ROUNDS[n]}"
+        return cupmod.label(n)
 
     def next_fixture(self) -> tuple[str, str, str] | None:
         """(home, away, competition label) for the manager's game this week, or None."""
@@ -297,7 +310,7 @@ class Game:
         if kind == "cup":
             for h, a in self.cup["ties"]:
                 if self.club_name in (h, a):
-                    return h, a, f"{data.CUP_NAME} {data.CUP_ROUNDS[n]}"
+                    return h, a, cupmod.label(n)
             return None
         if pw is not None:
             self._ensure_playoffs()
@@ -339,7 +352,8 @@ class Game:
         finals = [[n for n, _ in self.table(d)] for d in range(4)]
         finals[0] = None  # the Premiership is still playing - its 11th place joins the final later
         # the pyramid play-off: Highland League champions v Lowland League champions
-        pool = [c for c in self.non_league if c["name"] not in self.clubs]
+        spfl = {c for div in self.divisions for c in div}
+        pool = [c for c in self.non_league if c["name"] not in spfl]
         highland = [c for c in pool if c["league"] == "HL"] or pool
         lowland = [c for c in pool if c["league"] == "LL" and c not in highland[:1]] or pool
         hl = self.rng.choice(highland)
@@ -347,6 +361,10 @@ class Game:
         entrant = hl if self.rng.random() < 0.5 + (hl["rating"] - ll["rating"]) / 100 else ll
         other = ll if entrant is hl else hl
         entrant, other = data.ClubInfo(**{k: v for k, v in entrant.items() if k != "league"}), other["name"]
+        if entrant.name in self.clubs:  # already in the game (e.g. a cup run) - keep that squad
+            self.playoffs = po.create(finals, entrant.name)
+            self.news.insert(0, f"Pyramid play-off: {entrant.name} beat {other} for a crack at League Two.")
+            return
         club = Club(
             entrant.name,
             entrant.short,
@@ -427,6 +445,7 @@ class Game:
             raise RuntimeError("Season is over")
         kind, n, pw = self._event()
         report = WeekReport(self.event_label())
+        self._release_knocked_out()
         if kind == "league" and n >= SPLIT_AFTER and not self.split and len(self.fixtures[0]) <= SPLIT_AFTER:
             self._make_split()
             report.news.append(self.news[0])
@@ -458,32 +477,11 @@ class Game:
                         report.player_result = res
                         home_game = h == self.club_name
         elif kind == "cup":
-            winners = []
-            for h, a in self.cup["ties"]:
-                res = self._play(h, a, cup=True)
-                all_results.append(res)
-                played.update(res.home_xi + res.away_xi)
-                report.results.append(res)
-                winners.append(res.winner)
-                if self.club_name in (h, a):
-                    report.player_result = res
-                    home_game = h == self.club_name
-                    if res.winner == self.club_name:
-                        prize = data.CUP_PRIZE[n]
-                        self.balance += prize
-                        report.news.append(f"Through in the {data.CUP_NAME}! £{prize:,} prize money.")
-                    else:
-                        self.cup["out"] = True
-                        report.news.append(f"Knocked out of the {data.CUP_NAME}.")
-            teams = winners + self.cup["byes"]
-            self.cup["byes"] = []
-            self.cup["round"] = n + 1
-            if len(teams) == 1:
-                self.cup["winner"] = teams[0]
-                self.cup["ties"] = []
-                report.news.append(f"{teams[0]} win the {data.CUP_NAME}!")
-            else:
-                self.cup["ties"] = cup_draw(teams, self.rng)
+            home_game = self._play_cup_round(n, report, all_results, played)
+        if kind == "league":
+            # early non-league rounds are played on the same weekend
+            for idx in cupmod.attached_rounds(n + 1):
+                self._play_cup_round(idx, report, all_results, played)
 
         if pw is not None:
             self._ensure_playoffs()
@@ -526,6 +524,176 @@ class Game:
         self.news = self.news[:40]
         return report
 
+    # scottish cup -----------------------------------------------------------
+    def cup_status(self) -> str:
+        cup = self.cup
+        if cup.get("winner") == self.club_name:
+            return "Winners!"
+        if cup.get("out"):
+            return "Out"
+        if cup.get("winner"):
+            return "Out"
+        enters = cupmod.entry_round(self.club.division)
+        if cup.get("round", 0) <= enters and not self._in_cup_draw():
+            return f"Enter in {cupmod.round_name(enters)}"
+        return "Still in"
+
+    def cup_next_label(self) -> str:
+        cup = self.cup
+        if cup.get("round", 0) >= len(data.CUP_ROUNDS):
+            return ""
+        return f"{cupmod.label(cup['round'])} ({len(cup.get('ties', []))} ties)"
+
+    @staticmethod
+    def cup_neutral(comp_label: str) -> bool:
+        """Is this competition label a neutral-venue cup tie (semi-final or final)?"""
+        return any(comp_label == cupmod.label(i) for i in data.NEUTRAL_VENUE_ROUNDS)
+
+    def _in_cup_draw(self) -> bool:
+        cup = self.cup
+        return self.club_name in cup.get("byes", []) or any(self.club_name in t for t in cup.get("ties", []))
+
+    def _ensure_non_league_club(self, name: str) -> Club:
+        """Give a non-league cup side a squad when they draw an SPFL club."""
+        if name in self.clubs:
+            return self.clubs[name]
+        rating = self.cup.get("ratings", {}).get(name, 27)
+        known = next((c for _, c in data.PYRAMID_CLUBS if c.name == name), None)
+        former = next((c for c in self.non_league if c["name"] == name), None)
+        if known:
+            kit = (known.shirt, known.shorts, known.pattern, known.shirt2)
+            stadium, cap = known.stadium, known.capacity
+        elif former:
+            kit = (
+                tuple(former["shirt"]),
+                tuple(former["shorts"]),
+                former["pattern"],
+                tuple(former["shirt2"]),
+            )
+            stadium, cap = former["stadium"], former["capacity"]
+        else:
+            kit = cupmod.kit_for(name)
+            stadium, cap = f"{name}'s ground", 2000
+        club = Club(
+            name,
+            cupmod.short_code(name),
+            4,
+            kit[0],
+            kit[1],
+            stadium,
+            cap,
+            rating,
+            pattern=kit[2],
+            shirt2=kit[3],
+        )
+        self.clubs[name] = club
+        for pos in SQUAD_TEMPLATE:
+            self._new_player(name, pos, rating)
+        club.selected = self.auto_pick(name)
+        return club
+
+    def _play_cup_round(self, idx: int, report: WeekReport, all_results: list, played: set) -> bool:
+        """Play every tie in cup round `idx`. Returns True if the manager's club played at home."""
+        cup = self.cup
+        if cup.get("round") != idx or not cup.get("ties"):
+            return False
+        neutral = idx in data.NEUTRAL_VENUE_ROUNDS
+        home_game = False
+        results, winners = [], []
+        for h, a in cup["ties"]:
+            if h in self.clubs or a in self.clubs:  # an SPFL club is involved: a proper match
+                self._ensure_non_league_club(h)
+                self._ensure_non_league_club(a)
+                res = self._play(h, a, cup=True)
+                all_results.append(res)
+                played.update(res.home_xi + res.away_xi)
+            else:  # two non-league sides
+                ratings = cup["ratings"]
+                res = cupmod.quick_result(h, a, ratings.get(h, 25), ratings.get(a, 25), self.rng)
+            results.append(res)
+            winners.append(res.winner)
+            if self.club_name in (h, a):
+                report.player_result = res
+                report.player_comp = cupmod.label(idx)
+                if neutral:
+                    report.venue = data.NEUTRAL_VENUE
+                home_game = h == self.club_name and not neutral
+                if res.winner == self.club_name:
+                    prize = data.CUP_PRIZE[idx]
+                    self.balance += prize
+                    if idx == len(data.CUP_ROUNDS) - 1:
+                        report.news.append(f"SCOTTISH CUP WINNERS! £{prize:,} prize money.")
+                    else:
+                        report.news.append(f"Through in the {data.CUP_NAME}! £{prize:,} prize money.")
+                else:
+                    cup["out"] = True
+                    report.news.append(f"Knocked out of the {data.CUP_NAME}.")
+        report.cup_rounds.append((cupmod.label(idx), results))
+
+        cup["remaining"] = winners + cup["byes"]
+        cup["byes"], cup["ties"] = [], []
+        cup["round"] = idx + 1
+        still_in = set(cup["remaining"])
+        cup["ratings"] = {k: v for k, v in cup["ratings"].items() if k in still_in}
+        if idx == len(data.CUP_ROUNDS) - 1:
+            cup["winner"] = winners[0]
+            report.news.append(f"{winners[0]} win the {data.CUP_NAME}!")
+        else:
+            if idx < data.FIRST_SPFL_ROUND:
+                report.news.append(f"{cupmod.label(idx)}: {len(results)} ties played.")
+            self._cup_draw()
+            if cup["round"] == cupmod.entry_round(self.club.division) and self._in_cup_draw():
+                opp = next(
+                    (t[0] if t[1] == self.club_name else t[1] for t in cup["ties"] if self.club_name in t), ""
+                )
+                if opp:
+                    report.news.append(f"{data.CUP_NAME} draw: {self.club_name} will play {opp}.")
+        return home_game
+
+    def _cup_draw(self):
+        """Make the next draw, and give any non-league side drawn against an SPFL club a
+        squad straight away (so the fixture, pre-match and highlights screens can show them)."""
+        cupmod.make_draw(self, self.cup, self.rng)
+        spfl = {c for div in self.divisions for c in div}
+        for h, a in self.cup["ties"]:
+            if h in spfl or a in spfl:
+                self._ensure_non_league_club(h)
+                self._ensure_non_league_club(a)
+
+    def _release_knocked_out(self):
+        """Non-league sides who are out of the cup go home (with their squads). Done at the
+        start of the next week so this week's result and highlights screens can still show them."""
+        cup = self.cup
+        alive = set(cup.get("remaining", [])) | set(cup.get("byes", []))
+        alive |= {t for tie in cup.get("ties", []) for t in tie}
+        for name in [n for n, c in self.clubs.items() if c.division == 4]:
+            if name not in alive and name != self.playoffs.get("entrant"):
+                self._remove_club(name)
+
+    def _migrate_legacy_cup(self):
+        """Saves from before v0.10 used a simpler six-round cup. Move them onto the
+        real format: keep the league position in the season, and play any cup
+        rounds that are now in the past."""
+        old_cal = legacy_calendar()
+        old_ev = old_cal[self.week] if self.week < len(old_cal) else ["playoff", po.PLAYOFF_WEEKS - 1]
+        rounds_played = sum(1 for ev in old_cal[: self.week] if ev[0] == "league")
+        if old_ev[0] == "playoff" or (old_ev[0] == "league" and len(old_ev) > 2):
+            pw = old_ev[1] if old_ev[0] == "playoff" else old_ev[2]
+            self.week = next(i for i in range(len(self.calendar)) if self._event(i)[2] == pw)
+        else:
+            self.week = next(
+                i for i, ev in enumerate(self.calendar) if ev[0] == "league" and ev[1] == rounds_played
+            )
+        self.cup = cupmod.new_cup()
+        self._cup_draw()
+        catch_up = WeekReport("catch-up")
+        for idx, rnd in enumerate(data.CUP_ROUNDS):
+            if rnd[1] <= rounds_played:
+                self._play_cup_round(idx, catch_up, [], set())
+        self.news = (
+            [f"The {data.CUP_NAME} now follows the official 2026-27 format."] + catch_up.news + self.news
+        )[:40]
+
     def _play(self, home: str, away: str, cup: bool) -> MatchResult:
         hc, ac = self.clubs[home], self.clubs[away]
         return simulate_match(
@@ -564,7 +732,9 @@ class Game:
 
     def _update_morale(self, res: MatchResult):
         for name in (res.home, res.away):
-            c = self.clubs[name]
+            c = self.clubs.get(name)
+            if c is None:  # a non-league cup side that has already gone home
+                continue
             if res.winner == name:
                 c.morale += 8
             elif res.winner is None:
@@ -846,6 +1016,10 @@ class Game:
         elif self.playoffs.get("entrant") in self.clubs:
             self._remove_club(self.playoffs["entrant"])
 
+        # non-league cup sides and a beaten pyramid challenger go back to their own leagues
+        for name in [n for n, c in self.clubs.items() if c.division == 4]:
+            self._remove_club(name)
+
         top_scorer = max(
             (p for p in self.players.values() if self.clubs[p.club].division == my_div),
             key=lambda p: p.goals,
@@ -957,9 +1131,12 @@ class Game:
         g.sacked = d["sacked"]
         g.last_finance = d.get("last_finance", {})
         g.playoffs = d.get("playoffs", {})
+        legacy_cup = "remaining" not in g.cup
         g.split = d.get("split", {})
         g.non_league = d.get("non_league", g.non_league)
         g.game_over_reason = d.get("game_over_reason", "")
+        if legacy_cup:
+            g._migrate_legacy_cup()
         return g
 
     def save(self, path: Path):

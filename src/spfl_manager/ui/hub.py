@@ -117,10 +117,7 @@ class HubScene(Scene):
             ("Bank balance", T.money(g.balance)),
             ("Bank loan", T.money(g.loan)),
             ("Weekly wages", T.money(g.wage_bill())),
-            (
-                "Scottish Cup",
-                "Winners!" if g.cup.get("winner") == g.club_name else ("Out" if g.cup["out"] else "Still in"),
-            ),
+            ("Scottish Cup", g.cup_status()),
         ]
         for label, val in stats:
             T.text(surf, label, (x, y), T.LIGHT_GREY)
@@ -138,6 +135,8 @@ class HubScene(Scene):
         if fx:
             h, a, _ = fx
             venue = "HOME" if h == g.club_name else "AWAY"
+            if g.cup_neutral(fx[2]):
+                venue = "HAMPDEN"
             opp = a if h == g.club_name else h
             opp_pos = g.position(opp)
             same_div = g.clubs[opp].division == club.division

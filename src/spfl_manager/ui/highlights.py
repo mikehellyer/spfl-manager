@@ -246,7 +246,8 @@ class HighlightsScene(Scene):
         self.timer = 2.0
         self.caption = "KICK OFF!"
         self.caption_col = T.WHITE
-        self.commentary = f"Welcome to {hc.stadium} for {self.label.lower().replace('league week', 'week')}."
+        self.stadium = report.venue or hc.stadium
+        self.commentary = f"Welcome to {self.stadium} for {self.comp}."
         self.speed = 1.0
         self.half_done = False  # has the half-time break happened yet?
         self.resume_phase = "clock"
@@ -435,7 +436,7 @@ class HighlightsScene(Scene):
         self.timer = 3.0
         self.caption, self.caption_col = "HALF TIME", T.YELLOW
         self.commentary = (
-            f"Half time at {self.hc.stadium}:  {self.hc.name} {self.score[0]}-{self.score[1]} {self.ac.name}"
+            f"Half time at {self.stadium}:  {self.hc.name} {self.score[0]}-{self.score[1]} {self.ac.name}"
         )
         self.chance = None
         self.app.sound.play("whistle_ht")  # peep-peep

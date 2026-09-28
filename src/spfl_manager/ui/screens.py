@@ -6,6 +6,7 @@ import webbrowser
 
 import pygame
 
+from ..core import cup as cupmod
 from ..core import data
 from ..core.game import MAX_SQUAD, Game, save_path
 from ..core.models import team_strength
@@ -787,9 +788,13 @@ class PreMatchScene(Scene):
             T.big_text(surf, "NO MATCH THIS WEEK", (T.CANVAS_W // 2, 90), T.YELLOW, center=True)
             kind = g.calendar[g.week][0]
             if kind == "cup":
-                msg = "You are out of the Scottish Cup."
-                if not g.cup["out"] and g.club_name in g.cup["byes"]:
+                status = g.cup_status()
+                if status.startswith("Enter in"):
+                    msg = f"Your club enters the Scottish Cup in the {status[len('Enter in ') :]}."
+                elif g.club_name in g.cup.get("byes", []):
                     msg = "Your club has a bye this round."
+                else:
+                    msg = "You are out of the Scottish Cup."
             elif g.playoff_week() is not None:
                 msg = (
                     "Your play-off tie is later on."
@@ -816,7 +821,8 @@ class PreMatchScene(Scene):
         )
         T.kit_swatch(surf, T.CANVAS_W // 2 - 240, TOP + 30, hc.kit, 16, 20)
         T.kit_swatch(surf, T.CANVAS_W // 2 + 224, TOP + 30, T.away_kit(hc.kit, ac.kit), 16, 20)
-        T.text(surf, f"at {hc.stadium}", (T.CANVAS_W // 2, TOP + 96), T.LIGHT_GREY, center=True)
+        venue = data.NEUTRAL_VENUE if g.cup_neutral(comp) else hc.stadium
+        T.text(surf, f"at {venue}", (T.CANVAS_W // 2, TOP + 96), T.LIGHT_GREY, center=True)
 
         hs = team_strength(g.selected_players(h))
         as_ = team_strength(g.selected_players(a))
@@ -845,10 +851,17 @@ class PreMatchScene(Scene):
                 size=11,
             )
         elif tired:
-            names = ", ".join(p.name.split()[-1] for p in tired[:4]) + ("..." if len(tired) > 4 else "")
+            # name as many as fit on the line, then "+N more"
+            surnames = [p.name.split()[-1] for p in tired]
+            max_w = T.CANVAS_W - 2 * T.BORDER - 20
+            for shown in range(len(surnames), 0, -1):
+                extra = f" +{len(surnames) - shown} more" if shown < len(surnames) else ""
+                msg = f"Tired players in your XI: {', '.join(surnames[:shown])}{extra} - rest them?"
+                if T.font(11).size(msg)[0] <= max_w:
+                    break
             T.text(
                 surf,
-                f"Tired players in your XI: {names} - consider resting them.",
+                msg,
                 (T.CANVAS_W // 2, 244),
                 T.LIGHT_RED,
                 center=True,
@@ -862,11 +875,18 @@ class ResultsScene(Scene):
         super().__init__(app)
         self.g: Game = app.game
         self.report = report
-        self.page = 0
+        self.page = 0  # 0 = this week's results, then one page per cup round played
+
+    @property
+    def pages(self) -> int:
+        return 1 + len(self.report.cup_rounds)
 
     def handle(self, ev):
         if ev.type == pygame.KEYDOWN or (ev.type == pygame.MOUSEBUTTONDOWN):
-            self.next()
+            if self.page + 1 < self.pages:
+                self.page += 1
+            else:
+                self.next()
 
     def next(self):
         g = self.g
@@ -881,8 +901,47 @@ class ResultsScene(Scene):
     def on_enter(self):
         self.app.sound.stop("goal")
 
+    def draw_cup_page(self, surf, label, results):
+        g = self.g
+        T.frame(surf)
+        T.header(surf, label.upper(), g.season_label)
+        spfl = {c for d in g.divisions for c in d}
+        per_col = max(8, (len(results) + 1) // 2)
+        line_h = 12 if per_col > 14 else 14
+        y0 = TOP + 6
+        for i, r in enumerate(results):
+            x = L + (i // per_col) * 300
+            y = y0 + (i % per_col) * line_h
+            home, away = cupmod.display_name(r.home), cupmod.display_name(r.away)
+            if r.pens:  # mark who won the shoot-out
+                if r.winner == r.home:
+                    home += "*"
+                else:
+                    away += "*"
+            text = f"{home:>20} {r.home_goals}-{r.away_goals}  {away}"
+            if g.club_name in (r.home, r.away):
+                col = T.YELLOW
+            elif r.home in spfl or r.away in spfl:
+                col = T.WHITE
+            else:
+                col = T.LIGHT_GREY
+            T.text(surf, text, (x, y), col, size=10)
+        y = y0 + per_col * line_h + 8
+        T.text(surf, "* won on penalties   White: SPFL clubs   Grey: non-league", (L, y), T.GREY, size=10)
+        cup = g.cup
+        if cup.get("winner"):
+            T.text(surf, f"{cup['winner']} win the Scottish Cup!", (L, y + 16), T.YELLOW, size=11)
+        elif cup.get("ties") or cup.get("byes"):
+            T.text(surf, f"Next: {g.cup_next_label()}", (L, y + 16), T.CYAN, size=11)
+        more = self.page + 1 < self.pages
+        T.footer(surf, "Press any key for the next results" if more else "Press any key to continue")
+
     def draw(self, surf):
         g, rep = self.g, self.report
+        if self.page > 0:
+            label, results = rep.cup_rounds[self.page - 1]
+            self.draw_cup_page(surf, label, results)
+            return
         T.frame(surf)
         T.header(surf, f"RESULTS - {rep.label.upper()}", g.season_label)
         y = TOP + 4
@@ -890,7 +949,7 @@ class ResultsScene(Scene):
             r = rep.player_result
             T.big_text(
                 surf,
-                f"{g.clubs[r.home].short} {r.home_goals} - {r.away_goals} {g.clubs[r.away].short}",
+                f"{g._short(r.home)} {r.home_goals} - {r.away_goals} {g._short(r.away)}",
                 (T.CANVAS_W // 2, y),
                 T.YELLOW,
                 center=True,
@@ -939,8 +998,14 @@ class ResultsScene(Scene):
             heading = "Play-off results"
         elif cup:
             heading = "Cup results"
-        T.text(surf, heading, (L, y), T.LIGHT_GREY, size=11)
-        y += 14
+        if lines:
+            T.text(surf, heading, (L, y), T.LIGHT_GREY, size=11)
+            y += 14
+        elif rep.cup_rounds:
+            T.text(
+                surf, f"All the {rep.cup_rounds[0][0]} results are on the next page.", (L, y), T.CYAN, size=11
+            )
+            y += 14
         shown = [r for r in lines if r is not rep.player_result][: 16 if cup else 8]
         col_w = 300
         for i, r in enumerate(shown):
@@ -970,7 +1035,11 @@ class ResultsScene(Scene):
                     break
                 T.text(surf, line, (L, y), col, size=10)
                 y += 12
-        T.footer(surf, "Press any key to continue")
+        if self.pages > 1:
+            rounds = ", ".join(label.replace("Scottish Cup ", "") for label, _ in rep.cup_rounds)
+            T.footer(surf, f"Press any key: Scottish Cup {rounds} results")
+        else:
+            T.footer(surf, "Press any key to continue")
 
 
 class SeasonEndScene(Scene):
