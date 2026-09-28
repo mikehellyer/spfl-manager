@@ -1,0 +1,7947 @@
+{
+ "_about": "Real first-team squads (incl. loan signings) from each club's Wikipedia 'Current squad' section, fetched 2026-09-28. Skills and ages are game estimates.",
+ "clubs": {
+  "Aberdeen": [
+   {
+    "name": "Nicky Devlin",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-10-17"
+   },
+   {
+    "name": "Mitchel Frame",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-01-25"
+   },
+   {
+    "name": "Kristers Tobers",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "LVA",
+    "notable": true,
+    "born": "2000-12-13"
+   },
+   {
+    "name": "Mats Knoester",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "NED",
+    "notable": true,
+    "born": "1998-11-19"
+   },
+   {
+    "name": "Tony Yogane",
+    "pos": "MID",
+    "no": "7",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2005-09-24"
+   },
+   {
+    "name": "Brad Lyons",
+    "pos": "MID",
+    "no": "8",
+    "nat": "NIR",
+    "notable": true,
+    "born": "1997-05-26"
+   },
+   {
+    "name": "Ayoub Mouloua",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "MAR",
+    "notable": true,
+    "born": "2002-09-30"
+   },
+   {
+    "name": "Alexander Briedl",
+    "pos": "MID",
+    "no": "10",
+    "nat": "AUT",
+    "notable": true,
+    "born": "2002-04-21"
+   },
+   {
+    "name": "Lewis Smith",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-03-16"
+   },
+   {
+    "name": "Nicholas Suman",
+    "pos": "GK",
+    "no": "13",
+    "nat": "AUS",
+    "notable": true,
+    "born": "2000-02-28"
+   },
+   {
+    "name": "Hicham Mahou",
+    "pos": "MID",
+    "no": "14",
+    "nat": "FRA",
+    "notable": true,
+    "born": "1999-07-02"
+   },
+   {
+    "name": "Kevin Nisbet",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-03-08"
+   },
+   {
+    "name": "Stuart Armstrong",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-03-30"
+   },
+   {
+    "name": "Ante Palaversa",
+    "pos": "MID",
+    "no": "18",
+    "nat": "CRO",
+    "notable": true,
+    "born": "2000-04-06"
+   },
+   {
+    "name": "Toyosi Olusanya",
+    "pos": "ATT",
+    "no": "20",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1997-10-14"
+   },
+   {
+    "name": "Gavin Molloy",
+    "pos": "DEF",
+    "no": "21",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2001-10-19"
+   },
+   {
+    "name": "Jack Milne",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-02-10"
+   },
+   {
+    "name": "Lewis Mayo",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-03-19"
+   },
+   {
+    "name": "Nesta Guinness-Walker",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1999-01-01"
+   },
+   {
+    "name": "Connor Ronan",
+    "pos": "MID",
+    "no": "25",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1998-03-06"
+   },
+   {
+    "name": "Dan Happe",
+    "pos": "DEF",
+    "no": "26",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1998-09-28"
+   },
+   {
+    "name": "Marius Müller",
+    "pos": "GK",
+    "no": "27",
+    "nat": "GER",
+    "notable": true,
+    "born": "1993-07-12"
+   },
+   {
+    "name": "Chris Cadden",
+    "pos": "DEF",
+    "no": "28",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-09-19"
+   },
+   {
+    "name": "Daniel Klein",
+    "pos": "GK",
+    "no": "30",
+    "nat": "GER",
+    "notable": true,
+    "born": "2001-03-13"
+   },
+   {
+    "name": "Mitchy Ntelo",
+    "pos": "ATT",
+    "no": "31",
+    "nat": "BEL",
+    "notable": true,
+    "born": "2001-05-04"
+   },
+   {
+    "name": "Afeez Aremu",
+    "pos": "MID",
+    "no": "32",
+    "nat": "NGA",
+    "notable": true,
+    "born": "1999-10-03"
+   },
+   {
+    "name": "Findlay Marshall",
+    "pos": "MID",
+    "no": "40",
+    "nat": "SCO",
+    "notable": true
+   },
+   {
+    "name": "Emmanuel Gyamfi",
+    "pos": "DEF",
+    "no": "77",
+    "nat": "GER",
+    "notable": true,
+    "born": "2004-01-01"
+   }
+  ],
+  "Airdrieonians": [
+   {
+    "name": "Jamie Sneddon",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-09-06"
+   },
+   {
+    "name": "Dylan MacDonald",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Evan Easton",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Craig Ross",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO"
+   },
+   {
+    "name": "Sam Fisher",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-07-26"
+   },
+   {
+    "name": "Ewan Simpson",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Robbie Mahon",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "IRL"
+   },
+   {
+    "name": "Gavin Gallagher",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Dapo Mebude",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-07-29"
+   },
+   {
+    "name": "Matty Yates",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO"
+   },
+   {
+    "name": "AJ Bridge",
+    "pos": "MID",
+    "no": "11",
+    "nat": "ENG"
+   },
+   {
+    "name": "Kwame Boateng",
+    "pos": "DEF",
+    "no": "12",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1998-11-21"
+   },
+   {
+    "name": "Adam Devine",
+    "pos": "DEF",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-03-25"
+   },
+   {
+    "name": "Cole McKinnon",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Connor Smith",
+    "pos": "MID",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-02-01"
+   },
+   {
+    "name": "Henry James",
+    "pos": "DEF",
+    "no": "17",
+    "nat": "ENG"
+   },
+   {
+    "name": "Liam McLeish",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "SCO"
+   },
+   {
+    "name": "Zac Butterworth",
+    "pos": "MID",
+    "no": "19",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cade Melrose",
+    "pos": "GK",
+    "no": "20",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ruairidh Adams",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Callum Burnside",
+    "pos": "MID",
+    "no": "22",
+    "nat": "NIR",
+    "loan": true
+   },
+   {
+    "name": "Josh Gentles",
+    "pos": "ATT",
+    "no": "25",
+    "nat": "WAL",
+    "loan": true
+   },
+   {
+    "name": "Lewis Gibson",
+    "pos": "ATT",
+    "no": "27",
+    "nat": "SCO"
+   },
+   {
+    "name": "Declan Gallagher",
+    "pos": "DEF",
+    "no": "31",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-02-13"
+   },
+   {
+    "name": "Kian Taylor",
+    "pos": "MID",
+    "no": "33",
+    "nat": "ENG"
+   },
+   {
+    "name": "Reghan Tumilty",
+    "pos": "DEF",
+    "no": "",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-02-26"
+   }
+  ],
+  "Alloa Athletic": [
+   {
+    "name": "Ross Stewart",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-04-16"
+   },
+   {
+    "name": "Scott Taggart",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-12-27"
+   },
+   {
+    "name": "Calum Waters",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-03-10"
+   },
+   {
+    "name": "Steven Hetherington",
+    "pos": "MID",
+    "no": "4",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1993-02-09"
+   },
+   {
+    "name": "Joseph McGrath",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Grant Marchant",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kyle Glasgow",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2010-02-20"
+   },
+   {
+    "name": "Kurtis Roberts",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Luke Donnelly",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-01-20"
+   },
+   {
+    "name": "Luke Rankin",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO"
+   },
+   {
+    "name": "Calum Gallagher",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-09-13"
+   },
+   {
+    "name": "Stefan Scougall",
+    "pos": "MID",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-12-07"
+   },
+   {
+    "name": "Flynn McCafferty",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO"
+   },
+   {
+    "name": "Josh Walker",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Joe Ellison",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO"
+   },
+   {
+    "name": "Max Cameron",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Brandon Forbes",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cameron O'Donnell",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-09-29"
+   },
+   {
+    "name": "Neil Parry",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1985-11-08"
+   },
+   {
+    "name": "Andy Graham",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1983-09-22"
+   },
+   {
+    "name": "David Devine",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-04-11"
+   },
+   {
+    "name": "Owen Foster",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lewis Bruin",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO"
+   },
+   {
+    "name": "Adam O'Connor",
+    "pos": "ATT",
+    "no": "26",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aiden Crilly",
+    "pos": "MID",
+    "no": "27",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Matthew Aitken",
+    "pos": "ATT",
+    "no": "28",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Luca Ross",
+    "pos": "ATT",
+    "no": "29",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2006-08-11"
+   },
+   {
+    "name": "Lawton Green",
+    "pos": "GK",
+    "no": "31",
+    "nat": "NZL"
+   }
+  ],
+  "Annan Athletic": [
+   {
+    "name": "Charlie Albinson",
+    "pos": "GK",
+    "no": "1",
+    "nat": "ENG"
+   },
+   {
+    "name": "Scott Hooper",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-01-14"
+   },
+   {
+    "name": "Cammy Clark",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-10-24"
+   },
+   {
+    "name": "Kirk McKnight",
+    "pos": "MID",
+    "no": "4",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aaron Muirhead",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1990-08-30"
+   },
+   {
+    "name": "Keith Watson",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1989-11-14"
+   },
+   {
+    "name": "Josh Dixon",
+    "pos": "MID",
+    "no": "7",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-02-07"
+   },
+   {
+    "name": "Paul Smith",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aidan Smith",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-05-11"
+   },
+   {
+    "name": "Tommy Muir",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cammy Cooper",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "SCO"
+   },
+   {
+    "name": "Milosz Sliwinski",
+    "pos": "GK",
+    "no": "12",
+    "nat": "POL",
+    "loan": true
+   },
+   {
+    "name": "Cole Williams",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Mouhamed Niang",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SEN",
+    "notable": true,
+    "born": "1999-08-10"
+   },
+   {
+    "name": "Steven Buchanan",
+    "pos": "ATT",
+    "no": "16",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Corey O'Donnell",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ally Roy",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "NIR",
+    "notable": true,
+    "born": "1997-05-26"
+   },
+   {
+    "name": "Charlie Maxwell",
+    "pos": "MID",
+    "no": "19",
+    "nat": "SCO"
+   },
+   {
+    "name": "Darryl Carrick",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Dylan Williams",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Willie Gibson",
+    "pos": "DEF",
+    "no": "33",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1984-08-06"
+   },
+   {
+    "name": "Divine Iserhienrhein",
+    "pos": "ATT",
+    "no": "",
+    "nat": "SCO",
+    "loan": true
+   }
+  ],
+  "Arbroath": [
+   {
+    "name": "Aidan McAdams",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-03-23"
+   },
+   {
+    "name": "Stuart Morrison",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-04-18"
+   },
+   {
+    "name": "Colin Hamilton",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-05-07"
+   },
+   {
+    "name": "Brody Paterson",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-04-24"
+   },
+   {
+    "name": "Thomas O'Brien",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-08-07"
+   },
+   {
+    "name": "Tom Beadling",
+    "pos": "MID",
+    "no": "6",
+    "nat": "AUS",
+    "notable": true,
+    "born": "1996-01-16"
+   },
+   {
+    "name": "David Gold",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-01-01"
+   },
+   {
+    "name": "Ryan Flynn",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1988-09-04"
+   },
+   {
+    "name": "Andy Winter",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-03-10"
+   },
+   {
+    "name": "Gavin Reilly",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-05-10"
+   },
+   {
+    "name": "Ryan Dow",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-06-07"
+   },
+   {
+    "name": "Scott Stewart",
+    "pos": "MID",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-01-01"
+   },
+   {
+    "name": "Michael McKenna",
+    "pos": "ATT",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-01-04"
+   },
+   {
+    "name": "Scott McGill",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-01-27"
+   },
+   {
+    "name": "Craig Watson",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-02-13"
+   },
+   {
+    "name": "Calvin Beattie",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cormac Daly",
+    "pos": "MID",
+    "no": "19",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2007-03-17"
+   },
+   {
+    "name": "Scott Constable",
+    "pos": "MID",
+    "no": "20",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Jordan Pettigrew",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Charlie Dewar",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "ENG",
+    "loan": true
+   },
+   {
+    "name": "Jude Bonnar",
+    "pos": "MID",
+    "no": "23",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Rudi Molotnikov",
+    "pos": "MID",
+    "no": "24",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2006-05-23"
+   },
+   {
+    "name": "Jacob MacIntyre",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2006-01-29"
+   },
+   {
+    "name": "Sean Mackie",
+    "pos": "DEF",
+    "no": "26",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-11-04"
+   },
+   {
+    "name": "Kyle Magennis",
+    "pos": "MID",
+    "no": "27",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-08-26"
+   }
+  ],
+  "Ayr United": [
+   {
+    "name": "Harry Stone",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Nick McAllister",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Liam Dick",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-08-19"
+   },
+   {
+    "name": "Kevin Holt",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-01-25"
+   },
+   {
+    "name": "Reece Lyon",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-03-13"
+   },
+   {
+    "name": "Owen Stirton",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2007-01-30"
+   },
+   {
+    "name": "Leon King",
+    "pos": "DEF",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-01-14"
+   },
+   {
+    "name": "Josh Landers",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2007-00-00"
+   },
+   {
+    "name": "Kieran Shanks",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ross Taylor",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO"
+   },
+   {
+    "name": "Olly Whyte",
+    "pos": "MID",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2006-11-27"
+   },
+   {
+    "name": "Jamie Murphy",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1989-08-28"
+   },
+   {
+    "name": "Ben Summers",
+    "pos": "MID",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-06-16"
+   },
+   {
+    "name": "Thomas Hatton",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Luke McBeth",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-01-01"
+   },
+   {
+    "name": "Ethan Walker",
+    "pos": "MID",
+    "no": "21",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2002-07-28"
+   },
+   {
+    "name": "Mark McKenzie",
+    "pos": "ATT",
+    "no": "22",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-08-17"
+   },
+   {
+    "name": "Marco Rus",
+    "pos": "MID",
+    "no": "23",
+    "nat": "ROU",
+    "notable": true,
+    "born": "2003-01-23"
+   },
+   {
+    "name": "Kenzie Mitchell",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO"
+   },
+   {
+    "name": "Matthew Warbrick",
+    "pos": "ATT",
+    "no": "26",
+    "nat": "NZL"
+   },
+   {
+    "name": "Dylan Watret",
+    "pos": "DEF",
+    "no": "32",
+    "nat": "SCO"
+   },
+   {
+    "name": "Scott McMann",
+    "pos": "DEF",
+    "no": "33",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-07-09"
+   },
+   {
+    "name": "Jamie Douglas",
+    "pos": "MID",
+    "no": "34",
+    "nat": "SCO"
+   },
+   {
+    "name": "Liam Russell",
+    "pos": "GK",
+    "no": "38",
+    "nat": "SCO"
+   }
+  ],
+  "Celtic": [
+   {
+    "name": "Viljami Sinisalo",
+    "pos": "GK",
+    "no": "1",
+    "nat": "FIN",
+    "notable": true,
+    "born": "2001-10-11"
+   },
+   {
+    "name": "Alistair Johnston",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "CAN",
+    "notable": true,
+    "born": "1998-10-08"
+   },
+   {
+    "name": "Jordan Lotomba",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SUI",
+    "notable": true,
+    "born": "1998-09-29"
+   },
+   {
+    "name": "Liam Scales",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1998-08-08"
+   },
+   {
+    "name": "Auston Trusty",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "USA",
+    "notable": true,
+    "born": "1998-08-12"
+   },
+   {
+    "name": "Jota",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "POR",
+    "notable": true,
+    "born": "1999-03-30"
+   },
+   {
+    "name": "Benjamin Nygren",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SWE",
+    "notable": true,
+    "born": "2001-07-08"
+   },
+   {
+    "name": "Kasper Høgh",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "DEN",
+    "notable": true,
+    "born": "2000-12-06"
+   },
+   {
+    "name": "Camilo Durán",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "COL",
+    "notable": true,
+    "born": "2002-02-10"
+   },
+   {
+    "name": "Landon Emenalo",
+    "pos": "MID",
+    "no": "12",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2008-01-18"
+   },
+   {
+    "name": "Yang Hyun-jun",
+    "pos": "ATT",
+    "no": "13",
+    "nat": "KOR",
+    "notable": true,
+    "born": "2002-05-25"
+   },
+   {
+    "name": "Luke McCowan",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-12-09"
+   },
+   {
+    "name": "Sebastian Tounekti",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "TUN",
+    "notable": true,
+    "born": "2002-07-13"
+   },
+   {
+    "name": "Oliver Sørensen",
+    "pos": "MID",
+    "no": "18",
+    "nat": "DEN",
+    "notable": true,
+    "loan": true,
+    "born": "2002-03-10"
+   },
+   {
+    "name": "Callum Osmand",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "WAL",
+    "notable": true,
+    "born": "2005-11-08"
+   },
+   {
+    "name": "Cameron Carter-Vickers",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "USA",
+    "notable": true,
+    "born": "1997-12-31"
+   },
+   {
+    "name": "Alex Oxlade-Chamberlain",
+    "pos": "MID",
+    "no": "21",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1993-08-15"
+   },
+   {
+    "name": "Mika Baur",
+    "pos": "MID",
+    "no": "22",
+    "nat": "GER",
+    "notable": true,
+    "born": "2004-07-09"
+   },
+   {
+    "name": "Haissem Hassan",
+    "pos": "ATT",
+    "no": "23",
+    "nat": "EGY",
+    "notable": true,
+    "born": "2002-02-08"
+   },
+   {
+    "name": "Sam Johnstone",
+    "pos": "GK",
+    "no": "26",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "1993-03-25"
+   },
+   {
+    "name": "Shim Mheuka",
+    "pos": "ATT",
+    "no": "29",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2007-10-20"
+   },
+   {
+    "name": "Ross Doohan",
+    "pos": "GK",
+    "no": "31",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-03-29"
+   },
+   {
+    "name": "Joël van den Berg",
+    "pos": "MID",
+    "no": "35",
+    "nat": "NED",
+    "notable": true,
+    "born": "2007-02-11"
+   },
+   {
+    "name": "Callum McGregor",
+    "pos": "MID",
+    "no": "42",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-06-14"
+   },
+   {
+    "name": "Dane Murray",
+    "pos": "DEF",
+    "no": "47",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-06-26"
+   },
+   {
+    "name": "James Forrest",
+    "pos": "ATT",
+    "no": "49",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-07-07"
+   },
+   {
+    "name": "Colby Donovan",
+    "pos": "DEF",
+    "no": "51",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-09-07"
+   },
+   {
+    "name": "Anthony Ralston",
+    "pos": "DEF",
+    "no": "56",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-11-16"
+   },
+   {
+    "name": "Kieran Tierney",
+    "pos": "DEF",
+    "no": "63",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-06-05"
+   }
+  ],
+  "Clyde": [
+   {
+    "name": "Jay Hogarth",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Darren Hynes",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-01-12"
+   },
+   {
+    "name": "Lewis Lovering",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Sam Campbell",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO"
+   },
+   {
+    "name": "Craig Howie",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Bruce Strachan",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Marley Redfern",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-08-27"
+   },
+   {
+    "name": "Barry Cuddihy",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-12-19"
+   },
+   {
+    "name": "Scott Williamson",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO"
+   },
+   {
+    "name": "James Hilton",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kyle Connell",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-12-19"
+   },
+   {
+    "name": "Jamie Bradley",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO"
+   },
+   {
+    "name": "Logan Dunachie",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Thomas Cruden",
+    "pos": "ATT",
+    "no": "16",
+    "nat": "SCO"
+   },
+   {
+    "name": "Nathan Cannon",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO"
+   },
+   {
+    "name": "Liam Rooney",
+    "pos": "DEF",
+    "no": "18",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Timam Scott",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "SCO"
+   },
+   {
+    "name": "Bobby Kiltie",
+    "pos": "ATT",
+    "no": "20",
+    "nat": "SCO"
+   },
+   {
+    "name": "Daniel Terry",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kyle Fleming",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-02-25"
+   },
+   {
+    "name": "Keir Gilligan",
+    "pos": "MID",
+    "no": "23",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Jamie Forrest",
+    "pos": "MID",
+    "no": "24",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Chris Inglis",
+    "pos": "DEF",
+    "no": "25",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack Anderson",
+    "pos": "MID",
+    "no": "26",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Andy Murdoch",
+    "pos": "MID",
+    "no": "27",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-01-30"
+   }
+  ],
+  "Cove Rangers": [
+   {
+    "name": "Robbie Mutch",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-08-20"
+   },
+   {
+    "name": "Layton Bisland",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Dylan Ross",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Afonso Lindo",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "ENG"
+   },
+   {
+    "name": "Jamie Mercer",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Ryan Harrington",
+    "pos": "DEF",
+    "no": "7",
+    "nat": "WAL"
+   },
+   {
+    "name": "Ackeme Francis-Burrell",
+    "pos": "MID",
+    "no": "8",
+    "nat": "ENG"
+   },
+   {
+    "name": "Destiny Oladipo",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "NGA"
+   },
+   {
+    "name": "Max Barry",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO"
+   },
+   {
+    "name": "Reuben McAllister",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-05-15"
+   },
+   {
+    "name": "Miller Keir",
+    "pos": "ATT",
+    "no": "12",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Joe Chalmers",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "1994-01-03"
+   },
+   {
+    "name": "Arron Darge",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Joseph Teasdale",
+    "pos": "ATT",
+    "no": "16",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Edimond Oppong",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "ITA"
+   },
+   {
+    "name": "Aaron Fraser",
+    "pos": "MID",
+    "no": "20",
+    "nat": "SCO"
+   },
+   {
+    "name": "Balint Demus",
+    "pos": "GK",
+    "no": "21",
+    "nat": "HUN"
+   },
+   {
+    "name": "Victor Enem",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "NGA"
+   },
+   {
+    "name": "Mikey Milnes",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jordan White",
+    "pos": "ATT",
+    "no": "26",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-02-04"
+   },
+   {
+    "name": "Liam Parker",
+    "pos": "DEF",
+    "no": "32",
+    "nat": "SCO"
+   },
+   {
+    "name": "Chris Maguire",
+    "pos": "ATT",
+    "no": "77",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1989-01-16"
+   }
+  ],
+  "Dumbarton": [
+   {
+    "name": "Aidan Rice",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Ali Omar",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SOM",
+    "notable": true,
+    "born": "1999-09-14"
+   },
+   {
+    "name": "Kristian Webster",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO"
+   },
+   {
+    "name": "Tom Lang",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-06-12"
+   },
+   {
+    "name": "Owen Hartington",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Scott Tomlinson",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Josh Todd",
+    "pos": "MID",
+    "no": "8",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1994-06-11"
+   },
+   {
+    "name": "Deryn Lang",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO"
+   },
+   {
+    "name": "David Craig",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO"
+   },
+   {
+    "name": "Josiah Sowa",
+    "pos": "MID",
+    "no": "11",
+    "nat": "CAN",
+    "loan": true
+   },
+   {
+    "name": "Tony Wallace",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1990-01-11"
+   },
+   {
+    "name": "Leighton McIntosh",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-02-06"
+   },
+   {
+    "name": "Lewis Spence",
+    "pos": "MID",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-01-28"
+   },
+   {
+    "name": "Ally Spalding",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SCO"
+   },
+   {
+    "name": "Connor Campbell",
+    "pos": "DEF",
+    "no": "18",
+    "nat": "SCO"
+   },
+   {
+    "name": "Robbie Cleary",
+    "pos": "ATT",
+    "no": "20",
+    "nat": "CAN",
+    "notable": true,
+    "born": "2003-05-15"
+   },
+   {
+    "name": "Scott Honeyman",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Michael Doyle",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-08-01"
+   },
+   {
+    "name": "Kai Kirkpatrick",
+    "pos": "MID",
+    "no": "27",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack McConnell",
+    "pos": "GK",
+    "no": "28",
+    "nat": "SCO"
+   },
+   {
+    "name": "Thomas Robson",
+    "pos": "DEF",
+    "no": "34",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1995-09-11"
+   },
+   {
+    "name": "Mason Munn",
+    "pos": "GK",
+    "no": "54",
+    "nat": "NIR",
+    "notable": true,
+    "loan": true,
+    "born": "2006-03-30"
+   }
+  ],
+  "Dundee United": [
+   {
+    "name": "Jack Walton",
+    "pos": "GK",
+    "no": "1",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1998-04-23"
+   },
+   {
+    "name": "Bert Esselink",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "NED",
+    "notable": true,
+    "born": "1999-08-16"
+   },
+   {
+    "name": "Iurie Iovu",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "MDA",
+    "notable": true,
+    "born": "2002-07-06"
+   },
+   {
+    "name": "Ross Graham",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-02-20"
+   },
+   {
+    "name": "Mehdi Merghem",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "ALG",
+    "notable": true,
+    "born": "1997-07-19"
+   },
+   {
+    "name": "Panutche Camará",
+    "pos": "MID",
+    "no": "8",
+    "nat": "GNB",
+    "notable": true,
+    "born": "1997-02-28"
+   },
+   {
+    "name": "Zac Sapsford",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "AUS",
+    "notable": true,
+    "born": "2002-08-16"
+   },
+   {
+    "name": "Dylan Tait",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-10-01"
+   },
+   {
+    "name": "Will Ferry",
+    "pos": "DEF",
+    "no": "11",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2000-12-07"
+   },
+   {
+    "name": "Emmanuel Agyei",
+    "pos": "MID",
+    "no": "12",
+    "nat": "GHA",
+    "notable": true,
+    "born": "2004-11-03"
+   },
+   {
+    "name": "Zidane Iqbal",
+    "pos": "MID",
+    "no": "14",
+    "nat": "IRQ",
+    "notable": true,
+    "born": "2003-04-27"
+   },
+   {
+    "name": "Lachlan Rose",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "AUS",
+    "notable": true,
+    "born": "1999-05-10"
+   },
+   {
+    "name": "Lyall Cameron",
+    "pos": "MID",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2002-10-10"
+   },
+   {
+    "name": "Michael Forbes",
+    "pos": "DEF",
+    "no": "18",
+    "nat": "NIR",
+    "notable": true,
+    "born": "2004-04-29"
+   },
+   {
+    "name": "Kevin Ciubotaru",
+    "pos": "DEF",
+    "no": "19",
+    "nat": "ROU",
+    "notable": true,
+    "born": "2004-02-02"
+   },
+   {
+    "name": "Neil Farrugia",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1999-05-19"
+   },
+   {
+    "name": "Jesse Randall",
+    "pos": "ATT",
+    "no": "21",
+    "nat": "NZL",
+    "notable": true,
+    "born": "2002-08-19"
+   },
+   {
+    "name": "Dario Naamo",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "IRQ",
+    "notable": true,
+    "born": "2005-05-14"
+   },
+   {
+    "name": "Joshua Rawlins",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "AUS",
+    "notable": true,
+    "born": "2004-04-23"
+   },
+   {
+    "name": "Abdoulaye Yoro",
+    "pos": "MID",
+    "no": "26",
+    "nat": "CIV",
+    "loan": true
+   },
+   {
+    "name": "Miller Thomson",
+    "pos": "MID",
+    "no": "29",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-07-20"
+   },
+   {
+    "name": "Jordan Amissah",
+    "pos": "GK",
+    "no": "30",
+    "nat": "GHA",
+    "notable": true,
+    "born": "2001-08-02"
+   },
+   {
+    "name": "Cohen Leiper",
+    "pos": "MID",
+    "no": "45",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lorenzo Sassetti",
+    "pos": "ATT",
+    "no": "60",
+    "nat": "ITA"
+   },
+   {
+    "name": "Daniel Bennie",
+    "pos": "ATT",
+    "no": "77",
+    "nat": "AUS",
+    "notable": true,
+    "loan": true,
+    "born": "2006-04-13"
+   },
+   {
+    "name": "Idjessi Metsoko",
+    "pos": "ATT",
+    "no": "93",
+    "nat": "TOG",
+    "notable": true,
+    "loan": true,
+    "born": "2002-03-14"
+   }
+  ],
+  "Dundee": [
+   {
+    "name": "Owen Goodman",
+    "pos": "GK",
+    "no": "1",
+    "nat": "CAN",
+    "notable": true,
+    "loan": true,
+    "born": "2003-11-27"
+   },
+   {
+    "name": "Brad Halliday",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1995-07-10"
+   },
+   {
+    "name": "Idris Odutayo",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2002-01-01"
+   },
+   {
+    "name": "Ryan Astley",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "WAL",
+    "notable": true,
+    "born": "2001-10-04"
+   },
+   {
+    "name": "Owen Bevan",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "WAL",
+    "notable": true,
+    "born": "2003-10-26"
+   },
+   {
+    "name": "Matai Akinmboni",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "USA",
+    "notable": true,
+    "loan": true,
+    "born": "2006-10-17"
+   },
+   {
+    "name": "Drey Wright",
+    "pos": "MID",
+    "no": "7",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1995-04-30"
+   },
+   {
+    "name": "Ryan Finnigan",
+    "pos": "MID",
+    "no": "8",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2003-09-23"
+   },
+   {
+    "name": "Bobby Wales",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2005-06-23"
+   },
+   {
+    "name": "Finlay Robertson",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-11-12"
+   },
+   {
+    "name": "Ashley Hay",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "ENG",
+    "notable": true
+   },
+   {
+    "name": "Imari Samuels",
+    "pos": "DEF",
+    "no": "12",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2003-02-05"
+   },
+   {
+    "name": "Kieran O'Hara",
+    "pos": "GK",
+    "no": "13",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1996-04-22"
+   },
+   {
+    "name": "Alan Forrest",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-09-09"
+   },
+   {
+    "name": "Simon Murray",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-03-15"
+   },
+   {
+    "name": "Jack Moorhouse",
+    "pos": "MID",
+    "no": "16",
+    "nat": "IRL",
+    "notable": true,
+    "loan": true,
+    "born": "2005-11-29"
+   },
+   {
+    "name": "Žan Bešir",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SVN",
+    "notable": true,
+    "born": "2000-10-17"
+   },
+   {
+    "name": "Charlie Reilly",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-12-05"
+   },
+   {
+    "name": "Joe Westley",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2004-10-18"
+   },
+   {
+    "name": "Bradley Fink",
+    "pos": "ATT",
+    "no": "21",
+    "nat": "SUI",
+    "notable": true,
+    "loan": true,
+    "born": "2003-04-17"
+   },
+   {
+    "name": "Joe Wright",
+    "pos": "DEF",
+    "no": "26",
+    "nat": "WAL",
+    "notable": true,
+    "born": "1995-02-26"
+   },
+   {
+    "name": "Joe Bevan",
+    "pos": "ATT",
+    "no": "27",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-07-15"
+   },
+   {
+    "name": "Callum Jones",
+    "pos": "MID",
+    "no": "28",
+    "nat": "WAL",
+    "notable": true,
+    "born": "2001-04-05"
+   },
+   {
+    "name": "Harrison Sharp",
+    "pos": "GK",
+    "no": "30",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-04-04"
+   },
+   {
+    "name": "Ethan Hamilton",
+    "pos": "MID",
+    "no": "48",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-10-18"
+   }
+  ],
+  "Dunfermline Athletic": [
+   {
+    "name": "Aston Oxborough",
+    "pos": "GK",
+    "no": "1",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1998-05-09"
+   },
+   {
+    "name": "Freddie Turley",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "IRL",
+    "loan": true
+   },
+   {
+    "name": "John Tod",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Luke Robinson",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-11-20"
+   },
+   {
+    "name": "Nurudeen Abdulai",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "GHA"
+   },
+   {
+    "name": "Callumn Morrison",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-07-05"
+   },
+   {
+    "name": "Charlie Gilmour",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-02-11"
+   },
+   {
+    "name": "Zak Rudden",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-02-06"
+   },
+   {
+    "name": "Oli Shaw",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-09-12"
+   },
+   {
+    "name": "Shea Kearney",
+    "pos": "DEF",
+    "no": "11",
+    "nat": "NIR"
+   },
+   {
+    "name": "Musa Dibaga",
+    "pos": "GK",
+    "no": "12",
+    "nat": "GAM",
+    "notable": true,
+    "born": "2000-04-27"
+   },
+   {
+    "name": "Alfons Amade",
+    "pos": "MID",
+    "no": "14",
+    "nat": "MOZ",
+    "notable": true,
+    "born": "1999-11-12"
+   },
+   {
+    "name": "Samuel Cleall-Harding",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Rory MacLeod",
+    "pos": "ATT",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-02-03"
+   },
+   {
+    "name": "Kian Corbally",
+    "pos": "MID",
+    "no": "18",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2003-12-31"
+   },
+   {
+    "name": "Allan Oyirwoth",
+    "pos": "MID",
+    "no": "19",
+    "nat": "UGA",
+    "notable": true,
+    "loan": true,
+    "born": "2007-01-23"
+   },
+   {
+    "name": "Chris Kane",
+    "pos": "ATT",
+    "no": "20",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-09-05"
+   },
+   {
+    "name": "Keith Bray",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-01-01"
+   },
+   {
+    "name": "Dylan Lobban",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2005-08-26"
+   },
+   {
+    "name": "Aaron Donnelly",
+    "pos": "DEF",
+    "no": "25",
+    "nat": "NIR",
+    "notable": true,
+    "loan": true,
+    "born": "2003-06-08"
+   },
+   {
+    "name": "Andrew Tod",
+    "pos": "MID",
+    "no": "26",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-02-26"
+   },
+   {
+    "name": "Travion Jackson",
+    "pos": "ATT",
+    "no": "31",
+    "nat": "ENG"
+   },
+   {
+    "name": "Josh Cooper",
+    "pos": "MID",
+    "no": "33",
+    "nat": "SCO"
+   },
+   {
+    "name": "Thomas Margetts",
+    "pos": "GK",
+    "no": "36",
+    "nat": "SCO"
+   },
+   {
+    "name": "James Hardie",
+    "pos": "MID",
+    "no": "38",
+    "nat": "SCO"
+   },
+   {
+    "name": "Billy Terrell",
+    "pos": "GK",
+    "no": "40",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Robbie Fraser",
+    "pos": "DEF",
+    "no": "47",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-04-02"
+   },
+   {
+    "name": "Olamilekan Adams",
+    "pos": "ATT",
+    "no": "99",
+    "nat": "NGA"
+   },
+   {
+    "name": "Olly Thomas",
+    "pos": "ATT",
+    "no": "--",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2005-04-18"
+   }
+  ],
+  "East Fife": [
+   {
+    "name": "Derek Gaston",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1987-04-18"
+   },
+   {
+    "name": "David Wilson",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Liam Newton",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kieran Millar",
+    "pos": "MID",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-10-14"
+   },
+   {
+    "name": "Brian Easton",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1988-03-05"
+   },
+   {
+    "name": "Reis Peggie",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Myles Gaffney",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Patrick Slattery",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Nathan Austin",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1994-02-15"
+   },
+   {
+    "name": "Cameron Ross",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack Healy",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO"
+   },
+   {
+    "name": "Tobi Joseph",
+    "pos": "MID",
+    "no": "12",
+    "nat": "ENG"
+   },
+   {
+    "name": "Tyrell Skeen-Hamilton",
+    "pos": "ATT",
+    "no": "14",
+    "nat": "ENG"
+   },
+   {
+    "name": "Tom Milne",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Adam Lareef",
+    "pos": "MID",
+    "no": "16",
+    "nat": "ALG"
+   },
+   {
+    "name": "Jaiden Fairley",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SCO"
+   },
+   {
+    "name": "Connor Dow",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Andy Munro",
+    "pos": "DEF",
+    "no": "19",
+    "nat": "SCO"
+   },
+   {
+    "name": "Mamadou Bah",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "GAM"
+   },
+   {
+    "name": "Matty Rollo",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ewan McLeod",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Cammy Ballantyne",
+    "pos": "MID",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-04-22"
+   },
+   {
+    "name": "Hamid Seisay",
+    "pos": "DEF",
+    "no": "25",
+    "nat": "ENG"
+   },
+   {
+    "name": "Rhys Berry",
+    "pos": "DEF",
+    "no": "26",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jake Watson",
+    "pos": "DEF",
+    "no": "27",
+    "nat": "SCO"
+   },
+   {
+    "name": "Keir Loughran",
+    "pos": "MID",
+    "no": "28",
+    "nat": "SCO"
+   },
+   {
+    "name": "Liam Walker",
+    "pos": "MID",
+    "no": "TBC",
+    "nat": "SCO",
+    "loan": true
+   }
+  ],
+  "East Kilbride": [
+   {
+    "name": "Shay Kelly",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aaron Steele",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Andrew Kyle",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jamie Hamilton",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-03-01"
+   },
+   {
+    "name": "Sean Fagan",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Liam Kennedy",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Lewis McGrattan",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "João Baldé",
+    "pos": "MID",
+    "no": "8",
+    "nat": "POR",
+    "notable": true,
+    "born": "2001-05-21"
+   },
+   {
+    "name": "Cameron Elliott",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO"
+   },
+   {
+    "name": "Malik Zaid",
+    "pos": "MID",
+    "no": "10",
+    "nat": "LBY"
+   },
+   {
+    "name": "Craig McGuffie",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-12-15"
+   },
+   {
+    "name": "Euan Ross",
+    "pos": "MID",
+    "no": "12",
+    "nat": "SCO"
+   },
+   {
+    "name": "Callum Mckenzie",
+    "pos": "ATT",
+    "no": "14",
+    "nat": "SCO"
+   },
+   {
+    "name": "Barry Maguire",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-04-27"
+   },
+   {
+    "name": "Euan East",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-07-05"
+   },
+   {
+    "name": "Rhys Dargie",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Finlay Gray",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-02-28"
+   },
+   {
+    "name": "Owen Calder",
+    "pos": "DEF",
+    "no": "19",
+    "nat": "SCO"
+   },
+   {
+    "name": "Marcus Gill",
+    "pos": "GK",
+    "no": "21",
+    "nat": "IRL",
+    "notable": true,
+    "loan": true,
+    "born": "2007-05-11"
+   },
+   {
+    "name": "Alexander Smith",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Chris McKenna",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "SCO"
+   },
+   {
+    "name": "Darragh O'Connor",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1999-08-05"
+   },
+   {
+    "name": "Rhys Armstrong",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO"
+   },
+   {
+    "name": "Owen Moffat",
+    "pos": "ATT",
+    "no": "33",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-01-06"
+   },
+   {
+    "name": "Sam Culbert",
+    "pos": "ATT",
+    "no": "36",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Mitchell Robertson",
+    "pos": "DEF",
+    "no": "",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2005-02-18"
+   }
+  ],
+  "Edinburgh City": [
+   {
+    "name": "Mark Weir",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO"
+   },
+   {
+    "name": "Chris McGinn",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jamie Walker",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Callum Pitt",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO"
+   },
+   {
+    "name": "Josh Grigor",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack Leitch",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-07-17"
+   },
+   {
+    "name": "Lennon Walker",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Robbie Leitch",
+    "pos": "ATT",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cameron McKinley",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jason Jarvis",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-10-02"
+   },
+   {
+    "name": "Innes Lawson",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ricky Waugh",
+    "pos": "DEF",
+    "no": "14",
+    "nat": "SCO"
+   },
+   {
+    "name": "Callum Brodie",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Greig Allen",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO"
+   },
+   {
+    "name": "Casey Bunker",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO"
+   },
+   {
+    "name": "Murray Aiken",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-08-05"
+   },
+   {
+    "name": "Stanley Wilson",
+    "pos": "MID",
+    "no": "19",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Tommy North",
+    "pos": "ATT",
+    "no": "20",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Freddie Rowe",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Shea Dowie",
+    "pos": "GK",
+    "no": "22",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jordan McGregor",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-03-18"
+   },
+   {
+    "name": "Keir Foster",
+    "pos": "ATT",
+    "no": "24",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-10-18"
+   },
+   {
+    "name": "Euan Glasgow",
+    "pos": "DEF",
+    "no": "25",
+    "nat": "SCO",
+    "loan": true
+   }
+  ],
+  "Elgin City": [
+   {
+    "name": "Tom Ritchie",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO"
+   },
+   {
+    "name": "Morgyn Neill",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-03-10"
+   },
+   {
+    "name": "Evan Towler",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Miko Virtanen",
+    "pos": "MID",
+    "no": "4",
+    "nat": "FIN",
+    "notable": true,
+    "born": "1999-01-29"
+   },
+   {
+    "name": "Kyle Girvan",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack Murray",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Russell Dingwall",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-06-26"
+   },
+   {
+    "name": "Brian Cameron",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kane Hester",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO"
+   },
+   {
+    "name": "Mark Gallagher",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-02-12"
+   },
+   {
+    "name": "Oliver Colloty",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "NZL",
+    "notable": true,
+    "born": "2003-07-04"
+   },
+   {
+    "name": "Owen Cairns",
+    "pos": "DEF",
+    "no": "12",
+    "nat": "SCO"
+   },
+   {
+    "name": "Matheus Machado",
+    "pos": "MID",
+    "no": "14",
+    "nat": "BRA",
+    "notable": true,
+    "born": "2001-07-09"
+   },
+   {
+    "name": "Lewis Hyde",
+    "pos": "MID",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-07-15"
+   },
+   {
+    "name": "Kieron Willox",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-04-18"
+   },
+   {
+    "name": "Aaron Cummings",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Liam MacDonald",
+    "pos": "MID",
+    "no": "20",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cole Taylor",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack MacIver",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SCO"
+   },
+   {
+    "name": "Matty Grant",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lewis Mackay",
+    "pos": "MID",
+    "no": "24",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Calum Brown",
+    "pos": "ATT",
+    "no": "25",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Lyall Booth",
+    "pos": "DEF",
+    "no": "26",
+    "nat": "SCO"
+   },
+   {
+    "name": "Joe Morrison",
+    "pos": "GK",
+    "no": "27",
+    "nat": "SCO"
+   },
+   {
+    "name": "Daniel Fraser",
+    "pos": "MID",
+    "no": "30",
+    "nat": "SCO"
+   },
+   {
+    "name": "Sam Rothnie",
+    "pos": "MID",
+    "no": "32",
+    "nat": "SCO"
+   },
+   {
+    "name": "Liam Scullion",
+    "pos": "MID",
+    "no": "77",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-10-07"
+   }
+  ],
+  "Falkirk": [
+   {
+    "name": "Nicky Hogarth",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-01-01"
+   },
+   {
+    "name": "Keelan Adams",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-11-13"
+   },
+   {
+    "name": "Leon McCann",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-03-16"
+   },
+   {
+    "name": "Jack McMillan",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-12-18"
+   },
+   {
+    "name": "Liam Henderson",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-08-23"
+   },
+   {
+    "name": "Coll Donaldson",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-04-09"
+   },
+   {
+    "name": "Ben Parkinson",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2005-03-10"
+   },
+   {
+    "name": "Brad Spencer",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-05-16"
+   },
+   {
+    "name": "Ross MacIver",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-02-28"
+   },
+   {
+    "name": "Craig Sibbald",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-05-18"
+   },
+   {
+    "name": "Paul McGovern",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "NIR"
+   },
+   {
+    "name": "Ethan Laidlaw",
+    "pos": "ATT",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2005-01-02"
+   },
+   {
+    "name": "Finn Yeats",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-04-19"
+   },
+   {
+    "name": "Lewis Neilson",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-05-15"
+   },
+   {
+    "name": "Finley Barbrook",
+    "pos": "MID",
+    "no": "16",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2004-12-04"
+   },
+   {
+    "name": "Scott Tanser",
+    "pos": "DEF",
+    "no": "17",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1994-10-23"
+   },
+   {
+    "name": "Joe Gardner",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2006-06-05"
+   },
+   {
+    "name": "Scott Bain",
+    "pos": "GK",
+    "no": "19",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-11-22"
+   },
+   {
+    "name": "Connor Allan",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "SCO",
+    "notable": true
+   },
+   {
+    "name": "Deniss Meļņiks",
+    "pos": "DEF",
+    "no": "21",
+    "nat": "LVA",
+    "notable": true,
+    "born": "2002-09-07"
+   },
+   {
+    "name": "Ryan Strain",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "AUS",
+    "notable": true,
+    "born": "1997-04-02"
+   },
+   {
+    "name": "Ethan Ross",
+    "pos": "MID",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-08-15"
+   },
+   {
+    "name": "Jacob Murrell",
+    "pos": "ATT",
+    "no": "24",
+    "nat": "USA",
+    "notable": true,
+    "born": "2004-06-22"
+   },
+   {
+    "name": "Aidan Nesbitt",
+    "pos": "MID",
+    "no": "26",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-02-05"
+   },
+   {
+    "name": "Conor McLeod",
+    "pos": "MID",
+    "no": "27",
+    "nat": "ENG",
+    "loan": true
+   },
+   {
+    "name": "Ben Krauhaus",
+    "pos": "MID",
+    "no": "28",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2004-10-12"
+   },
+   {
+    "name": "Stephen Nixon",
+    "pos": "DEF",
+    "no": "36",
+    "nat": "SCO"
+   },
+   {
+    "name": "Leo Harris",
+    "pos": "MID",
+    "no": "38",
+    "nat": "SCO"
+   },
+   {
+    "name": "Owen Eames",
+    "pos": "MID",
+    "no": "42",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2006-11-01"
+   },
+   {
+    "name": "Aodhan Doherty",
+    "pos": "ATT",
+    "no": "47",
+    "nat": "NIR",
+    "notable": true,
+    "loan": true,
+    "born": "2006-05-03"
+   },
+   {
+    "name": "CJ Fodrey",
+    "pos": "ATT",
+    "no": "99",
+    "nat": "USA",
+    "notable": true,
+    "loan": true,
+    "born": "2004-02-10"
+   }
+  ],
+  "Forfar Athletic": [
+   {
+    "name": "Marc McCallum",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-03-27"
+   },
+   {
+    "name": "Aron Lynas",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-04-19"
+   },
+   {
+    "name": "Adam Livingstone",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-02-22"
+   },
+   {
+    "name": "Jack Wyllie",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Matty Allan",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jake Dolzanski",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ross MacLean",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-03-13"
+   },
+   {
+    "name": "Craig Slater",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-04-26"
+   },
+   {
+    "name": "Scott Shepherd",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-05-29"
+   },
+   {
+    "name": "Martin Rennie",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-05-09"
+   },
+   {
+    "name": "Adam Brown",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-06-09"
+   },
+   {
+    "name": "Blair Alston",
+    "pos": "MID",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-02-23"
+   },
+   {
+    "name": "Angus Mailer",
+    "pos": "DEF",
+    "no": "14",
+    "nat": "SCO"
+   },
+   {
+    "name": "Mackenzie Lemon",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aaron Arnott",
+    "pos": "MID",
+    "no": "16",
+    "nat": "SCO"
+   },
+   {
+    "name": "Callum Wilson",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-06-23"
+   },
+   {
+    "name": "Ethan Crombie",
+    "pos": "MID",
+    "no": "19",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Aidan Haddow",
+    "pos": "MID",
+    "no": "20",
+    "nat": "SCO"
+   },
+   {
+    "name": "Neil Stafford",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Tyler Gadsen",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SCO"
+   },
+   {
+    "name": "Luca Perrie",
+    "pos": "ATT",
+    "no": "23",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Rocco Hickey-Fugaccia",
+    "pos": "MID",
+    "no": "24",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2005-05-04"
+   },
+   {
+    "name": "Mark Whatley",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1990-07-11"
+   },
+   {
+    "name": "Marcus Syme",
+    "pos": "DEF",
+    "no": "26",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Theo Simpson",
+    "pos": "GK",
+    "no": "31",
+    "nat": "SCO",
+    "loan": true
+   }
+  ],
+  "Greenock Morton": [
+   {
+    "name": "Elyh Harrison",
+    "pos": "GK",
+    "no": "1",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2006-02-19"
+   },
+   {
+    "name": "Cammy Ballantyne",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-04-13"
+   },
+   {
+    "name": "Christopher Cupps",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "USA",
+    "notable": true,
+    "loan": true,
+    "born": "2008-05-26"
+   },
+   {
+    "name": "Phil Croker",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "ENG",
+    "loan": true
+   },
+   {
+    "name": "Calvin Okike",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "NGA",
+    "loan": true
+   },
+   {
+    "name": "Michael Garrity",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Grant Savoury",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jayden Gorman",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "AUS",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Eamonn Brophy",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-03-10"
+   },
+   {
+    "name": "Dylan Borso",
+    "pos": "MID",
+    "no": "12",
+    "nat": "USA",
+    "notable": true,
+    "loan": true,
+    "born": "2006-06-02"
+   },
+   {
+    "name": "Zach Robinson",
+    "pos": "ATT",
+    "no": "14",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2002-01-01"
+   },
+   {
+    "name": "Sahil Bashir",
+    "pos": "MID",
+    "no": "17",
+    "nat": "ENG",
+    "loan": true
+   },
+   {
+    "name": "Kerr Robertson",
+    "pos": "MID",
+    "no": "19",
+    "nat": "SCO"
+   },
+   {
+    "name": "Callum Sandilands",
+    "pos": "MID",
+    "no": "20",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Grant Gillespie",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-07-02"
+   },
+   {
+    "name": "Jackson Longridge",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-04-12"
+   },
+   {
+    "name": "MacKenzie Carse",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO"
+   },
+   {
+    "name": "Iain Wilson",
+    "pos": "MID",
+    "no": "27",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-12-15"
+   },
+   {
+    "name": "Michael O'Halloran",
+    "pos": "ATT",
+    "no": "29",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-01-06"
+   },
+   {
+    "name": "Brian Kinnear",
+    "pos": "GK",
+    "no": "31",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jaiden Lang",
+    "pos": "MID",
+    "no": "36",
+    "nat": "SCO"
+   },
+   {
+    "name": "Calan Burgess",
+    "pos": "MID",
+    "no": "37",
+    "nat": "SCO"
+   },
+   {
+    "name": "Olivet Okunzuwa",
+    "pos": "MID",
+    "no": "39",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aaron Greenock",
+    "pos": "MID",
+    "no": "40",
+    "nat": "SCO"
+   },
+   {
+    "name": "Sam Murdoch",
+    "pos": "GK",
+    "no": "41",
+    "nat": "SCO"
+   },
+   {
+    "name": "Harry Cochrane",
+    "pos": "MID",
+    "no": "47",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-04-24"
+   },
+   {
+    "name": "Laiith Fairnie",
+    "pos": "DEF",
+    "no": "52",
+    "nat": "JER"
+   }
+  ],
+  "Hamilton Academical": [
+   {
+    "name": "Dean Lyness",
+    "pos": "GK",
+    "no": "1",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1991-07-20"
+   },
+   {
+    "name": "Aaron Comrie",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-02-03"
+   },
+   {
+    "name": "Tony Gallacher",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-07-23"
+   },
+   {
+    "name": "Lee Kilday",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-02-04"
+   },
+   {
+    "name": "Fergus Owens",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-05-12"
+   },
+   {
+    "name": "Cameron Blues",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-01-01"
+   },
+   {
+    "name": "Dom Thomas",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-02-14"
+   },
+   {
+    "name": "Kyle MacDonald",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Taylor Sutherland",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2005-12-12"
+   },
+   {
+    "name": "Steven Bradley",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-03-17"
+   },
+   {
+    "name": "Kalvin Orsi",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-04-15"
+   },
+   {
+    "name": "Josh Lane",
+    "pos": "GK",
+    "no": "12",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aiden McGinlay",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cian Newbury",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kai Smutek",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "WAL"
+   },
+   {
+    "name": "Stuart Bannigan",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-09-17"
+   },
+   {
+    "name": "Liam Morgan",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO"
+   },
+   {
+    "name": "Gregor Crookston",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Dominic Shiels",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aaron Eadie",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lennon Lyons",
+    "pos": "DEF",
+    "no": "25",
+    "nat": "SCO"
+   },
+   {
+    "name": "Stuart McKinstry",
+    "pos": "ATT",
+    "no": "27",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-09-18"
+   },
+   {
+    "name": "Ben Black",
+    "pos": "ATT",
+    "no": "28",
+    "nat": "SCO"
+   },
+   {
+    "name": "Andy Ryan",
+    "pos": "ATT",
+    "no": "29",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-09-29"
+   },
+   {
+    "name": "Stephen Hendrie",
+    "pos": "DEF",
+    "no": "33",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-01-08"
+   },
+   {
+    "name": "Jamie Herd",
+    "pos": "MID",
+    "no": "48",
+    "nat": "SCO"
+   }
+  ],
+  "Heart of Midlothian": [
+   {
+    "name": "Beau Reus",
+    "pos": "GK",
+    "no": "1",
+    "nat": "NED",
+    "notable": true,
+    "born": "2001-10-31"
+   },
+   {
+    "name": "Christian Borchgrevink",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "NOR",
+    "notable": true,
+    "born": "1999-05-11"
+   },
+   {
+    "name": "Stephen Kingsley",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-07-23"
+   },
+   {
+    "name": "Craig Halkett",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-05-29"
+   },
+   {
+    "name": "Jamie McCart",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-06-20"
+   },
+   {
+    "name": "Oisin McEntee",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2001-01-05"
+   },
+   {
+    "name": "Calvin Miller",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-01-09"
+   },
+   {
+    "name": "Eduardo Ageu",
+    "pos": "MID",
+    "no": "8",
+    "nat": "BRA",
+    "notable": true,
+    "born": "2002-02-20"
+   },
+   {
+    "name": "JJ Williams",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "USA",
+    "notable": true,
+    "born": "1998-01-04"
+   },
+   {
+    "name": "Cláudio Braga",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "POR",
+    "notable": true,
+    "born": "1999-10-28"
+   },
+   {
+    "name": "Pierre Landry Kaboré",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "BFA",
+    "notable": true,
+    "born": "2001-07-05"
+   },
+   {
+    "name": "Tom Renaud",
+    "pos": "MID",
+    "no": "12",
+    "nat": "FRA",
+    "notable": true,
+    "born": "2000-11-19"
+   },
+   {
+    "name": "Elton Kabangu",
+    "pos": "ATT",
+    "no": "14",
+    "nat": "BEL",
+    "notable": true,
+    "born": "1998-02-08"
+   },
+   {
+    "name": "Josh McPake",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-08-31"
+   },
+   {
+    "name": "Blair Spittal",
+    "pos": "MID",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-12-19"
+   },
+   {
+    "name": "Stuart Findlay",
+    "pos": "DEF",
+    "no": "17",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-09-14"
+   },
+   {
+    "name": "Harry Milne",
+    "pos": "DEF",
+    "no": "18",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-10-29"
+   },
+   {
+    "name": "Sabri Guendouz",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "FRA",
+    "notable": true,
+    "born": "2000-02-09"
+   },
+   {
+    "name": "Leart Kabashi",
+    "pos": "MID",
+    "no": "20",
+    "nat": "SUI",
+    "notable": true,
+    "born": "2007-11-29"
+   },
+   {
+    "name": "James Wilson",
+    "pos": "ATT",
+    "no": "21",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2007-03-06"
+   },
+   {
+    "name": "Tómas Bent Magnússon",
+    "pos": "MID",
+    "no": "22",
+    "nat": "ISL",
+    "notable": true,
+    "born": "2002-08-14"
+   },
+   {
+    "name": "Jordi Altena",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "NED",
+    "notable": true,
+    "born": "2003-00-00"
+   },
+   {
+    "name": "Aron Benjaminsen",
+    "pos": "ATT",
+    "no": "27",
+    "nat": "FRO",
+    "notable": true,
+    "born": "2007-11-02"
+   },
+   {
+    "name": "Zander Clark",
+    "pos": "GK",
+    "no": "28",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-06-26"
+   },
+   {
+    "name": "Sabah Kerjota",
+    "pos": "MID",
+    "no": "29",
+    "nat": "ALB",
+    "notable": true,
+    "born": "2001-08-14"
+   },
+   {
+    "name": "Ryan Fulton",
+    "pos": "GK",
+    "no": "30",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-05-23"
+   },
+   {
+    "name": "Yan Dhanda",
+    "pos": "MID",
+    "no": "31",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1998-12-14"
+   },
+   {
+    "name": "Finlay Pollock",
+    "pos": "MID",
+    "no": "33",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-06-27"
+   },
+   {
+    "name": "Kieran Wright",
+    "pos": "GK",
+    "no": "34",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-04-01"
+   },
+   {
+    "name": "Malachi Fagan-Walcott",
+    "pos": "DEF",
+    "no": "64",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2002-03-11"
+   },
+   {
+    "name": "Rogers Mato",
+    "pos": "ATT",
+    "no": "74",
+    "nat": "UGA",
+    "notable": true,
+    "born": "2003-10-10"
+   },
+   {
+    "name": "Amadou Ba-Sy",
+    "pos": "ATT",
+    "no": "77",
+    "nat": "FRA",
+    "notable": true,
+    "born": "2001-06-08"
+   },
+   {
+    "name": "Laurent Mendy",
+    "pos": "MID",
+    "no": "78",
+    "nat": "FRA",
+    "notable": true,
+    "born": "1997-03-26"
+   }
+  ],
+  "Hibernian": [
+   {
+    "name": "Raphael Sallinger",
+    "pos": "GK",
+    "no": "1",
+    "nat": "AUT",
+    "notable": true,
+    "born": "1995-12-08"
+   },
+   {
+    "name": "Adam Mayor",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2005-04-10"
+   },
+   {
+    "name": "Grant Hanley",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-11-20"
+   },
+   {
+    "name": "Marko Ivezić",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SRB",
+    "notable": true,
+    "born": "2001-12-02"
+   },
+   {
+    "name": "Jason Kerr",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-02-06"
+   },
+   {
+    "name": "Owen Elding",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2006-03-07"
+   },
+   {
+    "name": "Josh Mulligan",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-11-12"
+   },
+   {
+    "name": "Nathan Lowe",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2005-09-18"
+   },
+   {
+    "name": "Martin Boyle",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "AUS",
+    "notable": true,
+    "born": "1993-04-25"
+   },
+   {
+    "name": "Joe Newell",
+    "pos": "MID",
+    "no": "11",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1993-03-15"
+   },
+   {
+    "name": "Alex Williams",
+    "pos": "DEF",
+    "no": "12",
+    "nat": "WAL",
+    "notable": true,
+    "loan": true,
+    "born": "2005-01-02"
+   },
+   {
+    "name": "Jordan Smith",
+    "pos": "GK",
+    "no": "13",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1994-12-08"
+   },
+   {
+    "name": "Miguel Chaiwa",
+    "pos": "MID",
+    "no": "14",
+    "nat": "ZAM",
+    "notable": true,
+    "born": "2004-01-01"
+   },
+   {
+    "name": "Jack Iredale",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "AUS",
+    "notable": true,
+    "born": "1996-05-02"
+   },
+   {
+    "name": "Jamie McGrath",
+    "pos": "MID",
+    "no": "17",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1996-09-30"
+   },
+   {
+    "name": "Thibault Klidjé",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "TOG",
+    "notable": true,
+    "born": "2001-01-01"
+   },
+   {
+    "name": "Nicky Cadden",
+    "pos": "MID",
+    "no": "19",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-09-19"
+   },
+   {
+    "name": "Jordan Obita",
+    "pos": "DEF",
+    "no": "21",
+    "nat": "UGA",
+    "notable": true,
+    "born": "1993-12-08"
+   },
+   {
+    "name": "Ante Šuto",
+    "pos": "ATT",
+    "no": "22",
+    "nat": "AUS",
+    "notable": true,
+    "born": "2000-06-19"
+   },
+   {
+    "name": "Callum Wright",
+    "pos": "MID",
+    "no": "23",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2000-05-02"
+   },
+   {
+    "name": "Jacob Devaney",
+    "pos": "MID",
+    "no": "24",
+    "nat": "IRL",
+    "notable": true,
+    "loan": true,
+    "born": "2007-06-11"
+   },
+   {
+    "name": "Felix Passlack",
+    "pos": "DEF",
+    "no": "25",
+    "nat": "GER",
+    "notable": true,
+    "born": "1998-05-29"
+   },
+   {
+    "name": "Kanayo Megwa",
+    "pos": "DEF",
+    "no": "27",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2004-03-05"
+   },
+   {
+    "name": "Rocky Bushiri",
+    "pos": "DEF",
+    "no": "33",
+    "nat": "COD",
+    "notable": true,
+    "born": "1999-11-30"
+   },
+   {
+    "name": "Freddie Owens",
+    "pos": "GK",
+    "no": "35",
+    "nat": "SCO"
+   },
+   {
+    "name": "Azeem Abdulai",
+    "pos": "MID",
+    "no": "47",
+    "nat": "SLE",
+    "notable": true,
+    "born": "2002-12-09"
+   }
+  ],
+  "Inverness CT": [
+   {
+    "name": "Ross Munro",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-04-01"
+   },
+   {
+    "name": "Calum MacLeod",
+    "pos": "MID",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-05-25"
+   },
+   {
+    "name": "Noa Boutin",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "FRA",
+    "notable": true,
+    "born": "2003-09-10"
+   },
+   {
+    "name": "Graeme Shinnie",
+    "pos": "MID",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-08-04"
+   },
+   {
+    "name": "Remi Savage",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-01-01"
+   },
+   {
+    "name": "Danny Devine",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "NIR",
+    "notable": true,
+    "born": "1992-09-07"
+   },
+   {
+    "name": "Paul Allan",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-02-07"
+   },
+   {
+    "name": "Adam Mackinnon",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Layton Stewart",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2002-09-03"
+   },
+   {
+    "name": "David Wotherspoon",
+    "pos": "MID",
+    "no": "10",
+    "nat": "CAN",
+    "notable": true,
+    "born": "1990-01-16"
+   },
+   {
+    "name": "Luis Longstaff",
+    "pos": "MID",
+    "no": "11",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-02-24"
+   },
+   {
+    "name": "Daniel MacKay",
+    "pos": "MID",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-04-20"
+   },
+   {
+    "name": "Kerr Smith",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-12-12"
+   },
+   {
+    "name": "Ryan Duncan",
+    "pos": "MID",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-01-18"
+   },
+   {
+    "name": "Liam Sole",
+    "pos": "MID",
+    "no": "17",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1999-12-21"
+   },
+   {
+    "name": "Morgan Bates",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "WAL",
+    "loan": true
+   },
+   {
+    "name": "Junior Osong",
+    "pos": "ATT",
+    "no": "20",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2004-09-21"
+   },
+   {
+    "name": "Logan Ross",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-01-01"
+   },
+   {
+    "name": "Roddy MacGregor",
+    "pos": "MID",
+    "no": "26",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-12-21"
+   },
+   {
+    "name": "Ben Corner",
+    "pos": "ATT",
+    "no": "28",
+    "nat": "SCO"
+   },
+   {
+    "name": "Alfie Stewart",
+    "pos": "MID",
+    "no": "35",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2006-07-31"
+   },
+   {
+    "name": "Alfie Bavidge",
+    "pos": "ATT",
+    "no": "36",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2006-04-11"
+   }
+  ],
+  "Kelty Hearts": [
+   {
+    "name": "Jamie Smith",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-05-08"
+   },
+   {
+    "name": "Callum Hannah",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Callum Flatman",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Alex Ferguson",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Finn Moffett",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "NIR"
+   },
+   {
+    "name": "Connor McManus",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-02-29"
+   },
+   {
+    "name": "Kallum Higginbotham",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1989-06-15"
+   },
+   {
+    "name": "Innes Murray",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-02-17"
+   },
+   {
+    "name": "Robbie Cole",
+    "pos": "MID",
+    "no": "11",
+    "nat": "TAN"
+   },
+   {
+    "name": "Nathan Lawson",
+    "pos": "ATT",
+    "no": "12",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Jamie Hislop",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Alasdair Davidson",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Thomas Falconer",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Matthew Falconer",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2007-02-23"
+   },
+   {
+    "name": "Ryan Adamson",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Zak Flatman",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lewis Moore",
+    "pos": "MID",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-06-04"
+   },
+   {
+    "name": "Gordon Walker",
+    "pos": "DEF",
+    "no": "25",
+    "nat": "IRL"
+   },
+   {
+    "name": "Ross Cunningham",
+    "pos": "MID",
+    "no": "26",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-05-23"
+   },
+   {
+    "name": "Ryan Shanley",
+    "pos": "ATT",
+    "no": "29",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-01-16"
+   },
+   {
+    "name": "Jack Brydon",
+    "pos": "DEF",
+    "no": "35",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cole Miller",
+    "pos": "GK",
+    "no": "40",
+    "nat": "SCO"
+   },
+   {
+    "name": "Theo McCormick",
+    "pos": "ATT",
+    "no": "--",
+    "nat": "SCO",
+    "loan": true
+   }
+  ],
+  "Kilmarnock": [
+   {
+    "name": "Max Stryjek",
+    "pos": "GK",
+    "no": "1",
+    "nat": "POL",
+    "notable": true,
+    "born": "1996-07-18"
+   },
+   {
+    "name": "Jamie Brandon",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-02-05"
+   },
+   {
+    "name": "MJ Kamson-Kamara",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SLE",
+    "notable": true,
+    "loan": true,
+    "born": "2006-02-14"
+   },
+   {
+    "name": "Cathal McCarthy",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "IRL",
+    "notable": true,
+    "loan": true,
+    "born": "2006-08-31"
+   },
+   {
+    "name": "Mark O'Hara",
+    "pos": "MID",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-12-12"
+   },
+   {
+    "name": "Robbie Deas",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-02-27"
+   },
+   {
+    "name": "Rory McKenzie",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-10-07"
+   },
+   {
+    "name": "Erik Ring",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SWE",
+    "notable": true,
+    "born": "2002-04-24"
+   },
+   {
+    "name": "Joe Hugill",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2003-10-19"
+   },
+   {
+    "name": "Tyreece John-Jules",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-02-14"
+   },
+   {
+    "name": "Greg Kiltie",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-01-18"
+   },
+   {
+    "name": "Calum Ferrie",
+    "pos": "GK",
+    "no": "12",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1998-06-16"
+   },
+   {
+    "name": "George Stanger",
+    "pos": "DEF",
+    "no": "14",
+    "nat": "NZL",
+    "notable": true,
+    "born": "2000-08-15"
+   },
+   {
+    "name": "Johnly Yfeko",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2003-06-23"
+   },
+   {
+    "name": "Tom Lowery",
+    "pos": "MID",
+    "no": "18",
+    "nat": "WAL",
+    "notable": true,
+    "born": "1997-00-00"
+   },
+   {
+    "name": "Jonathan Meier",
+    "pos": "DEF",
+    "no": "19",
+    "nat": "GER",
+    "notable": true,
+    "born": "1999-11-11"
+   },
+   {
+    "name": "Nicky Cleșcenco",
+    "pos": "MID",
+    "no": "20",
+    "nat": "MDA",
+    "notable": true,
+    "born": "2001-07-23"
+   },
+   {
+    "name": "Michael Schjønning-Larsen",
+    "pos": "DEF",
+    "no": "21",
+    "nat": "EST",
+    "notable": true,
+    "born": "2001-02-02"
+   },
+   {
+    "name": "Roshaun Mathurin",
+    "pos": "MID",
+    "no": "23",
+    "nat": "ENG"
+   },
+   {
+    "name": "Ieuan Owen",
+    "pos": "ATT",
+    "no": "27",
+    "nat": "WAL"
+   },
+   {
+    "name": "Djenairo Daniels",
+    "pos": "ATT",
+    "no": "29",
+    "nat": "SUR",
+    "notable": true,
+    "born": "2002-01-07"
+   },
+   {
+    "name": "Aaron Tshibola",
+    "pos": "MID",
+    "no": "36",
+    "nat": "COD",
+    "notable": true,
+    "born": "1995-01-02"
+   },
+   {
+    "name": "Euan Bowie",
+    "pos": "DEF",
+    "no": "39",
+    "nat": "SCO"
+   },
+   {
+    "name": "Bailey Rice",
+    "pos": "MID",
+    "no": "49",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2004-02-24"
+   }
+  ],
+  "Livingston": [
+   {
+    "name": "Cammy Kerr",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-09-10"
+   },
+   {
+    "name": "Babacar Fati",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "GNB",
+    "notable": true,
+    "born": "2000-01-01"
+   },
+   {
+    "name": "Jack Wilkie",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-12-20"
+   },
+   {
+    "name": "Ryan McGowan",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "AUS",
+    "notable": true,
+    "born": "1989-08-15"
+   },
+   {
+    "name": "Aidan Denholm",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-11-09"
+   },
+   {
+    "name": "Tyrese Sinclair",
+    "pos": "MID",
+    "no": "7",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-02-04"
+   },
+   {
+    "name": "Scott Pittman",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-07-09"
+   },
+   {
+    "name": "Robbie Muirhead",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-03-08"
+   },
+   {
+    "name": "Sam Nicholson",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-01-20"
+   },
+   {
+    "name": "Connor McLennan",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-10-05"
+   },
+   {
+    "name": "Jack Hamilton",
+    "pos": "GK",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-03-22"
+   },
+   {
+    "name": "Cammy MacPherson",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-12-29"
+   },
+   {
+    "name": "Cammy Palmer",
+    "pos": "MID",
+    "no": "16",
+    "nat": "NIR",
+    "notable": true,
+    "born": "2000-05-15"
+   },
+   {
+    "name": "Stevie May",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-11-03"
+   },
+   {
+    "name": "Bradly van Hoeven",
+    "pos": "MID",
+    "no": "19",
+    "nat": "NED",
+    "notable": true,
+    "born": "2000-04-17"
+   },
+   {
+    "name": "Emmanuel Danso",
+    "pos": "MID",
+    "no": "20",
+    "nat": "GHA",
+    "notable": true,
+    "born": "2000-11-10"
+   },
+   {
+    "name": "Besir Iseni",
+    "pos": "DEF",
+    "no": "21",
+    "nat": "MKD",
+    "notable": true,
+    "born": "2000-05-02"
+   },
+   {
+    "name": "Jordan Doherty",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2000-08-29"
+   },
+   {
+    "name": "Brooklyn Kabongolo",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "FRA",
+    "notable": true,
+    "born": "2002-10-16"
+   },
+   {
+    "name": "Adam Montgomery",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2002-07-18"
+   },
+   {
+    "name": "Bruce Anderson",
+    "pos": "ATT",
+    "no": "25",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-09-23"
+   },
+   {
+    "name": "Cristian Montaño",
+    "pos": "MID",
+    "no": "26",
+    "nat": "COL",
+    "notable": true,
+    "born": "1991-12-11"
+   },
+   {
+    "name": "Graham Carey",
+    "pos": "MID",
+    "no": "27",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1989-05-20"
+   },
+   {
+    "name": "Jérôme Prior",
+    "pos": "GK",
+    "no": "28",
+    "nat": "FRA",
+    "notable": true,
+    "born": "1995-08-08"
+   },
+   {
+    "name": "Shane Blaney",
+    "pos": "DEF",
+    "no": "30",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1999-01-20"
+   },
+   {
+    "name": "Lewis Campbell",
+    "pos": "ATT",
+    "no": "34",
+    "nat": "SCO"
+   },
+   {
+    "name": "Liam Polworth",
+    "pos": "MID",
+    "no": "39",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-10-12"
+   }
+  ],
+  "Montrose": [
+   {
+    "name": "Cammy Gill",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-04-07"
+   },
+   {
+    "name": "Ryan Williamson",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-03-14"
+   },
+   {
+    "name": "Flynn Duffy",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Aidan Quinn",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO"
+   },
+   {
+    "name": "Sean McGinty",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1993-08-11"
+   },
+   {
+    "name": "Shaun Byrne",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-06-09"
+   },
+   {
+    "name": "Graham Webster",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-05-15"
+   },
+   {
+    "name": "Jamie Barjonas",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-01-24"
+   },
+   {
+    "name": "Ewan Loudon",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO"
+   },
+   {
+    "name": "Declan Glass",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-06-07"
+   },
+   {
+    "name": "Blair Lyons",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kieran Freeman",
+    "pos": "DEF",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-03-30"
+   },
+   {
+    "name": "Seán Dillon",
+    "pos": "DEF",
+    "no": "14",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1983-07-30"
+   },
+   {
+    "name": "Charley Oosenbrugh",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2009-06-23"
+   },
+   {
+    "name": "Jake Sutherland",
+    "pos": "ATT",
+    "no": "16",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Archie Clelland",
+    "pos": "DEF",
+    "no": "18",
+    "nat": "SCO"
+   },
+   {
+    "name": "Gary Oliver",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-07-14"
+   },
+   {
+    "name": "Keir Bertie",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "SCO"
+   },
+   {
+    "name": "Campbell Millar",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Harry Craig",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SCO"
+   }
+  ],
+  "Motherwell": [
+   {
+    "name": "Alex Paulsen",
+    "pos": "GK",
+    "no": "1",
+    "nat": "NZL",
+    "notable": true,
+    "loan": true,
+    "born": "2002-07-04"
+   },
+   {
+    "name": "Stephen O'Donnell",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-05-11"
+   },
+   {
+    "name": "Jake Girdwood-Reich",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "AUS",
+    "notable": true,
+    "born": "2004-05-26"
+   },
+   {
+    "name": "Jamie Knight-Lebel",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "CAN",
+    "notable": true,
+    "loan": true,
+    "born": "2004-12-24"
+   },
+   {
+    "name": "Martin Moormann",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "AUT",
+    "notable": true,
+    "born": "2001-04-30"
+   },
+   {
+    "name": "Jordan McGhee",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-07-24"
+   },
+   {
+    "name": "Tom Sparrow",
+    "pos": "MID",
+    "no": "7",
+    "nat": "WAL",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Lukas Fadinger",
+    "pos": "MID",
+    "no": "8",
+    "nat": "AUT",
+    "notable": true,
+    "born": "2000-09-27"
+   },
+   {
+    "name": "Alex Lowry",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2003-06-23"
+   },
+   {
+    "name": "Oscar Priestman",
+    "pos": "MID",
+    "no": "12",
+    "nat": "AUS",
+    "notable": true,
+    "born": "2003-03-25"
+   },
+   {
+    "name": "Jardell Kanga",
+    "pos": "ATT",
+    "no": "13",
+    "nat": "SWE",
+    "notable": true,
+    "born": "2005-12-13"
+   },
+   {
+    "name": "Callum Hendry",
+    "pos": "ATT",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-12-08"
+   },
+   {
+    "name": "Eythor Bjørgolfsson",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "NOR",
+    "notable": true,
+    "born": "2000-08-25"
+   },
+   {
+    "name": "Paul McGinn",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1990-10-22"
+   },
+   {
+    "name": "Regan Charles-Cook",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "GRN",
+    "notable": true,
+    "born": "1997-02-14"
+   },
+   {
+    "name": "Tawanda Maswanhise",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "ZIM",
+    "notable": true,
+    "born": "2002-11-20"
+   },
+   {
+    "name": "Ibrahim Said",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "NGA",
+    "notable": true,
+    "born": "2002-06-15"
+   },
+   {
+    "name": "Dylan Williams",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2003-12-03"
+   },
+   {
+    "name": "Matthew Connelly",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "John Koutroumbis",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "AUS",
+    "notable": true,
+    "born": "1998-03-06"
+   },
+   {
+    "name": "Ewan Wilson",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-11-19"
+   },
+   {
+    "name": "Emmanuel Longelo",
+    "pos": "DEF",
+    "no": "45",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2000-12-27"
+   },
+   {
+    "name": "Seb Palmer-Houlden",
+    "pos": "ATT",
+    "no": "47",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2004-05-12"
+   },
+   {
+    "name": "Dylan Levitt",
+    "pos": "MID",
+    "no": "63",
+    "nat": "WAL",
+    "notable": true,
+    "born": "2000-11-17"
+   },
+   {
+    "name": "Joe Hodge",
+    "pos": "MID",
+    "no": "71",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2002-09-14"
+   },
+   {
+    "name": "Willy Vogt",
+    "pos": "ATT",
+    "no": "77",
+    "nat": "SUI",
+    "notable": true,
+    "born": "2002-06-01"
+   }
+  ],
+  "Partick Thistle": [
+   {
+    "name": "Lewis Budinauckas",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-06-19"
+   },
+   {
+    "name": "Cammy Logan",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-01-28"
+   },
+   {
+    "name": "Patrick Reading",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-01-01"
+   },
+   {
+    "name": "Lee Ashcroft",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-08-29"
+   },
+   {
+    "name": "Ben Dempsey",
+    "pos": "MID",
+    "no": "6",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1999-11-25"
+   },
+   {
+    "name": "Seb Drozd",
+    "pos": "MID",
+    "no": "7",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2003-04-28"
+   },
+   {
+    "name": "Oisin Smyth",
+    "pos": "MID",
+    "no": "8",
+    "nat": "NIR",
+    "notable": true,
+    "born": "2000-05-05"
+   },
+   {
+    "name": "Alex Samuel",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "WAL",
+    "notable": true,
+    "born": "1995-09-20"
+   },
+   {
+    "name": "Euan Henderson",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-06-26"
+   },
+   {
+    "name": "Gary Mackay-Steven",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1990-08-31"
+   },
+   {
+    "name": "Liam McFarlane",
+    "pos": "GK",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2004-09-26"
+   },
+   {
+    "name": "Robbie Crawford",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-06-22"
+   },
+   {
+    "name": "Ethan Ingram",
+    "pos": "DEF",
+    "no": "17",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Dan O'Reilly",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "IRL",
+    "notable": true,
+    "born": "1995-04-11"
+   },
+   {
+    "name": "Aidan Fitzpatrick",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-03-20"
+   },
+   {
+    "name": "Cale Loughrey",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "CAN",
+    "notable": true,
+    "born": "2001-08-04"
+   },
+   {
+    "name": "Ben McPherson",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-03-19"
+   },
+   {
+    "name": "Ben Stanway",
+    "pos": "MID",
+    "no": "26",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-09-20"
+   },
+   {
+    "name": "Jamie Low",
+    "pos": "DEF",
+    "no": "31",
+    "nat": "SCO"
+   },
+   {
+    "name": "Tony Watt",
+    "pos": "ATT",
+    "no": "32",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-12-29"
+   },
+   {
+    "name": "Steven Docherty",
+    "pos": "MID",
+    "no": "34",
+    "nat": "SCO"
+   },
+   {
+    "name": "Josh Miller",
+    "pos": "MID",
+    "no": "35",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ts'oanelo Lets'osa",
+    "pos": "MID",
+    "no": "64",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-01-01"
+   }
+  ],
+  "Peterhead": [
+   {
+    "name": "Jack Newman",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-02-12"
+   },
+   {
+    "name": "Danny Strachan",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-07-17"
+   },
+   {
+    "name": "Tobias Davies-Browne",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Archie Graham",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Jason Brown",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Blair Yule",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lyall Keir",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Andy McCarthy",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-10-20"
+   },
+   {
+    "name": "Mitch Megginson",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-07-27"
+   },
+   {
+    "name": "Bobby McLuckie",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Cieran Dunne",
+    "pos": "MID",
+    "no": "11",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2000-02-08"
+   },
+   {
+    "name": "Lewis McKelvie",
+    "pos": "GK",
+    "no": "13",
+    "nat": "SCO"
+   },
+   {
+    "name": "Adam Carnwath",
+    "pos": "ATT",
+    "no": "14",
+    "nat": "SCO"
+   },
+   {
+    "name": "James Stokes",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cammy Smith",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-08-24"
+   },
+   {
+    "name": "Zak To",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Peter Pawlett",
+    "pos": "MID",
+    "no": "19",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-02-03"
+   },
+   {
+    "name": "Dylan Forrest",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Seb Ross",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SCO"
+   },
+   {
+    "name": "Fraser Mackie",
+    "pos": "ATT",
+    "no": "23",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack Searle",
+    "pos": "ATT",
+    "no": "24",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Jordon Brown",
+    "pos": "MID",
+    "no": "28",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-11-28"
+   },
+   {
+    "name": "Benny-Jackson Luyeye",
+    "pos": "DEF",
+    "no": "29",
+    "nat": "SCO"
+   },
+   {
+    "name": "Craig Hepburn",
+    "pos": "GK",
+    "no": "31",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Robel Teklemichael",
+    "pos": "MID",
+    "no": "34",
+    "nat": "ERI",
+    "notable": true,
+    "born": "2000-07-14"
+   },
+   {
+    "name": "Josh Kerr",
+    "pos": "DEF",
+    "no": "46",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack Robertson",
+    "pos": "MID",
+    "no": "",
+    "nat": "SCO",
+    "loan": true
+   }
+  ],
+  "Queen of the South": [
+   {
+    "name": "Deniz Mehmet",
+    "pos": "GK",
+    "no": "1",
+    "nat": "TUR",
+    "notable": true,
+    "born": "1992-09-19"
+   },
+   {
+    "name": "Caleb Goldie",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Taylor Charters",
+    "pos": "MID",
+    "no": "3",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-10-02"
+   },
+   {
+    "name": "Jack Stott",
+    "pos": "MID",
+    "no": "4",
+    "nat": "ENG"
+   },
+   {
+    "name": "Chris McQueen",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack Hannah",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "ENG"
+   },
+   {
+    "name": "Liam Smith",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Zander MacKenzie",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2005-08-28"
+   },
+   {
+    "name": "Connor Young",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO"
+   },
+   {
+    "name": "Nicky Clark",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-06-03"
+   },
+   {
+    "name": "Brodie Dair",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true
+   },
+   {
+    "name": "Shaun Want",
+    "pos": "DEF",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-02-09"
+   },
+   {
+    "name": "Ben Johnstone",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO"
+   },
+   {
+    "name": "Niall Rogerson",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cole Coughlin",
+    "pos": "MID",
+    "no": "16",
+    "nat": "USA",
+    "loan": true
+   },
+   {
+    "name": "Ruari Ellis",
+    "pos": "DEF",
+    "no": "17",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Aaron Davis",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Benjamin Luissint",
+    "pos": "MID",
+    "no": "19",
+    "nat": "GLP"
+   },
+   {
+    "name": "Billy Gray",
+    "pos": "ATT",
+    "no": "25",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ben Morton",
+    "pos": "MID",
+    "no": "26",
+    "nat": "SCO"
+   },
+   {
+    "name": "Josh Kelly",
+    "pos": "MID",
+    "no": "27",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kurtis Guthrie",
+    "pos": "ATT",
+    "no": "28",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1993-04-21"
+   },
+   {
+    "name": "Joe Thomson",
+    "pos": "MID",
+    "no": "29",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lincoln Newell",
+    "pos": "DEF",
+    "no": "30",
+    "nat": "SCO"
+   },
+   {
+    "name": "Anthony Harris",
+    "pos": "MID",
+    "no": "31",
+    "nat": "SCO"
+   },
+   {
+    "name": "Rocco McColm",
+    "pos": "MID",
+    "no": "32",
+    "nat": "SCO"
+   },
+   {
+    "name": "Shaun Petry",
+    "pos": "GK",
+    "no": "34",
+    "nat": "SCO"
+   },
+   {
+    "name": "Mitchell Spence",
+    "pos": "DEF",
+    "no": "36",
+    "nat": "SCO",
+    "loan": true
+   }
+  ],
+  "Queen's Park": [
+   {
+    "name": "David Mitchell",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1990-04-04"
+   },
+   {
+    "name": "Zach Mauchin",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Magnus Mackenzie",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO"
+   },
+   {
+    "name": "Euan Murray",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-01-20"
+   },
+   {
+    "name": "Ricki Lamie",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-06-26"
+   },
+   {
+    "name": "Louis Longridge",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-07-05"
+   },
+   {
+    "name": "Scott Martin",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-04-01"
+   },
+   {
+    "name": "Michael Ruth",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-01-08"
+   },
+   {
+    "name": "Jack Hamilton",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-06-30"
+   },
+   {
+    "name": "Aidan Connolly",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-08-15"
+   },
+   {
+    "name": "Carlo Pignatiello",
+    "pos": "DEF",
+    "no": "12",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-01-16"
+   },
+   {
+    "name": "Lewis Stewart",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Oliver Fisher",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO"
+   },
+   {
+    "name": "Tyrece McDonnell",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cole Goldie",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kyle Rodger",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ross Mclean",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Matthew Shiels",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-09-13"
+   },
+   {
+    "name": "Aiden McCallion",
+    "pos": "MID",
+    "no": "24",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Zebedee Lawson",
+    "pos": "ATT",
+    "no": "25",
+    "nat": "ENG",
+    "loan": true
+   },
+   {
+    "name": "Ben Brannan",
+    "pos": "DEF",
+    "no": "26",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2006-01-30"
+   },
+   {
+    "name": "Callum Smith",
+    "pos": "ATT",
+    "no": "27",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-11-13"
+   },
+   {
+    "name": "Jack Wills",
+    "pos": "GK",
+    "no": "30",
+    "nat": "SCO"
+   },
+   {
+    "name": "Nikolay Todorov",
+    "pos": "ATT",
+    "no": "77",
+    "nat": "BUL",
+    "notable": true,
+    "born": "1996-08-24"
+   }
+  ],
+  "Raith Rovers": [
+   {
+    "name": "Josh Rae",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-10-17"
+   },
+   {
+    "name": "Jai Rowe",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-08-08"
+   },
+   {
+    "name": "Zak Delaney",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2002-01-10"
+   },
+   {
+    "name": "Paul Hanlon",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1990-01-20"
+   },
+   {
+    "name": "Callum Fordyce",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-06-23"
+   },
+   {
+    "name": "Jack Baird",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-02-07"
+   },
+   {
+    "name": "Arron Lyall",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-09-27"
+   },
+   {
+    "name": "Kyle Turner",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1997-00-00"
+   },
+   {
+    "name": "George Oakley",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1995-11-18"
+   },
+   {
+    "name": "Lewis Vaughan",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-12-19"
+   },
+   {
+    "name": "John Robertson",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-08-26"
+   },
+   {
+    "name": "Luke Armstrong",
+    "pos": "GK",
+    "no": "13",
+    "nat": "WAL",
+    "loan": true
+   },
+   {
+    "name": "Calum Adamson",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Scott Tiffoney",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "1998-08-26"
+   },
+   {
+    "name": "Lewis Stevenson",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1988-01-05"
+   },
+   {
+    "name": "Paul McMullan",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-02-25"
+   },
+   {
+    "name": "Anton Dowds",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-01-01"
+   },
+   {
+    "name": "Scott Brown",
+    "pos": "MID",
+    "no": "20",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-11-25"
+   },
+   {
+    "name": "Charlie Telfer",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-07-04"
+   },
+   {
+    "name": "Ross Millen",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-09-28"
+   },
+   {
+    "name": "Dylan Easton",
+    "pos": "MID",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-04-06"
+   },
+   {
+    "name": "Kai Montagu",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO"
+   }
+  ],
+  "Rangers": [
+   {
+    "name": "Ivor Pandur",
+    "pos": "GK",
+    "no": "1",
+    "nat": "CRO",
+    "notable": true,
+    "born": "2000-03-25"
+   },
+   {
+    "name": "Ross McCrorie",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-03-18"
+   },
+   {
+    "name": "Ben Godfrey",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "1998-01-15"
+   },
+   {
+    "name": "John Souttar",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-09-25"
+   },
+   {
+    "name": "Dan Neil",
+    "pos": "MID",
+    "no": "6",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-12-13"
+   },
+   {
+    "name": "Lawrence Shankland",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-08-10"
+   },
+   {
+    "name": "Youssef Chermiti",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "POR",
+    "notable": true,
+    "born": "2004-05-24"
+   },
+   {
+    "name": "Kim Min-su",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "KOR",
+    "notable": true,
+    "born": "2006-01-01"
+   },
+   {
+    "name": "Cammy Devlin",
+    "pos": "MID",
+    "no": "14",
+    "nat": "AUS",
+    "notable": true,
+    "born": "1999-01-01"
+   },
+   {
+    "name": "José Cifuentes",
+    "pos": "MID",
+    "no": "15",
+    "nat": "ECU",
+    "notable": true,
+    "born": "1999-03-12"
+   },
+   {
+    "name": "Daisuke Yokota",
+    "pos": "MID",
+    "no": "17",
+    "nat": "JPN",
+    "notable": true,
+    "born": "2000-06-15"
+   },
+   {
+    "name": "Kosta Nedeljković",
+    "pos": "DEF",
+    "no": "18",
+    "nat": "SRB",
+    "notable": true,
+    "loan": true,
+    "born": "2005-12-16"
+   },
+   {
+    "name": "Kevin Kelsy",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "VEN",
+    "notable": true,
+    "born": "2004-07-27"
+   },
+   {
+    "name": "Ryan Naderi",
+    "pos": "ATT",
+    "no": "20",
+    "nat": "GER",
+    "notable": true,
+    "born": "2003-07-10"
+   },
+   {
+    "name": "Dujon Sterling",
+    "pos": "DEF",
+    "no": "21",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1999-10-24"
+   },
+   {
+    "name": "Vanja Dragojević",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SRB",
+    "notable": true,
+    "born": "2006-01-11"
+   },
+   {
+    "name": "Djeidi Gassama",
+    "pos": "ATT",
+    "no": "23",
+    "nat": "MTN",
+    "notable": true,
+    "born": "2003-09-10"
+   },
+   {
+    "name": "Olwethu Makhanya",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "RSA",
+    "notable": true,
+    "born": "2004-04-30"
+   },
+   {
+    "name": "Tuur Rommens",
+    "pos": "DEF",
+    "no": "25",
+    "nat": "BEL",
+    "notable": true,
+    "born": "2003-03-26"
+   },
+   {
+    "name": "Badredine Bouanani",
+    "pos": "ATT",
+    "no": "26",
+    "nat": "ALG",
+    "notable": true,
+    "loan": true,
+    "born": "2004-12-08"
+   },
+   {
+    "name": "Bojan Miovski",
+    "pos": "ATT",
+    "no": "28",
+    "nat": "MKD",
+    "notable": true,
+    "born": "1999-06-24"
+   },
+   {
+    "name": "James Penrice",
+    "pos": "DEF",
+    "no": "29",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "1998-12-22"
+   },
+   {
+    "name": "Liam Kelly",
+    "pos": "GK",
+    "no": "31",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-01-23"
+   },
+   {
+    "name": "Emmanuel Fernandez",
+    "pos": "DEF",
+    "no": "37",
+    "nat": "NGA",
+    "notable": true,
+    "born": "2001-11-20"
+   },
+   {
+    "name": "Tochi Chukwuani",
+    "pos": "MID",
+    "no": "42",
+    "nat": "DEN",
+    "notable": true,
+    "born": "2003-03-24"
+   },
+   {
+    "name": "Nicolas Raskin",
+    "pos": "MID",
+    "no": "43",
+    "nat": "BEL",
+    "notable": true,
+    "born": "2001-02-23"
+   },
+   {
+    "name": "Ross McCausland",
+    "pos": "ATT",
+    "no": "45",
+    "nat": "NIR",
+    "notable": true,
+    "born": "2003-05-12"
+   },
+   {
+    "name": "Findlay Curtis",
+    "pos": "MID",
+    "no": "52",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-06-09"
+   }
+  ],
+  "Ross County": [
+   {
+    "name": "Brad Foster",
+    "pos": "GK",
+    "no": "1",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-10-05"
+   },
+   {
+    "name": "Adam Forrester",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2005-03-31"
+   },
+   {
+    "name": "Lewis Strapp",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-11-26"
+   },
+   {
+    "name": "Akil Wright",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1996-05-13"
+   },
+   {
+    "name": "Lewis Reid",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Connor Randall",
+    "pos": "MID",
+    "no": "6",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1995-10-21"
+   },
+   {
+    "name": "Richard Chin",
+    "pos": "MID",
+    "no": "7",
+    "nat": "MAS",
+    "notable": true,
+    "born": "2002-10-15"
+   },
+   {
+    "name": "Dean Cornelius",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-04-11"
+   },
+   {
+    "name": "Brian Graham",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1987-11-23"
+   },
+   {
+    "name": "Jamie Lindsay",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1995-10-11"
+   },
+   {
+    "name": "Kieran Phillips",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2000-02-18"
+   },
+   {
+    "name": "Dylan Smith",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-06-21"
+   },
+   {
+    "name": "Chris Hamilton",
+    "pos": "MID",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-06-13"
+   },
+   {
+    "name": "Ricco Diack",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2005-05-07"
+   },
+   {
+    "name": "Andrew Macleod",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2005-01-31"
+   },
+   {
+    "name": "Luke McCarvel",
+    "pos": "MID",
+    "no": "19",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jack Turner",
+    "pos": "MID",
+    "no": "20",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2002-09-07"
+   },
+   {
+    "name": "Adam Emslie",
+    "pos": "ATT",
+    "no": "22",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ross Docherty",
+    "pos": "MID",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-01-01"
+   },
+   {
+    "name": "Lewis Jamieson",
+    "pos": "ATT",
+    "no": "24",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-04-17"
+   },
+   {
+    "name": "Jamie Williamson",
+    "pos": "MID",
+    "no": "28",
+    "nat": "SCO"
+   },
+   {
+    "name": "Bradley Wade",
+    "pos": "GK",
+    "no": "31",
+    "nat": "ENG"
+   },
+   {
+    "name": "Josh Reid",
+    "pos": "DEF",
+    "no": "43",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-05-03"
+   }
+  ],
+  "St Johnstone": [
+   {
+    "name": "Toby Steward",
+    "pos": "GK",
+    "no": "1",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2005-02-12"
+   },
+   {
+    "name": "Enes Alić",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "BIH",
+    "notable": true,
+    "born": "1999-09-03"
+   },
+   {
+    "name": "Cheick Diabate",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2002-01-01"
+   },
+   {
+    "name": "Morgan Boyes",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "WAL",
+    "notable": true,
+    "born": "2001-04-22"
+   },
+   {
+    "name": "Zach Mitchell",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2005-01-09"
+   },
+   {
+    "name": "Božo Mikulić",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "CRO",
+    "notable": true,
+    "born": "1997-01-29"
+   },
+   {
+    "name": "Taylor Steven",
+    "pos": "ATT",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jason Holt",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1993-02-19"
+   },
+   {
+    "name": "Josh Fowler",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-11-14"
+   },
+   {
+    "name": "Jamie Gullan",
+    "pos": "ATT",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1999-07-02"
+   },
+   {
+    "name": "Sam Stanton",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-04-19"
+   },
+   {
+    "name": "Matty Foulds",
+    "pos": "DEF",
+    "no": "14",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1998-02-17"
+   },
+   {
+    "name": "Kai Fotheringham",
+    "pos": "ATT",
+    "no": "18",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-04-18"
+   },
+   {
+    "name": "Daniel Finlayson",
+    "pos": "DEF",
+    "no": "19",
+    "nat": "NIR",
+    "notable": true,
+    "born": "2001-01-19"
+   },
+   {
+    "name": "Ross Sinclair",
+    "pos": "GK",
+    "no": "20",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-05-07"
+   },
+   {
+    "name": "Danny Schmidt",
+    "pos": "ATT",
+    "no": "22",
+    "nat": "GER",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Logan Chalmers",
+    "pos": "MID",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2000-03-24"
+   },
+   {
+    "name": "Macaulay Tait",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2005-08-27"
+   },
+   {
+    "name": "Matty Todd",
+    "pos": "MID",
+    "no": "26",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2001-06-14"
+   },
+   {
+    "name": "Joel Cotterill",
+    "pos": "MID",
+    "no": "30",
+    "nat": "WAL",
+    "notable": true,
+    "born": "2004-10-10"
+   },
+   {
+    "name": "Josh Campbell",
+    "pos": "MID",
+    "no": "32",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2000-01-01"
+   },
+   {
+    "name": "Liam Smith",
+    "pos": "DEF",
+    "no": "33",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-05-26"
+   },
+   {
+    "name": "Kyle Thomson",
+    "pos": "GK",
+    "no": "39",
+    "nat": "SCO"
+   },
+   {
+    "name": "Reece McAlear",
+    "pos": "MID",
+    "no": "42",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-01-01"
+   },
+   {
+    "name": "Unax Álvarez",
+    "pos": "ATT",
+    "no": "77",
+    "nat": "ESP",
+    "notable": true,
+    "born": "2002-02-16"
+   },
+   {
+    "name": "Ruari Paton",
+    "pos": "ATT",
+    "no": "99",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2000-08-09"
+   }
+  ],
+  "St Mirren": [
+   {
+    "name": "Jacob Chapman",
+    "pos": "GK",
+    "no": "1",
+    "nat": "AUS",
+    "notable": true,
+    "born": "2000-10-22"
+   },
+   {
+    "name": "Jayden Richardson",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SKN",
+    "notable": true,
+    "born": "2000-09-04"
+   },
+   {
+    "name": "Declan John",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "WAL",
+    "notable": true,
+    "born": "1995-06-30"
+   },
+   {
+    "name": "Liam Donnelly",
+    "pos": "MID",
+    "no": "4",
+    "nat": "NIR",
+    "notable": true,
+    "born": "1996-03-07"
+   },
+   {
+    "name": "Richard King",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "JAM",
+    "notable": true,
+    "born": "2001-11-27"
+   },
+   {
+    "name": "Louis Jackson",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2005-09-18"
+   },
+   {
+    "name": "Ryan Carr",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-09-23"
+   },
+   {
+    "name": "Eseosa Sule",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2006-04-01"
+   },
+   {
+    "name": "Samuel Ramos",
+    "pos": "MID",
+    "no": "10",
+    "nat": "ESP",
+    "notable": true,
+    "born": "2000-08-18"
+   },
+   {
+    "name": "Jonah Ayunga",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "KEN",
+    "notable": true,
+    "born": "1997-05-24"
+   },
+   {
+    "name": "Alex Gogić",
+    "pos": "DEF",
+    "no": "13",
+    "nat": "CYP",
+    "notable": true,
+    "born": "1994-04-13"
+   },
+   {
+    "name": "Luke Thomas",
+    "pos": "MID",
+    "no": "16",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1999-02-19"
+   },
+   {
+    "name": "Keanu Baccus",
+    "pos": "MID",
+    "no": "17",
+    "nat": "AUS",
+    "notable": true,
+    "born": "1998-06-07"
+   },
+   {
+    "name": "Malik Dijksteel",
+    "pos": "MID",
+    "no": "18",
+    "nat": "NED",
+    "notable": true,
+    "born": "2001-07-08"
+   },
+   {
+    "name": "Ismeal Kabia",
+    "pos": "ATT",
+    "no": "19",
+    "nat": "NED",
+    "notable": true,
+    "loan": true,
+    "born": "2005-12-10"
+   },
+   {
+    "name": "Jake Young",
+    "pos": "ATT",
+    "no": "20",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2001-07-22"
+   },
+   {
+    "name": "Marcus Fraser",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-06-23"
+   },
+   {
+    "name": "Chris Mochrie",
+    "pos": "MID",
+    "no": "23",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-04-07"
+   },
+   {
+    "name": "Josh Farquhar",
+    "pos": "ATT",
+    "no": "24",
+    "nat": "SCO"
+   },
+   {
+    "name": "Nikolas Agrafiotis",
+    "pos": "ATT",
+    "no": "25",
+    "nat": "SRB",
+    "notable": true,
+    "born": "2000-04-25"
+   },
+   {
+    "name": "Marcello De Barros",
+    "pos": "DEF",
+    "no": "26",
+    "nat": "SCO"
+   },
+   {
+    "name": "Peter Urminský",
+    "pos": "GK",
+    "no": "27",
+    "nat": "SVK",
+    "notable": true,
+    "born": "1999-05-24"
+   },
+   {
+    "name": "Fraser Taylor",
+    "pos": "MID",
+    "no": "30",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-02-20"
+   },
+   {
+    "name": "Ryan Mullen",
+    "pos": "GK",
+    "no": "31",
+    "nat": "SCO"
+   },
+   {
+    "name": "Luke Douglas",
+    "pos": "ATT",
+    "no": "32",
+    "nat": "SCO"
+   },
+   {
+    "name": "Carrick McEvoy",
+    "pos": "MID",
+    "no": "37",
+    "nat": "SCO"
+   },
+   {
+    "name": "Calvin Ramsay",
+    "pos": "DEF",
+    "no": "47",
+    "nat": "SCO",
+    "notable": true,
+    "loan": true,
+    "born": "2003-07-31"
+   },
+   {
+    "name": "Paul Nsio",
+    "pos": "MID",
+    "no": "48",
+    "nat": "ENG",
+    "notable": true,
+    "loan": true,
+    "born": "2006-01-01"
+   },
+   {
+    "name": "Henry Fieldson",
+    "pos": "DEF",
+    "no": "53",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2005-07-04"
+   },
+   {
+    "name": "Killian Phillips",
+    "pos": "MID",
+    "no": "88",
+    "nat": "IRL",
+    "notable": true,
+    "born": "2002-03-30"
+   }
+  ],
+  "Stenhousemuir": [
+   {
+    "name": "Darren Jamieson",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1991-02-15"
+   },
+   {
+    "name": "Ross Meechan",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Gregor Buchanan",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1990-03-31"
+   },
+   {
+    "name": "Sam Young",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Euan O'Reilly",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Finn Robson",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Andrew Shinnie",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1989-07-17"
+   },
+   {
+    "name": "Lewis O'Donnell",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kinlay Bilham",
+    "pos": "DEF",
+    "no": "14",
+    "nat": "SCO"
+   },
+   {
+    "name": "Dale Carrick",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1994-01-07"
+   },
+   {
+    "name": "Michael Anderson",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SCO"
+   },
+   {
+    "name": "Scott Bright",
+    "pos": "DEF",
+    "no": "19",
+    "nat": "SCO"
+   },
+   {
+    "name": "Gus Stevenson",
+    "pos": "MID",
+    "no": "20",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Lewis Hodgkiss",
+    "pos": "MID",
+    "no": "21",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Leyton Grant",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "SCO"
+   },
+   {
+    "name": "Hamzad Kargbo",
+    "pos": "ATT",
+    "no": "25",
+    "nat": "ENG",
+    "notable": true,
+    "born": "2002-01-20"
+   },
+   {
+    "name": "Callum Penman",
+    "pos": "DEF",
+    "no": "28",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Curtis Lyle",
+    "pos": "GK",
+    "no": "33",
+    "nat": "SCO"
+   },
+   {
+    "name": "Robbie Hemfrey",
+    "pos": "GK",
+    "no": "34",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-01-21"
+   },
+   {
+    "name": "Louis Lloyd",
+    "pos": "ATT",
+    "no": "36",
+    "nat": "WAL",
+    "notable": true,
+    "loan": true,
+    "born": "2003-10-15"
+   },
+   {
+    "name": "Oscar MacIntyre",
+    "pos": "DEF",
+    "no": "37",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-07-23"
+   },
+   {
+    "name": "Matthew Gillies",
+    "pos": "DEF",
+    "no": "39",
+    "nat": "SCO",
+    "loan": true
+   }
+  ],
+  "Stirling Albion": [
+   {
+    "name": "Andrew McNeil",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO"
+   },
+   {
+    "name": "Murray Thomas",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lee Hamilton",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO"
+   },
+   {
+    "name": "Robbie McNab",
+    "pos": "MID",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kyle Banner",
+    "pos": "DEF",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Barry Hepburn",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2004-03-07"
+   },
+   {
+    "name": "Craig Brown",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Russell McLean",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO"
+   },
+   {
+    "name": "Harry Wright",
+    "pos": "MID",
+    "no": "11",
+    "nat": "SCO"
+   },
+   {
+    "name": "Josh Mullin",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-09-23"
+   },
+   {
+    "name": "Austin Laird",
+    "pos": "ATT",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "Sam Denham",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lucas Fyfe",
+    "pos": "ATT",
+    "no": "17",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Robin Raine",
+    "pos": "MID",
+    "no": "20",
+    "nat": "SCO"
+   },
+   {
+    "name": "Billy Hutchinson",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Kevin Waugh",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ali Gould",
+    "pos": "DEF",
+    "no": "24",
+    "nat": "SCO"
+   },
+   {
+    "name": "Danny Dobbie",
+    "pos": "MID",
+    "no": "25",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Zeke Cameron",
+    "pos": "MID",
+    "no": "26",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Jordan Allan",
+    "pos": "ATT",
+    "no": "29",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-10-20"
+   },
+   {
+    "name": "Callum Crane",
+    "pos": "DEF",
+    "no": "30",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1996-03-08"
+   },
+   {
+    "name": "Robert Duffy",
+    "pos": "GK",
+    "no": "31",
+    "nat": "SCO"
+   }
+  ],
+  "Stranraer": [
+   {
+    "name": "Max Currie",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO"
+   },
+   {
+    "name": "Evan Dunne",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO"
+   },
+   {
+    "name": "Finn Ecrepont",
+    "pos": "DEF",
+    "no": "3",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2002-07-30"
+   },
+   {
+    "name": "Mark McLuckie",
+    "pos": "DEF",
+    "no": "4",
+    "nat": "SCO"
+   },
+   {
+    "name": "Kenzie Nair",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jordan Stuart",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "James Dolan",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aaron Quigg",
+    "pos": "MID",
+    "no": "8",
+    "nat": "SCO"
+   },
+   {
+    "name": "Robbie Foster",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "ENG"
+   },
+   {
+    "name": "Dominic Plank",
+    "pos": "MID",
+    "no": "10",
+    "nat": "ENG"
+   },
+   {
+    "name": "Aaron Healy",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "SCO"
+   },
+   {
+    "name": "Archie Traynor",
+    "pos": "MID",
+    "no": "12",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Ewan Henderson",
+    "pos": "GK",
+    "no": "13",
+    "nat": "SCO"
+   },
+   {
+    "name": "Zach Bruce",
+    "pos": "MID",
+    "no": "14",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Ronan Hughes",
+    "pos": "MID",
+    "no": "15",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-12-15"
+   },
+   {
+    "name": "Lewis Dobbie",
+    "pos": "ATT",
+    "no": "16",
+    "nat": "SCO"
+   },
+   {
+    "name": "Daniel McManus",
+    "pos": "MID",
+    "no": "17",
+    "nat": "SCO",
+    "notable": true,
+    "born": "2003-01-01"
+   },
+   {
+    "name": "Edin Lynch",
+    "pos": "DEF",
+    "no": "18",
+    "nat": "SCO"
+   },
+   {
+    "name": "Connor Cameron",
+    "pos": "DEF",
+    "no": "20",
+    "nat": "SCO"
+   },
+   {
+    "name": "Lewis Gillie",
+    "pos": "DEF",
+    "no": "21",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Bernard Coll",
+    "pos": "DEF",
+    "no": "22",
+    "nat": "SCO"
+   },
+   {
+    "name": "Seb Mason",
+    "pos": "ATT",
+    "no": "24",
+    "nat": "ENG",
+    "loan": true
+   },
+   {
+    "name": "Dean Cleland",
+    "pos": "ATT",
+    "no": "77",
+    "nat": "SCO"
+   }
+  ],
+  "The Spartans": [
+   {
+    "name": "Blair Carswell",
+    "pos": "GK",
+    "no": "1",
+    "nat": "SCO"
+   },
+   {
+    "name": "Matthew Mudie",
+    "pos": "DEF",
+    "no": "2",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Sean Welsh",
+    "pos": "MID",
+    "no": "4",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1990-03-15"
+   },
+   {
+    "name": "Jordan Tapping",
+    "pos": "DEF",
+    "no": "5",
+    "nat": "SCO"
+   },
+   {
+    "name": "Bailey Dall",
+    "pos": "MID",
+    "no": "6",
+    "nat": "SCO"
+   },
+   {
+    "name": "Jamie Dishington",
+    "pos": "MID",
+    "no": "7",
+    "nat": "SCO"
+   },
+   {
+    "name": "Marc McNulty",
+    "pos": "ATT",
+    "no": "9",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1992-09-14"
+   },
+   {
+    "name": "Mackenzie Ross",
+    "pos": "MID",
+    "no": "10",
+    "nat": "SCO"
+   },
+   {
+    "name": "Cammy Russell",
+    "pos": "ATT",
+    "no": "11",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ricardo Dinanga",
+    "pos": "ATT",
+    "no": "14",
+    "nat": "IRL",
+    "notable": true,
+    "loan": true,
+    "born": "2001-12-06"
+   },
+   {
+    "name": "Ayrton Sonkur",
+    "pos": "DEF",
+    "no": "15",
+    "nat": "SCO"
+   },
+   {
+    "name": "David McKay",
+    "pos": "DEF",
+    "no": "16",
+    "nat": "SCO",
+    "notable": true,
+    "born": "1998-06-17"
+   },
+   {
+    "name": "Brogan Walls",
+    "pos": "MID",
+    "no": "18",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ethan Drysdale",
+    "pos": "DEF",
+    "no": "19",
+    "nat": "SCO"
+   },
+   {
+    "name": "Paddy Martin",
+    "pos": "GK",
+    "no": "21",
+    "nat": "SCO"
+   },
+   {
+    "name": "Oscar Fitzsimmons",
+    "pos": "MID",
+    "no": "22",
+    "nat": "SCO"
+   },
+   {
+    "name": "Ben Heal",
+    "pos": "DEF",
+    "no": "23",
+    "nat": "SCO"
+   },
+   {
+    "name": "James Craigen",
+    "pos": "MID",
+    "no": "28",
+    "nat": "ENG",
+    "notable": true,
+    "born": "1991-03-28"
+   },
+   {
+    "name": "Mark Stowe",
+    "pos": "ATT",
+    "no": "29",
+    "nat": "SCO"
+   },
+   {
+    "name": "Bradley Whyte",
+    "pos": "MID",
+    "no": "33",
+    "nat": "SCO"
+   },
+   {
+    "name": "Aaron Thomson",
+    "pos": "DEF",
+    "no": "",
+    "nat": "SCO",
+    "loan": true
+   },
+   {
+    "name": "Zander McAllister",
+    "pos": "MID",
+    "no": "",
+    "nat": "SCO",
+    "loan": true
+   }
+  ]
+ }
+}

@@ -1,0 +1,3 @@
+-r requirements.txt
+pytest
+numpy  # only for tools/make_sounds.py
