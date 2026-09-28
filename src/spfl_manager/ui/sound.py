@@ -50,10 +50,20 @@ def _midi(note):
 
 
 def _to_sound(samples):
+    """Turn samples generated at SR into a mixer Sound.
+
+    The audio device often runs at 44.1 or 48 kHz whatever we ask for, and a raw
+    buffer is played at the device's rate - so resample first, otherwise
+    everything plays too fast and too high (the title tune used to play at
+    double speed, an octave up).
+    """
     init = pygame.mixer.get_init()
     if not init:
         return None
-    channels = init[2]
+    rate, _, channels = init
+    if rate != SR:
+        step = SR / rate
+        samples = [samples[int(i * step)] for i in range(int(len(samples) / step))]
     data = array("h")
     for s in samples:
         v = int(max(-1, min(1, s)) * 32000)
@@ -109,6 +119,7 @@ MELODY = [
     (57, 2),
 ]
 BASS = [45, 45, 43, 43, 41, 41, 43, 45]  # one note per bar (8 eighths)
+TUNE_EIGHTH = 0.16  # seconds per eighth note: about 94 beats per minute
 
 
 class SoundBank:
@@ -128,13 +139,13 @@ class SoundBank:
 
     def _build(self):
         rng = random.Random(64)
-        eighth = int(SR * 0.125)
+        eighth = int(SR * TUNE_EIGHTH)
 
         lead = []
         for note, length in MELODY:
             n = eighth * length
             seg = _square(_midi(note), n, 0.18, 0.25) if note else [0.0] * n
-            lead += _env(seg, 0.003, 0.02)
+            lead += _env(seg, 0.004, 0.06)  # a softer release suits the slower tempo
         bass = []
         for note in BASS:
             for k in range(4):  # octave-bounce bass line, two eighths each

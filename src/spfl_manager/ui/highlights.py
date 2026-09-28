@@ -19,6 +19,7 @@ FAR_W, NEAR_W = 460, 610
 CX = T.CANVAS_W // 2
 GOAL_Y1, GOAL_Y2 = 30.34, 37.66
 SKIN = (240, 190, 150)
+TUNNEL = (52.5, 0.5)  # pitch coordinates of the players' tunnel (halfway, far touchline)
 KEEPER_KITS = [((200, 230, 60), (30, 30, 30), "", (0, 0, 0)), ((240, 140, 40), (30, 30, 30), "", (0, 0, 0))]
 
 
@@ -46,6 +47,7 @@ class Sprite:
         self.phase = random.random() * 6
         self.moving = False
         self.dive = 0.0  # keeper dive lean (-1..1)
+        self.hidden = False  # e.g. gone down the tunnel at half time
 
     def update(self, dt):
         dx, dy = self.tx - self.x, self.ty - self.y
@@ -61,6 +63,8 @@ class Sprite:
             self.phase += dt * 14
 
     def draw(self, surf):
+        if self.hidden:
+            return
         sx, sy, s = project(self.x, self.y)
         sx, sy = int(sx), int(sy)
         k = max(0.7, s * 1.25)
@@ -244,6 +248,8 @@ class HighlightsScene(Scene):
         self.caption_col = T.WHITE
         self.commentary = f"Welcome to {hc.stadium} for {self.label.lower().replace('league week', 'week')}."
         self.speed = 1.0
+        self.half_done = False  # has the half-time break happened yet?
+        self.resume_phase = "clock"
         self.chance: Chance | None = None
         self.flash = 0.0
         self.crowd = self._make_crowd()
@@ -324,6 +330,8 @@ class HighlightsScene(Scene):
                 sprites.append(Sprite(x, 14 + i * 13, self.kits[side], speed=3))
             gx = 3 if side == "home" else 102
             sprites.append(Sprite(gx, 34, KEEPER_KITS[0 if side == "home" else 1]))
+        # first-half positions - in the second half everyone lines up at the other end
+        self.first_half_spots = [(sp.x, sp.y) for sp in sprites]
         return sprites
 
     # --- flow -----------------------------------------------------------------
@@ -419,6 +427,36 @@ class HighlightsScene(Scene):
         else:
             self.phase = "clock_ft"
 
+    def _half_time(self):
+        """45 minutes: whistle, HALF TIME, and the players walk off to the tunnel."""
+        self.half_done = True
+        self.resume_phase = self.phase  # carry on to the next event (or full time) afterwards
+        self.phase = "halftime"
+        self.timer = 3.0
+        self.caption, self.caption_col = "HALF TIME", T.YELLOW
+        self.commentary = (
+            f"Half time at {self.hc.stadium}:  {self.hc.name} {self.score[0]}-{self.score[1]} {self.ac.name}"
+        )
+        self.chance = None
+        self.app.sound.play("whistle")
+        self.app.sound.play("goal", volume=0.3)  # applause as they go off
+        for sp in self.idle:
+            sp.tx, sp.ty = TUNNEL  # jog off down the tunnel
+            sp.speed = 11
+
+    def _change_ends(self):
+        """Out they come again - each team runs to the opposite end for the second half."""
+        self.phase = "changeover"
+        self.timer = 7.0
+        self.caption, self.caption_col = "CHANGE OF ENDS", T.WHITE
+        self.commentary = "The teams are back out - and they've swapped ends for the second half."
+        for i, (sp, (x, y)) in enumerate(zip(self.idle, self.first_half_spots)):
+            # everyone emerges from the tunnel and runs to the opposite end
+            sp.x, sp.y = TUNNEL[0] + (i % 5 - 2) * 0.6, TUNNEL[1]
+            sp.hidden = False
+            sp.tx, sp.ty = 105 - x, y
+            sp.speed = 13 if sp.kit in KEEPER_KITS else 11
+
     def _full_time(self):
         self.phase = "fulltime"
         self.minute = 90
@@ -466,18 +504,49 @@ class HighlightsScene(Scene):
                 self.phase = "clock" if self.events else "clock_ft"
         elif self.phase in ("clock", "clock_ft"):
             target = self.events[self.idx].minute if self.phase == "clock" else 90
+            stop_for_half_time = not self.half_done and target > 45
+            if stop_for_half_time:
+                target = 45
             self.minute = min(target, self.minute + dt * 60)
             if not self.chance and self.rng.random() < dt * 2:
                 s = self.rng.choice(self.idle)
                 s.tx = max(2, min(103, s.x + self.rng.uniform(-8, 8)))
                 s.ty = max(4, min(64, s.y + self.rng.uniform(-6, 6)))
-            if self.minute >= 45 and self.minute - dt * 60 < 45 and target > 45:
-                self.commentary = "Half time - the teams change ends."
             if self.minute >= target:
-                if self.phase == "clock":
+                if stop_for_half_time:
+                    self._half_time()
+                elif self.phase == "clock":
                     self._start_event()
                 else:
                     self._full_time()
+        elif self.phase == "halftime":
+            self.timer -= dt
+            for sp in self.idle:  # players disappear down the tunnel as they reach it
+                if not sp.hidden and math.hypot(sp.x - TUNNEL[0], sp.y - TUNNEL[1]) < 1.6:
+                    sp.hidden = True
+            all_off = all(sp.hidden for sp in self.idle)
+            # show the half-time score for at least 3 seconds, and wait until everyone is off
+            if (all_off and self.timer <= 0) or self.timer <= -4:
+                self._change_ends()
+        elif self.phase == "changeover":
+            self.timer -= dt
+            arrived = all(math.hypot(sp.tx - sp.x, sp.ty - sp.y) < 0.5 for sp in self.idle)
+            if arrived or self.timer <= 0:
+                for sp in self.idle:  # make sure nobody is left stranded mid-run
+                    sp.x, sp.y = sp.tx, sp.ty
+                self.phase = "kickoff2"
+                self.timer = 1.4
+                self.caption, self.caption_col = "SECOND HALF", T.CYAN
+                self.minute = 46  # every remaining event is after the break
+                self.commentary = "46'  The second half is under way!"
+                self.app.sound.play("whistle")
+        elif self.phase == "kickoff2":
+            self.timer -= dt
+            if self.timer <= 0:
+                self.caption = ""
+                for sp in self.idle:
+                    sp.speed = 3
+                self.phase = self.resume_phase
         elif self.phase == "chance":
             for cue in self.chance.update(dt):
                 self.app.sound.play(cue)
@@ -500,6 +569,11 @@ class HighlightsScene(Scene):
         surf.blit(self.crowd, (T.BORDER, cy))
         pygame.draw.rect(surf, (60, 60, 70), (T.BORDER, T.BORDER + 88, T.CANVAS_W - 2 * T.BORDER, 8))
         pygame.draw.rect(surf, (230, 230, 230), (T.BORDER, T.BORDER + 96, T.CANVAS_W - 2 * T.BORDER, 2))
+
+        # the players' tunnel, halfway along the far side
+        tx, ty, _ = project(52.5, 0)
+        pygame.draw.rect(surf, (15, 15, 20), (tx - 12, ty - 12, 24, 12))
+        pygame.draw.rect(surf, (200, 200, 200), (tx - 13, ty - 13, 26, 2))
 
         surf.blit(self.pitch, (0, 0))
         self._draw_goal(surf, 0, 1)
@@ -531,6 +605,9 @@ class HighlightsScene(Scene):
                 col = self.caption_col
             T.big_text(surf, self.caption, (CX, 170), col, scale=scale, center=True, shadow=T.BLACK)
 
+        if self.phase == "halftime":
+            self._draw_half_time_panel(surf)
+
         # commentary strip
         y = T.CANVAS_H - T.BORDER - 16
         pygame.draw.rect(surf, T.BLACK, (T.BORDER, y, T.CANVAS_W - 2 * T.BORDER, 16))
@@ -541,6 +618,33 @@ class HighlightsScene(Scene):
         hint = f"{hint}  ESC: skip"
         if used + T.font(10).size(hint)[0] + 24 < T.CANVAS_W - 2 * T.BORDER:  # only if there's room
             T.text(surf, hint, (T.CANVAS_W - T.BORDER - 6, y + 3), T.GREY, size=10, right=True)
+
+    def _draw_half_time_panel(self, surf):
+        goals = [e for e in self.events if e.kind == "goal" and e.minute <= 45]
+        rows = max(len([e for e in goals if e.side == "home"]), len([e for e in goals if e.side == "away"]))
+        w, h = 360, 58 + rows * 13
+        r = pygame.Rect(CX - w // 2, 214, w, h)
+        pygame.draw.rect(surf, T.BLACK, r.move(3, 3))
+        pygame.draw.rect(surf, T.BLUE, r)
+        pygame.draw.rect(surf, T.YELLOW, r, 2)
+        T.text(surf, "HALF-TIME SCORE", (CX, r.y + 6), T.LIGHT_GREY, size=11, center=True)
+        T.big_text(
+            surf,
+            f"{self.hc.short} {self.score[0]} - {self.score[1]} {self.ac.short}",
+            (CX, r.y + 20),
+            T.WHITE,
+            center=True,
+        )
+        for side, x, right in (("home", CX - 12, True), ("away", CX + 12, False)):
+            for i, e in enumerate(e for e in goals if e.side == side):
+                T.text(
+                    surf,
+                    f"{e.player} {e.minute}'",
+                    (x, r.y + 50 + i * 13),
+                    T.LIGHT_GREEN,
+                    size=11,
+                    right=right,
+                )
 
     def _draw_scoreboard(self, surf):
         x0, y0, w = T.BORDER, T.BORDER, T.CANVAS_W - 2 * T.BORDER
@@ -564,5 +668,6 @@ class HighlightsScene(Scene):
         )
         T.big_text(surf, f"{self.score[0]} - {self.score[1]}", (CX, y0 + 2), T.WHITE, center=True, scale=2)
         comp = self.comp if len(self.comp) <= 48 else self.comp.split(" (")[0]
-        T.text(surf, f"{int(self.minute)}'", (x0 + 32, y0 + 24), T.CYAN)
+        clock = "HT" if self.phase in ("halftime", "changeover") else f"{int(self.minute)}'"
+        T.text(surf, clock, (x0 + 32, y0 + 24), T.YELLOW if clock == "HT" else T.CYAN)
         T.text(surf, comp, (CX, y0 + 30), T.LIGHT_GREY, size=10, center=True)
