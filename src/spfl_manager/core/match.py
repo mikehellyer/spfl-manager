@@ -21,6 +21,10 @@ SECOND_YELLOW_RISK = 0.35  # a booked player is careful: most of the time the ca
 # playing with ten men: fewer chances made, more conceded (scaled by time left)
 TEN_MEN_ATTACK = 0.3
 TEN_MEN_DEFENCE = 0.25
+# penalties during a match: about one game in four has one (SPFL-like), and roughly three
+# in four are scored. Waved-away appeals are separate (they're refereeing decisions).
+PENALTIES_PER_TEAM = 0.13
+PENALTY_CONVERSION = 0.77
 DECISIONS_PER_TEAM = 0.8
 HOME_BONUS = 1.06
 FORM_ON_THE_DAY = 0.08  # spread of each side's day-to-day form (log scale)
@@ -51,6 +55,8 @@ class MatchResult:
     home_xi: list = field(default_factory=list)
     away_xi: list = field(default_factory=list)
     injuries: list = field(default_factory=list)  # [player_id, weeks]
+    # a penalty shoot-out, kick by kick: [{"side", "player", "keeper", "result": scored|saved|missed}]
+    shootout: list = field(default_factory=list)
 
     @property
     def winner(self) -> str | None:
@@ -122,7 +128,7 @@ def simulate_match(
         # gently: overall goals scale roughly in proportion to the gap (not its square),
         # so Premiership v League Two is typically 3-0 or 4-0 rather than 10-0.
         ratio = att / max(1.0, opp_def)
-        expected = 9.0 * poss * ratio**0.4
+        expected = 8.3 * poss * ratio**0.4  # (penalties add the rest)
         conv = min(0.5, max(0.08, 0.30 * ratio**0.6))
         return expected, conv
 
@@ -193,6 +199,18 @@ def simulate_match(
                 else:
                     result.away_goals += 1
 
+        for _ in range(poisson(PENALTIES_PER_TEAM, rng)):
+            minute = rng.randint(1, 90)
+            taker = penalty_taker(on_pitch(xi, minute))
+            kind = kick_result(taker, keeper, rng, PENALTY_CONVERSION)
+            kind = {"scored": "goal", "saved": "saved", "missed": "miss"}[kind]
+            events.append(MatchEvent(minute, side, kind, taker.name, keeper_name, taker.id, "penalty"))
+            if kind == "goal":
+                if side == "home":
+                    result.home_goals += 1
+                else:
+                    result.away_goals += 1
+
         for p in xi:
             if rng.random() < 0.012:
                 minute = rng.randint(1, 90)
@@ -217,17 +235,67 @@ def simulate_match(
     result.events = events
 
     if cup and result.home_goals == result.away_goals:
-        hp, ap = penalty_shootout(home_xi, away_xi, rng, hm, am)
+        hp, ap, result.shootout = shootout(home_xi, away_xi, rng)
         result.pens = f"{hp}-{ap}"
     return result
 
 
-def penalty_shootout(
-    a_xi: list[Player], b_xi: list[Player], rng: random.Random, a_boost=1.0, b_boost=1.0
-) -> tuple[int, int]:
-    """Returns (a, b) penalties scored. The stronger side is a little more likely to win."""
-    a_ov, b_ov = team_strength(a_xi).overall * a_boost, team_strength(b_xi).overall * b_boost
-    a_wins = rng.random() < 0.5 + (a_ov - b_ov) / 200
-    win = rng.randint(3, 5)
-    lose = rng.randint(max(0, win - 3), win - 1)
-    return (win, lose) if a_wins else (lose, win)
+def penalty_taker(players: list[Player]) -> Player:
+    """The side's best penalty-taker: its most skilful attacker or midfielder on the pitch."""
+    outfield = (
+        [p for p in players if p.pos in ("ATT", "MID")] or [p for p in players if p.pos != "GK"] or players
+    )
+    return max(outfield, key=lambda p: (p.skill, p.pos == "ATT"))
+
+
+def kick_result(taker: Player, keeper: Player | None, rng: random.Random, base: float) -> str:
+    """scored / saved / missed. A better taker scores more; a better keeper saves more."""
+    keeper_skill = keeper.skill if keeper else taker.skill * 0.6
+    p_score = min(0.9, max(0.6, base + (taker.skill - keeper_skill) / 300))
+    if rng.random() < p_score:
+        return "scored"
+    return "saved" if rng.random() < 0.65 else "missed"
+
+
+def shootout(home_xi: list[Player], away_xi: list[Player], rng: random.Random) -> tuple[int, int, list]:
+    """A penalty shoot-out, kick by kick. Five each, taking turns, stopping as soon as one side
+    can't catch up; then sudden death. Returns (home scored, away scored, kicks)."""
+    order = {}
+    for side, xi in (("home", home_xi), ("away", away_xi)):
+        outfield = sorted((p for p in xi if p.pos != "GK"), key=lambda p: (-p.skill, p.id))
+        keepers = [p for p in xi if p.pos == "GK"]
+        order[side] = (outfield + keepers) or [Player(0, "a defender", "DEF", 30, 25, "")]
+    keeper = {"home": _keeper(away_xi), "away": _keeper(home_xi)}  # who each side is shooting at
+    score = {"home": 0, "away": 0}
+    taken = {"home": 0, "away": 0}
+    kicks = []
+
+    def kick(side):
+        takers = order[side]
+        p = takers[taken[side] % len(takers)]
+        k = keeper[side]
+        result = kick_result(p, k, rng, 0.75)
+        taken[side] += 1
+        if result == "scored":
+            score[side] += 1
+        kicks.append({"side": side, "player": p.name, "keeper": k.name if k else "", "result": result})
+
+    def decided():
+        left_home, left_away = max(0, 5 - taken["home"]), max(0, 5 - taken["away"])
+        return score["home"] > score["away"] + left_away or score["away"] > score["home"] + left_home
+
+    for _ in range(5):
+        for side in ("home", "away"):
+            kick(side)
+            if decided():
+                return score["home"], score["away"], kicks
+    while score["home"] == score["away"]:  # sudden death
+        kick("home")
+        kick("away")
+    return score["home"], score["away"], kicks
+
+
+def penalty_shootout(a_xi: list[Player], b_xi: list[Player], rng: random.Random) -> tuple[int, int]:
+    """Shoot-out score only (a, b) - kept for callers that don't need the kicks."""
+    a, b, _ = shootout(a_xi, b_xi, rng)
+    return a, b

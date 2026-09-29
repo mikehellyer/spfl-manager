@@ -229,6 +229,95 @@ class Chance:
 
 
 # ----------------------------------------------------------------------------- scene
+class PenaltyKick:
+    """One spot-kick: the taker's run-up, the keeper's dive, and the ball in the net, saved
+    or off target. Used for penalties in a match and for every kick of a shoot-out."""
+
+    SPOT = (94.0, 34.0)  # 11 m out from the goal line (attack coordinates)
+
+    def __init__(self, rng, direction, outcome, atk_kit, def_kit, keeper_kit, shootout=False):
+        self.dir = direction
+        self.outcome = outcome  # goal | saved | miss
+        self.t = 0.0
+        self.kick_time = 1.4 if shootout else 1.9
+        self.flight = 0.4
+        self.duration = self.kick_time + self.flight + 0.9
+        su, sv = self.SPOT
+        self.taker = Sprite(*self._xy(88.0, sv + rng.uniform(-2.5, 2.5)), atk_kit, speed=5)
+        self.keeper = Sprite(*self._xy(104.6, sv), keeper_kit, speed=8)
+        others = []
+        if shootout:  # everyone else waits in the centre circle, arms round each other
+            for i in range(10):
+                u = 52.5 + (i % 5 - 2) * 1.6
+                v = 32.0 + (i // 5) * 3.0
+                others.append(Sprite(*self._xy(u, v), atk_kit if i < 5 else def_kit, speed=1))
+        else:  # the rest wait at the edge of the box
+            for i in range(4):
+                others.append(Sprite(*self._xy(84.5, 17 + i * 4), atk_kit, speed=2))
+                others.append(Sprite(*self._xy(85.5, 38 + i * 4), def_kit, speed=2))
+        self.sprites = [self.taker, self.keeper] + others
+        self.ball = (*self._xy(su, sv), 0.0)
+
+        side = rng.choice([-1, 1])  # which way the kick goes
+        if outcome == "goal":
+            self.target = (106.2, sv + side * rng.uniform(1.2, 3.2), rng.uniform(0.2, 1.8))
+            self.keeper_to = sv - side * rng.uniform(1.5, 3.0)  # sent the wrong way
+        elif outcome == "saved":
+            ty = sv + side * rng.uniform(1.0, 2.8)
+            self.target = (104.6, ty, rng.uniform(0.3, 1.2))
+            self.keeper_to = ty
+        else:
+            if rng.random() < 0.5:  # wide
+                self.target = (107.0, sv + side * rng.uniform(4.2, 5.5), rng.uniform(0.3, 1.5))
+            else:  # over the bar
+                self.target = (107.0, sv + side * rng.uniform(0.0, 2.5), 3.3)
+            self.keeper_to = sv + rng.choice([-1, 1]) * 1.5
+        self.dive_side = 1 if (self.keeper_to > sv) == (direction > 0) else -1
+
+    def _xy(self, u, v):
+        return (u, v) if self.dir > 0 else (105 - u, 68 - v)
+
+    @property
+    def done(self):
+        return self.t >= self.duration
+
+    def update(self, dt) -> list[str]:
+        cues = []
+        prev = self.t
+        self.t += dt
+        if prev < self.kick_time <= self.t:
+            cues.append("kick")
+        su, sv = self.SPOT
+        # run-up and follow-through
+        if self.t > self.kick_time + 0.3:
+            self.taker.tx, self.taker.ty = self._xy(96.0, sv)
+        elif self.t > self.kick_time - 0.7:
+            self.taker.tx, self.taker.ty = self._xy(93.2, sv)
+        tk = self.t - self.kick_time
+        tx, ty, tz = self.target
+        if tk <= 0:
+            u, v, z = su, sv, 0.0
+        elif tk <= self.flight:
+            f = tk / self.flight
+            u, v, z = lerp(su, tx, f), lerp(sv, ty, f), lerp(0, tz, f) + 0.6 * f * (1 - f)
+        else:
+            f = min(1.0, (tk - self.flight) / 0.5)
+            if self.outcome == "goal":  # nestles in the net
+                u, v, z = lerp(tx, 107.4, f), ty, lerp(tz, 0, f)
+            elif self.outcome == "saved":  # parried back out
+                u, v, z = lerp(tx, 101.5, f), lerp(ty, ty + self.dive_side * 1.5, f), lerp(tz, 0, f)
+            else:  # into the crowd
+                u, v, z = lerp(tx, 111.0, f), ty, lerp(tz, 0, f) if tz < 3 else tz + f
+        self.ball = (*self._xy(u, v), z)
+        if tk > -0.05:  # the keeper goes as the ball is struck
+            self.keeper.tx, self.keeper.ty = self._xy(104.6, self.keeper_to)
+            self.keeper.speed = 11
+            self.keeper.dive = min(1.0, max(0.0, tk) * 5) * self.dive_side * 0.8
+        for sp in self.sprites:
+            sp.update(dt)
+        return cues
+
+
 class HighlightsScene(Scene):
     def __init__(self, app, report, next_scene):
         super().__init__(app)
@@ -259,6 +348,9 @@ class HighlightsScene(Scene):
         self.half_done = False  # has the half-time break happened yet?
         self.dismissed: set[int] = set()  # idle-sprite indexes of sent-off players
         self.card_colour = None
+        self.pens_done = False
+        self.pen_idx = 0
+        self.pen_tally: dict[str, list] = {"home": [], "away": []}
         self.resume_phase = "clock"
         self.chance: Chance | None = None
         self.flash = 0.0
@@ -382,6 +474,14 @@ class HighlightsScene(Scene):
         other = "away" if e.side == "home" else "home"
         dfn = self.kits[other]
         keeper = KEEPER_KITS[0 if other == "home" else 1]
+        if e.detail == "penalty":  # a spot-kick
+            team = self.hc.name if e.side == "home" else self.ac.name
+            self.chance = PenaltyKick(self.rng, self._direction(e.side, e.minute), e.kind, atk, dfn, keeper)
+            self.caption, self.caption_col = "PENALTY!", T.YELLOW
+            self.commentary = f"{e.minute}'  PENALTY to {team}! {e.player} places the ball on the spot..."
+            self.app.sound.play("whistle")
+            self.phase = "chance"
+            return
         outcome = "goal" if e.kind == "decision" else e.kind  # offside: the ball goes in... then the flag
         self.chance = Chance(self.rng, self._direction(e.side, e.minute), outcome, atk, dfn, keeper)
         team = self.hc.name if e.side == "home" else self.ac.name
@@ -458,7 +558,8 @@ class HighlightsScene(Scene):
         if e.kind == "goal":
             self.score[0 if e.side == "home" else 1] += 1
             self.caption, self.caption_col = "GOAL!", T.YELLOW
-            self.commentary = f"{e.minute}'  {e.player} scores!  {self.hc.short} {self.score[0]}-{self.score[1]} {self.ac.short}"
+            how = "scores from the spot!" if e.detail == "penalty" else "scores!"
+            self.commentary = f"{e.minute}'  {e.player} {how}  {self.hc.short} {self.score[0]}-{self.score[1]} {self.ac.short}"
             self.flash = 2.2
             self.crowd_jump = 2.2
             # the home end makes the most noise; the away fans are fewer
@@ -471,6 +572,11 @@ class HighlightsScene(Scene):
                 "miss": ("WIDE!", f"{e.player} fires wide."),
                 "post": ("OFF THE POST!", f"{e.player} hits the woodwork!"),
             }[e.kind]
+            if e.detail == "penalty":
+                words = {
+                    "saved": ("PENALTY SAVED!", f"{e.player}'s penalty is saved by {e.keeper}!"),
+                    "miss": ("MISSED!", f"{e.player} misses the penalty!"),
+                }[e.kind]
             self.caption, self.commentary = words[0], f"{e.minute}'  {words[1]}"
             self.caption_col = T.CYAN
             loud = 1.0 if e.side == "home" else 0.55
@@ -528,10 +634,113 @@ class HighlightsScene(Scene):
             self.commentary += f"  ({r.winner} win {r.pens} on penalties)"
         self.chance = None
         self.app.sound.play("whistle_ft")  # peep, peep, peeeeep
+        if r.shootout and not self.pens_done:  # it's going to penalties
+            level = "Level on aggregate" if "play-off" in self.comp else "All square"
+            self.commentary = (
+                f"Full time: {self.hc.short} {r.home_goals}-{r.away_goals} {self.ac.short}. {level}..."
+            )
+            self.phase = "pens_wait"
+            self.timer = 2.4
+            return
         if r.winner == r.home and not r.pens:
             self.app.sound.play("goal", volume=0.45)  # home win: applause round the ground
         elif r.winner == r.away and not r.pens:
             self.app.sound.play("boo", volume=0.5)  # home defeat: the faithful aren't happy
+
+    # --- penalty shoot-out -----------------------------------------------------
+    def _start_shootout(self):
+        self.phase = "pens_intro"
+        self.timer = 2.0
+        self.caption, self.caption_col = "PENALTIES!", T.YELLOW
+        self.commentary = "It's going to a penalty shoot-out!"
+        self.pen_idx = 0
+        self.pen_tally = {"home": [], "away": []}
+        self.app.sound.play("ooh", volume=0.6)
+
+    def _next_kick(self):
+        k = self.res.shootout[self.pen_idx]
+        side = k["side"]
+        other = "away" if side == "home" else "home"
+        outcome = {"scored": "goal", "saved": "saved", "missed": "miss"}[k["result"]]
+        keeper = KEEPER_KITS[0 if other == "home" else 1]
+        self.chance = PenaltyKick(
+            self.rng, 1, outcome, self.kits[side], self.kits[other], keeper, shootout=True
+        )
+        short = self.hc.short if side == "home" else self.ac.short
+        self.caption = ""
+        self.commentary = f"{short}: {k['player']} steps up..."
+        self.phase = "pen_kick"
+
+    def _kick_outcome(self):
+        k = self.res.shootout[self.pen_idx]
+        side = k["side"]
+        self.pen_tally[side].append(k["result"])
+        loud = 0.9 if side == "home" else 0.6
+        if k["result"] == "scored":
+            self.caption, self.caption_col = "SCORED!", T.LIGHT_GREEN
+            self.commentary = f"{k['player']} scores!"
+            self.app.sound.play("goal", volume=loud * 0.7)
+        elif k["result"] == "saved":
+            self.caption, self.caption_col = "SAVED!", T.CYAN
+            self.commentary = f"{k['player']}'s penalty is SAVED by {k['keeper']}!"
+            self.app.sound.play("ooh", volume=loud)
+        else:
+            self.caption, self.caption_col = "MISSED!", T.LIGHT_RED
+            self.commentary = f"{k['player']} MISSES!"
+            self.app.sound.play("ooh", volume=loud)
+        self.phase = "pen_result"
+        self.timer = 1.3
+
+    def _finish_shootout(self):
+        kicks = self.res.shootout
+        self.pen_tally = {
+            side: [k["result"] for k in kicks if k["side"] == side] for side in ("home", "away")
+        }
+        h = self.pen_tally["home"].count("scored")
+        a = self.pen_tally["away"].count("scored")
+        winner, short = (self.hc.name, self.hc.short) if h > a else (self.ac.name, self.ac.short)
+        self.pens_done = True
+        self.chance = None
+        self.phase = "fulltime"
+        self.caption, self.caption_col = f"{short} WIN ON PENS!", T.YELLOW
+        self.commentary = f"{winner} win {max(h, a)}-{min(h, a)} on penalties!"
+        self.flash = 1.5
+        self.app.sound.play("goal", volume=0.9 if winner == self.hc.name else 0.6)
+
+    def _skip_to_end(self):
+        if self.phase == "fulltime":
+            return
+        if self.res.shootout:
+            self.pens_done = False
+            self._full_time()
+            self._finish_shootout()
+        else:
+            self._full_time()
+
+    def _draw_shootout_tally(self, surf):
+        """Ticks and crosses for each side's kicks, at the top of the pitch."""
+        rows = (("home", self.hc.short), ("away", self.ac.short))
+        n = max(5, max(len(self.pen_tally["home"]), len(self.pen_tally["away"])))
+        w = 90 + n * 22
+        r = pygame.Rect(CX - w // 2, PITCH_TOP + 6, w, 44)
+        pygame.draw.rect(surf, T.BLACK, r)
+        pygame.draw.rect(surf, T.YELLOW, r, 1)
+        for i, (side, short) in enumerate(rows):
+            y = r.y + 6 + i * 19
+            T.text(surf, short, (r.x + 10, y), T.WHITE, size=12, bold=True)
+            tally = self.pen_tally[side]
+            T.text(surf, str(tally.count("scored")), (r.x + 58, y), T.YELLOW, size=12, bold=True)
+            for j in range(n):
+                cx, cy = r.x + 86 + j * 22, y + 7
+                if j < len(tally):
+                    if tally[j] == "scored":
+                        pygame.draw.circle(surf, T.LIGHT_GREEN, (cx, cy), 6)
+                    else:
+                        pygame.draw.circle(surf, (200, 40, 40), (cx, cy), 6)
+                        pygame.draw.line(surf, T.WHITE, (cx - 3, cy - 3), (cx + 3, cy + 3), 2)
+                        pygame.draw.line(surf, T.WHITE, (cx - 3, cy + 3), (cx + 3, cy - 3), 2)
+                else:
+                    pygame.draw.circle(surf, T.GREY, (cx, cy), 6, 1)
 
     def _leave(self):
         self.app.sound.stop("crowd", fade_ms=600)
@@ -542,7 +751,7 @@ class HighlightsScene(Scene):
             if self.phase == "fulltime":
                 self._leave()
             elif ev.key == pygame.K_ESCAPE:
-                self._full_time()
+                self._skip_to_end()
             elif ev.key == pygame.K_SPACE:
                 self.speed = 3.0 if self.speed == 1.0 else 1.0
         elif ev.type == pygame.MOUSEBUTTONDOWN:
@@ -579,6 +788,28 @@ class HighlightsScene(Scene):
                     self._start_event()
                 else:
                     self._full_time()
+        elif self.phase == "pens_wait":
+            self.timer -= dt
+            if self.timer <= 0:
+                self._start_shootout()
+        elif self.phase == "pens_intro":
+            self.timer -= dt
+            if self.timer <= 0:
+                self._next_kick()
+        elif self.phase == "pen_kick":
+            for cue in self.chance.update(dt):
+                self.app.sound.play(cue)
+            if self.chance.done:
+                self._kick_outcome()
+        elif self.phase == "pen_result":
+            self.chance.update(dt * 0.3)
+            self.timer -= dt
+            if self.timer <= 0:
+                self.pen_idx += 1
+                if self.pen_idx < len(self.res.shootout):
+                    self._next_kick()
+                else:
+                    self._finish_shootout()
         elif self.phase == "halftime":
             self.timer -= dt
             for sp in self.idle:  # players disappear down the tunnel as they reach it
@@ -608,6 +839,8 @@ class HighlightsScene(Scene):
                     sp.speed = 3
                 self.phase = self.resume_phase
         elif self.phase == "chance":
+            if self.caption == "PENALTY!" and self.chance.t > getattr(self.chance, "kick_time", 99):
+                self.caption = ""
             for cue in self.chance.update(dt):
                 self.app.sound.play(cue)
             if self.chance.done:
@@ -677,6 +910,10 @@ class HighlightsScene(Scene):
 
         if self.phase == "halftime":
             self._draw_half_time_panel(surf)
+        if self.phase in ("pens_intro", "pen_kick", "pen_result") or (
+            self.phase == "fulltime" and self.pens_done
+        ):
+            self._draw_shootout_tally(surf)
 
         # commentary strip: the latest line at the bottom, earlier ones above it fading out
         x0, w = T.BORDER, T.CANVAS_W - 2 * T.BORDER

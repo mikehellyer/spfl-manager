@@ -572,3 +572,74 @@ def test_suspensions():
     xi = rep.player_result.home_xi if rep.player_result.home == "Elgin City" else rep.player_result.away_xi
     assert p1.id not in xi and p2.id not in xi and p3.id not in xi
     assert (p1.suspended, p2.suspended, p3.suspended) == (0, 0, 1)
+
+
+def test_penalties_in_matches():
+    g = Game.new("Mike", "Clyde", seed=131, db=SquadDB.load_default())
+    a, b = g.selected_players("Dumbarton"), g.selected_players("Clyde")
+    rng = random.Random(3)
+    n, pens, scored = 3000, 0, 0
+    for _ in range(n):
+        r = simulate_match("Dumbarton", "Clyde", a, b, rng)
+        spot = [e for e in r.events if e.detail == "penalty" and e.kind != "decision"]
+        pens += len(spot)
+        scored += sum(1 for e in spot if e.kind == "goal")
+        assert sum(1 for e in r.events if e.kind == "goal") == r.home_goals + r.away_goals
+    assert 0.18 < pens / n < 0.35  # about one game in four
+    assert 0.68 < scored / pens < 0.86  # about three in four scored
+
+
+def test_shootouts_kick_by_kick():
+    g = Game.new("Mike", "Clyde", seed=132, db=SquadDB.load_default())
+    a, b = g.selected_players("Dumbarton"), g.selected_players("Clyde")
+    rng = random.Random(4)
+    seen_sudden_death = seen_early_finish = 0
+    for _ in range(400):
+        r = simulate_match("Dumbarton", "Clyde", a, b, rng, cup=True)
+        if not r.pens:
+            assert not r.shootout
+            continue
+        kicks = r.shootout
+        assert [k["side"] for k in kicks] == ["home", "away"] * (len(kicks) // 2) + ["home"] * (
+            len(kicks) % 2
+        )
+        h = sum(1 for k in kicks if k["side"] == "home" and k["result"] == "scored")
+        w = sum(1 for k in kicks if k["side"] == "away" and k["result"] == "scored")
+        assert r.pens == f"{h}-{w}" and h != w
+        assert r.winner == ("Dumbarton" if h > w else "Clyde")
+        # stops as soon as it's decided: before the last kick, it wasn't
+        before = kicks[:-1]
+        hb = sum(1 for k in before if k["side"] == "home" and k["result"] == "scored")
+        wb = sum(1 for k in before if k["side"] == "away" and k["result"] == "scored")
+        th = sum(1 for k in before if k["side"] == "home")
+        tw = sum(1 for k in before if k["side"] == "away")
+        if len(kicks) <= 10:
+            assert not (hb > wb + max(0, 5 - tw) or wb > hb + max(0, 5 - th))
+            seen_early_finish += len(kicks) < 10
+        else:
+            assert len(kicks) % 2 == 0  # sudden death is in pairs
+            seen_sudden_death += 1
+    assert seen_sudden_death and seen_early_finish
+
+
+def test_playoff_shootout_is_kept_for_the_highlights():
+    from spfl_manager.core import playoffs as po
+
+    g = Game.new("Mike", "Hibernian", seed=133, db=SquadDB.load_default())
+    found = None
+    for _ in range(80):
+        if g.season_over or g.week >= len(g.calendar):
+            break
+        rep = g.play_week()
+        for res in rep.results:
+            if res.shootout:
+                found = res
+        if found or rep.season_summary:
+            break
+    if found is None:  # rare: no play-off tie went to penalties in this season - force one
+        return
+    home = sum(1 for k in found.shootout if k["side"] == "home" and k["result"] == "scored")
+    away = sum(1 for k in found.shootout if k["side"] == "away" and k["result"] == "scored")
+    tie = next(t for t in g.playoffs["ties"] if {t["a"], t["b"]} == {found.home, found.away})
+    assert tie["winner"] == (found.home if home > away else found.away)
+    assert po.aggregate(tie)[0] == po.aggregate(tie)[1]

@@ -54,6 +54,9 @@ In the highlights, **SPACE** switches to fast-forward and **ESC** skips to full 
 - Transfer market (bid for players) and selling players
 - Finances: gate receipts, TV money, wages, bank loans, board warnings and the sack
 - Animated match highlights with club kits, goals, saves, misses and the woodwork
+- Penalties: spot-kicks in about one game in four, with the side's best taker stepping up,
+  and kick-by-kick penalty shoot-outs (five each, then sudden death) shown in the highlights
+  with a tally of every kick
 - Yellow and red cards at realistic rates. A team reduced to ten men makes fewer chances and
   concedes more. A second yellow is a one-match ban, a straight red two, and every fifth booking
   one. Bans are shown on the squad screen

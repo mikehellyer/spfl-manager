@@ -13,7 +13,8 @@ from . import league_cup as lcup
 from . import playoffs as po
 from .database import START_YEAR, SquadDB
 from .fixtures import cup_draw, league_schedule
-from .match import MatchResult, penalty_shootout, simulate_match
+from .match import MatchResult, simulate_match
+from .match import shootout as run_shootout
 from .models import Club, Player, round_money
 from .names import FIRST_NAMES, SURNAMES
 
@@ -547,10 +548,12 @@ class Game:
                     report.player_comp = po.leg_label(tie, leg, self._short)
                     home_game = h == self.club_name
 
-                def shootout(t=tie):
-                    return penalty_shootout(
-                        self.selected_players(t["a"]), self.selected_players(t["b"]), self.rng
+                def shootout(t=tie, res=res):
+                    # level on aggregate: penalties at the end of the second leg (kept for highlights)
+                    home_pens, away_pens, res.shootout = run_shootout(
+                        self.selected_players(res.home), self.selected_players(res.away), self.rng
                     )
+                    return (home_pens, away_pens) if t["a"] == res.home else (away_pens, home_pens)
 
                 line = po.record_leg(self.playoffs, tie, res.home_goals, res.away_goals, shootout)
                 if line:
