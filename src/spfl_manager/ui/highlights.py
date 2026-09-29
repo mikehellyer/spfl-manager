@@ -17,7 +17,10 @@ from .app import Scene
 COMMENTARY_LINES = 3  # the latest line plus the two before it
 COMMENTARY_LINE_H = 14
 COMMENTARY_H = COMMENTARY_LINES * COMMENTARY_LINE_H + 2
-PITCH_TOP, PITCH_BOTTOM = 112, 304  # leaves room for the commentary strip
+# layout, top to bottom: scoreboard, crowd, pitch (its original 232px height), commentary
+SCOREBOARD_H = 34
+CROWD_H = 22
+PITCH_TOP, PITCH_BOTTOM = 72, 304
 FAR_W, NEAR_W = 460, 610
 CX = T.CANVAS_W // 2
 GOAL_Y1, GOAL_Y2 = 30.34, 37.66
@@ -282,7 +285,7 @@ class HighlightsScene(Scene):
 
     # --- static art -----------------------------------------------------------
     def _make_crowd(self):
-        surf = pygame.Surface((T.CANVAS_W - 2 * T.BORDER, 44))
+        surf = pygame.Surface((T.CANVAS_W - 2 * T.BORDER, CROWD_H))
         surf.fill((40, 40, 50))
         rng = random.Random(7)
         cols = [self.hc.shirt] * 2 + [
@@ -294,7 +297,7 @@ class HighlightsScene(Scene):
             T.BROWN,
             SKIN,
         ]
-        for row in range(10):
+        for row in range(CROWD_H // 4):
             for x in range(0, surf.get_width(), 3):
                 c = rng.choice(cols)
                 surf.fill(c, (x + (row % 2), row * 4 + 3, 2, 2))
@@ -622,10 +625,14 @@ class HighlightsScene(Scene):
         T.frame(surf, border, (40, 110, 40))
 
         # crowd
-        cy = T.BORDER + 44 + (int(math.sin(self.crowd_jump * 25) * 2) if self.crowd_jump else 0)
+        top = T.BORDER + SCOREBOARD_H
+        cy = top + (int(math.sin(self.crowd_jump * 25) * 2) if self.crowd_jump else 0)
         surf.blit(self.crowd, (T.BORDER, cy))
-        pygame.draw.rect(surf, (60, 60, 70), (T.BORDER, T.BORDER + 88, T.CANVAS_W - 2 * T.BORDER, 8))
-        pygame.draw.rect(surf, (230, 230, 230), (T.BORDER, T.BORDER + 96, T.CANVAS_W - 2 * T.BORDER, 2))
+        rail = top + CROWD_H
+        pygame.draw.rect(
+            surf, (60, 60, 70), (T.BORDER, rail, T.CANVAS_W - 2 * T.BORDER, PITCH_TOP - rail - 2)
+        )
+        pygame.draw.rect(surf, (230, 230, 230), (T.BORDER, PITCH_TOP - 2, T.CANVAS_W - 2 * T.BORDER, 2))
 
         # the players' tunnel, halfway along the far side
         tx, ty, _ = project(52.5, 0)
@@ -684,7 +691,13 @@ class HighlightsScene(Scene):
             else []
         )
         fade = [T.DARK_GREY, T.GREY, T.LIGHT_GREY]  # oldest ... newest of the earlier lines
-        lines = [(text, fade[len(fade) - len(older) + i]) for i, text in enumerate(older)]
+
+        def fit(text):  # trim an earlier line that's too long for the strip
+            while text and T.font(12).size(text)[0] > w - 12:
+                text = text[:-4].rstrip() + "..."
+            return text
+
+        lines = [(fit(text), fade[len(fade) - len(older) + i]) for i, text in enumerate(older)]
         lines += [(text, T.WHITE) for text in latest]
         lines = [("", T.BLACK)] * (COMMENTARY_LINES - len(lines)) + lines  # keep the latest at the bottom
         widths = []
@@ -726,26 +739,26 @@ class HighlightsScene(Scene):
 
     def _draw_scoreboard(self, surf):
         x0, y0, w = T.BORDER, T.BORDER, T.CANVAS_W - 2 * T.BORDER
-        pygame.draw.rect(surf, T.BLACK, (x0, y0, w, 42))
-        T.kit_swatch(surf, x0 + 10, y0 + 8, self.kits["home"], 14, 18)
-        T.kit_swatch(surf, x0 + w - 24, y0 + 8, self.kits["away"], 14, 18)
+        pygame.draw.rect(surf, T.BLACK, (x0, y0, w, SCOREBOARD_H))
+        T.kit_swatch(surf, x0 + 10, y0 + 6, self.kits["home"], 14, 18)
+        T.kit_swatch(surf, x0 + w - 24, y0 + 6, self.kits["away"], 14, 18)
         T.text(
             surf,
             self.hc.name.upper(),
-            (x0 + 32, y0 + 6),
+            (x0 + 32, y0 + 3),
             T.YELLOW if self.hc.name == self.g.club_name else T.WHITE,
             bold=True,
         )
         T.text(
             surf,
             self.ac.name.upper(),
-            (x0 + w - 32, y0 + 6),
+            (x0 + w - 32, y0 + 3),
             T.YELLOW if self.ac.name == self.g.club_name else T.WHITE,
             bold=True,
             right=True,
         )
-        T.big_text(surf, f"{self.score[0]} - {self.score[1]}", (CX, y0 + 2), T.WHITE, center=True, scale=2)
+        T.big_text(surf, f"{self.score[0]} - {self.score[1]}", (CX, y0 + 1), T.WHITE, center=True, scale=2)
         comp = self.comp if len(self.comp) <= 48 else self.comp.split(" (")[0]
         clock = "HT" if self.phase in ("halftime", "changeover") else f"{int(self.minute)}'"
-        T.text(surf, clock, (x0 + 32, y0 + 24), T.YELLOW if clock == "HT" else T.CYAN)
-        T.text(surf, comp, (CX, y0 + 30), T.LIGHT_GREY, size=10, center=True)
+        T.text(surf, clock, (x0 + 32, y0 + 19), T.YELLOW if clock == "HT" else T.CYAN, size=12)
+        T.text(surf, comp, (x0 + w - 32, y0 + 20), T.LIGHT_GREY, size=10, right=True)
