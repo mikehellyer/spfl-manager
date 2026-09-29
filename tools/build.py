@@ -75,6 +75,10 @@ def set_mac_version(app: Path):
     info["CFBundleVersion"] = __version__
     info["NSHumanReadableCopyright"] = "MIT licence - github.com/mikehellyer/spfl-manager"
     plist.write_bytes(plistlib.dumps(info))
+    # Changing Info.plist breaks PyInstaller's signature, and macOS refuses to open an app
+    # whose signature doesn't match - so sign it again (ad hoc) and check it verifies.
+    run(["codesign", "--force", "--deep", "--sign", "-", app])
+    run(["codesign", "--verify", "--deep", "--strict", "--verbose=2", app])
 
 
 def build_mac() -> Path:
