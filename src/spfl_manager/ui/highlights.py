@@ -14,8 +14,10 @@ import pygame
 from . import theme as T
 from .app import Scene
 
-PITCH_TOP, PITCH_BOTTOM = 112, 318  # leaves room for the two-line commentary strip
-COMMENTARY_H = 30
+COMMENTARY_LINES = 3  # the latest line plus the two before it
+COMMENTARY_LINE_H = 14
+COMMENTARY_H = COMMENTARY_LINES * COMMENTARY_LINE_H + 2
+PITCH_TOP, PITCH_BOTTOM = 112, 304  # leaves room for the commentary strip
 FAR_W, NEAR_W = 460, 610
 CX = T.CANVAS_W // 2
 GOAL_Y1, GOAL_Y2 = 30.34, 37.66
@@ -249,7 +251,7 @@ class HighlightsScene(Scene):
         self.caption_col = T.WHITE
         self.stadium = report.venue or hc.stadium
         self.commentary = f"Welcome to {self.stadium} for {self.comp}."
-        self.prev_commentary = ""
+        self.commentary_history: list[str] = []  # earlier lines, oldest first
         self.speed = 1.0
         self.half_done = False  # has the half-time break happened yet?
         self.dismissed: set[int] = set()  # idle-sprite indexes of sent-off players
@@ -275,7 +277,7 @@ class HighlightsScene(Scene):
         # keep the last real event on screen; build-up lines ("on the attack...") and
         # a line simply being extended don't push it out
         if old and text != old and not text.startswith(old) and not old.endswith("on the attack..."):
-            self.prev_commentary = old
+            self.commentary_history = (self.commentary_history + [old])[-(COMMENTARY_LINES - 1) :]
         self._commentary = text
 
     # --- static art -----------------------------------------------------------
@@ -669,24 +671,30 @@ class HighlightsScene(Scene):
         if self.phase == "halftime":
             self._draw_half_time_panel(surf)
 
-        # commentary strip: previous line (dimmed) above the latest one
+        # commentary strip: the latest line at the bottom, earlier ones above it fading out
         x0, w = T.BORDER, T.CANVAS_W - 2 * T.BORDER
         y = T.CANVAS_H - T.BORDER - COMMENTARY_H
         pygame.draw.rect(surf, T.BLACK, (x0, y, w, COMMENTARY_H))
-        max_w = w - 12
-        latest = self.commentary
-        if T.font(12).size(latest)[0] > max_w:  # too long for one line: use both
-            lines = T.wrap(latest, 88)[:2]
-            top, top_col, bottom = lines[0], T.WHITE, lines[1] if len(lines) > 1 else ""
-        else:
-            top, top_col, bottom = self.prev_commentary, T.GREY, latest
-        top_used = T.text(surf, top, (x0 + 6, y + 2), top_col, size=12)
-        T.text(surf, bottom, (x0 + 6, y + 16), T.WHITE, size=12)
+        latest = [self.commentary]
+        if T.font(12).size(self.commentary)[0] > w - 12:  # too long for one line: wrap it
+            latest = T.wrap(self.commentary, 88)[:2]
+        older = (
+            self.commentary_history[-(COMMENTARY_LINES - len(latest)) :]
+            if len(latest) < COMMENTARY_LINES
+            else []
+        )
+        fade = [T.DARK_GREY, T.GREY, T.LIGHT_GREY]  # oldest ... newest of the earlier lines
+        lines = [(text, fade[len(fade) - len(older) + i]) for i, text in enumerate(older)]
+        lines += [(text, T.WHITE) for text in latest]
+        lines = [("", T.BLACK)] * (COMMENTARY_LINES - len(lines)) + lines  # keep the latest at the bottom
+        widths = []
+        for i, (text, col) in enumerate(lines):
+            widths.append(T.text(surf, text, (x0 + 6, y + 2 + i * COMMENTARY_LINE_H), col, size=12))
         hint = "SPACE: fast" if self.speed == 1 else "SPACE: normal"
         if self.phase == "fulltime":
             hint = "Press a key"
         hint = f"{hint}  ESC: skip"
-        if top_used + T.font(10).size(hint)[0] + 24 < w:  # on the top line, if there's room
+        if widths[0] + T.font(10).size(hint)[0] + 24 < w:  # on the top line, if there's room
             T.text(surf, hint, (T.CANVAS_W - T.BORDER - 6, y + 3), T.DARK_GREY, size=10, right=True)
 
     def _draw_half_time_panel(self, surf):
