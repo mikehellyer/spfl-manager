@@ -54,6 +54,9 @@ In the highlights, **SPACE** switches to fast-forward and **ESC** skips to full 
 - Transfer market (bid for players) and selling players
 - Finances: gate receipts, TV money, wages, bank loans, board warnings and the sack
 - Animated match highlights with club kits, goals, saves, misses and the woodwork
+- Yellow and red cards at realistic rates. A team reduced to ten men makes fewer chances and
+  concedes more. A second yellow is a one-match ban, a straight red two, and every fifth booking
+  one. Bans are shown on the squad screen
 - Crowd sound: a background murmur, a roar for goals, an "oooh" for saves and near misses, and
   boos for refereeing decisions against the home side (offside goals, penalty appeals waved away,
   soft free kicks, bookings). When you're the away side your travelling fans boo too

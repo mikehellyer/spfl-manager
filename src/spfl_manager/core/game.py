@@ -136,6 +136,7 @@ class Game:
         self.league_cup: dict = {}
         self.europe: list[str] = list(lcup.REAL_2026_EUROPE)  # clubs in Europe this season
         self.prev_order: list[str] = []  # last season's final positions, all divisions (for seeding)
+        self.pyramid_champions: list[str] = []  # last pyramid play-off: [Highland champs, Lowland champs]
         self.game_over_reason = ""
         # clubs outside the SPFL who can win the pyramid play-off (ex-SPFL clubs join it)
         self.non_league: list[dict] = [
@@ -401,6 +402,7 @@ class Game:
         lowland = [c for c in pool if c["league"] == "LL" and c not in highland[:1]] or pool
         hl = self.rng.choice(highland)
         ll = self.rng.choice([c for c in lowland if c is not hl] or [hl])
+        self.pyramid_champions = [hl["name"], ll["name"]]
         entrant = hl if self.rng.random() < 0.5 + (hl["rating"] - ll["rating"]) / 100 else ll
         other = ll if entrant is hl else hl
         entrant, other = data.ClubInfo(**{k: v for k, v in entrant.items() if k != "league"}), other["name"]
@@ -458,7 +460,7 @@ class Game:
             sel.remove(player_id)
             return ""
         if not p.available:
-            return f"{p.name} is injured."
+            return f"{p.name} is suspended." if p.suspended else f"{p.name} is injured."
         if len(sel) >= 11:
             return "You already have 11 players picked."
         sel.append(player_id)
@@ -472,7 +474,8 @@ class Game:
             if p is None or p.club != club or not p.available:
                 c.selected.remove(pid)
                 if p is not None and p.club == club:
-                    notes.append(f"{p.name} is injured and was dropped.")
+                    why = "suspended" if p.suspended else "injured"
+                    notes.append(f"{p.name} is {why} and was dropped.")
         if len(c.selected) < 11:
             auto = [pid for pid in self.auto_pick(club) if pid not in c.selected]
             added = auto[: 11 - len(c.selected)]
@@ -626,18 +629,33 @@ class Game:
             self._ensure_non_league_club(n, ratings[n])
 
     def _league_cup_non_league_entrants(self) -> list[str]:
-        """Highland League champions and runners-up, Lowland League champions."""
+        """Highland League champions and runners-up, Lowland League champions.
+
+        The champions are last season's pyramid play-off clubs (unless one has just been
+        promoted into the SPFL). Clubs that were in the SPFL last season don't qualify.
+        """
         spfl = {c for div in self.divisions for c in div}
-        pool = [c for c in self.non_league if c["name"] not in spfl]
+        last_season = set(self.prev_order)
+        pool = [c for c in self.non_league if c["name"] not in spfl and c["name"] not in last_season]
+        league_of = {c["name"]: c["league"] for c in pool}
+        picks = [n for n in self.pyramid_champions if n in league_of]
         jitter = {c["name"]: c["rating"] + self.rng.uniform(0, 3) for c in pool}
-        hl = sorted((c["name"] for c in pool if c["league"] == "HL"), key=lambda n: -jitter[n])[:2]
-        ll = sorted((c["name"] for c in pool if c["league"] == "LL"), key=lambda n: -jitter[n])[:1]
-        picks = hl + ll
-        for c in sorted(pool, key=lambda c: -jitter[c["name"]]):
+        for want in ("HL", "HL", "LL", "HL", "LL"):  # fill the gaps, Highland first
             if len(picks) >= 3:
                 break
-            if c["name"] not in picks:
-                picks.append(c["name"])
+            have = sum(1 for n in picks if league_of[n] == want)
+            if want == "HL" and have >= 2 or want == "LL" and have >= 1:
+                continue
+            best = sorted(
+                (n for n in league_of if league_of[n] == want and n not in picks), key=lambda n: -jitter[n]
+            )
+            if best:
+                picks.append(best[0])
+        for n in sorted(league_of, key=lambda n: -jitter[n]):  # small pool: anyone left
+            if len(picks) >= 3:
+                break
+            if n not in picks:
+                picks.append(n)
         return picks
 
     def _play_league_cup_matchday(self, md: int, report: WeekReport, all_results: list, played: set) -> bool:
@@ -991,6 +1009,43 @@ class Game:
                 p.injury = weeks + 1  # +1 because the countdown ticks at the start of next week
                 if p.club == self.club_name:
                     report.news.append(f"{p.name} is injured - out for {weeks} week(s).")
+        self._apply_discipline(all_results, report)
+
+    def _drop_from_selection(self, p: Player):
+        club = self.clubs.get(p.club)
+        if club and p.id in club.selected:
+            club.selected.remove(p.id)
+
+    def _apply_discipline(self, results: list[MatchResult], report: WeekReport):
+        """Serve bans for clubs that played, then hand out new ones.
+
+        A second yellow is a one-match ban, a straight red two matches, and every fifth
+        booking of the season a one-match ban.
+        """
+        clubs_played = {n for r in results for n in (r.home, r.away)}
+        for p in self.players.values():
+            if p.suspended and p.club in clubs_played:
+                p.suspended -= 1  # sat this one out
+        for res in results:
+            for e in res.events:
+                p = self.players.get(e.player_id)
+                if p is None or e.kind not in ("yellow", "red"):
+                    continue
+                mine = p.club == self.club_name
+                if e.kind == "red":
+                    ban = 2 if e.detail == "straight" else 1
+                    p.suspended += ban
+                    self._drop_from_selection(p)
+                    if mine:
+                        how = "a straight red card" if e.detail == "straight" else "a second yellow card"
+                        report.news.append(f"{p.name} was sent off ({how}) - banned for {ban} match(es).")
+                else:
+                    p.yellows += 1
+                    if p.yellows % 5 == 0:
+                        p.suspended += 1
+                        self._drop_from_selection(p)
+                        if mine:
+                            report.news.append(f"{p.name} has {p.yellows} bookings - suspended for 1 match.")
 
     # finances ------------------------------------------------------------
     def _weekly_finances(self, home_game: bool, res: MatchResult | None) -> dict:
@@ -1284,6 +1339,7 @@ class Game:
             p.skill = max(8, min(99, p.skill))
             p.energy = 100
             p.injury = 0
+            p.yellows = 0  # bookings are wiped at the end of the season (bans carry over)
             if p.age >= 36 or (p.age >= 34 and self.rng.random() < 0.4):
                 del self.players[p.id]
         for c in self.clubs.values():
@@ -1336,6 +1392,7 @@ class Game:
             "league_cup": self.league_cup,
             "europe": self.europe,
             "prev_order": self.prev_order,
+            "pyramid_champions": self.pyramid_champions,
             "non_league": self.non_league,
             "game_over_reason": self.game_over_reason,
         }
@@ -1375,6 +1432,7 @@ class Game:
         g.league_cup = d.get("league_cup", {})
         g.europe = d.get("europe", list(lcup.REAL_2026_EUROPE))
         g.prev_order = d.get("prev_order", [])
+        g.pyramid_champions = d.get("pyramid_champions", [])
         g.non_league = d.get("non_league", g.non_league)
         g.game_over_reason = d.get("game_over_reason", "")
         if "calendar" in d:

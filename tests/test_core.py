@@ -322,7 +322,7 @@ def test_decisions_are_flavour_only():
         goals = [e for e in r.events if e.kind == "goal"]
         assert len(goals) == r.home_goals + r.away_goals
         seen |= {e.detail for e in r.events if e.kind == "decision"}
-    assert seen == {"offside", "penalty", "free_kick", "booking"}
+    assert seen == {"offside", "penalty", "free_kick"}  # bookings are real cards now
 
 
 def lcup_alive(g):
@@ -411,7 +411,13 @@ def test_legacy_save_moves_onto_the_new_cup():
     # what a v0.9 save looked like at the same point: old calendar index 3, old-style cup
     d["cup"] = {"round": 0, "ties": [["Clyde", "Stranraer"]], "byes": ["Celtic"], "winner": "", "out": False}
     d["week"] = 3
-    for newer in ("calendar", "league_cup", "europe", "prev_order"):  # a v0.9 save had none of these
+    for newer in (
+        "calendar",
+        "league_cup",
+        "europe",
+        "prev_order",
+        "pyramid_champions",
+    ):  # a v0.9 save had none of these
         d.pop(newer)
     h = Game.from_dict(d)
     assert "remaining" in h.cup
@@ -492,7 +498,7 @@ def test_v010_save_gets_the_league_cup():
 
     old = calendar_v10()
     d["week"] = old.index(["league", 3])
-    for newer in ("calendar", "league_cup", "europe", "prev_order"):
+    for newer in ("calendar", "league_cup", "europe", "prev_order", "pyramid_champions"):
         d.pop(newer)
     h = Game.from_dict(d)
     assert h.calendar[h.week] == ["league", 3]
@@ -504,3 +510,65 @@ def test_v010_save_gets_the_league_cup():
             break
         h.play_week()
     assert h.league_cup["stage"] == "done" and h.league_cup["winner"]
+
+
+def test_cards_rates_and_ten_men():
+    from spfl_manager.core.match import MatchEvent, MatchResult  # noqa: F401
+
+    g = Game.new("Mike", "Clyde", seed=111, db=SquadDB.load_default())
+    a, b = g.selected_players("Dumbarton"), g.selected_players("Clyde")
+    rng = random.Random(7)
+    n = 3000
+    yellows = reds = 0
+    goals_down, goals_full, n_down, n_full = 0, 0, 0, 0
+    conceded_down = conceded_full = 0
+    for _ in range(n):
+        r = simulate_match("Dumbarton", "Clyde", a, b, rng)
+        yellows += sum(1 for e in r.events if e.kind == "yellow")
+        reds += sum(1 for e in r.events if e.kind == "red")
+        off = {e.player_id: e.minute for e in r.events if e.kind == "red"}
+        for e in r.events:  # nobody does anything after being sent off
+            if e.kind != "red" and e.player_id in off:
+                assert e.minute <= off[e.player_id]
+        home_red = [e.minute for e in r.events if e.kind == "red" and e.side == "home" and e.minute < 45]
+        if home_red:
+            goals_down += r.home_goals
+            conceded_down += r.away_goals
+            n_down += 1
+        elif not off:
+            goals_full += r.home_goals
+            conceded_full += r.away_goals
+            n_full += 1
+    assert 1.4 < yellows / (2 * n) < 2.0  # bookings per team per game
+    assert 0.1 < reds / n < 0.3  # red cards per game
+    # ten men score less and concede more
+    assert goals_down / n_down < goals_full / n_full
+    assert conceded_down / n_down > conceded_full / n_full
+
+
+def test_suspensions():
+    from spfl_manager.core.game import WeekReport
+    from spfl_manager.core.match import MatchEvent, MatchResult
+
+    g = Game.new("Mike", "Elgin City", seed=112, db=SquadDB.load_default())
+    squad = g.squad("Elgin City")
+    p1, p2, p3 = squad[3], squad[4], squad[5]
+    p1.yellows = 4
+    res = MatchResult("Elgin City", "Clyde")
+    res.events = [
+        MatchEvent(10, "home", "yellow", p1.name, "", p1.id),  # 5th booking -> 1 match
+        MatchEvent(20, "home", "red", p2.name, "", p2.id, "second_yellow"),  # -> 1 match
+        MatchEvent(30, "home", "red", p3.name, "", p3.id, "straight"),  # -> 2 matches
+    ]
+    report = WeekReport("test")
+    g._apply_discipline([res], report)
+    assert (p1.suspended, p2.suspended, p3.suspended) == (1, 1, 2)
+    assert not p1.available and len([n for n in report.news if "suspended" in n or "banned" in n]) == 3
+    # the bans are served by missing the club's next match(es)
+    g.club.selected = [p.id for p in squad[:11]]
+    while g.next_fixture() is None:
+        g.play_week()
+    rep = g.play_week()
+    xi = rep.player_result.home_xi if rep.player_result.home == "Elgin City" else rep.player_result.away_xi
+    assert p1.id not in xi and p2.id not in xi and p3.id not in xi
+    assert (p1.suspended, p2.suspended, p3.suspended) == (0, 0, 1)

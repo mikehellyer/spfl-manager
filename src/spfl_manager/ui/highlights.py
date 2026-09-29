@@ -250,6 +250,8 @@ class HighlightsScene(Scene):
         self.commentary = f"Welcome to {self.stadium} for {self.comp}."
         self.speed = 1.0
         self.half_done = False  # has the half-time break happened yet?
+        self.dismissed: set[int] = set()  # idle-sprite indexes of sent-off players
+        self.card_colour = None
         self.resume_phase = "clock"
         self.chance: Chance | None = None
         self.flash = 0.0
@@ -342,6 +344,9 @@ class HighlightsScene(Scene):
 
     def _start_event(self):
         e = self.events[self.idx]
+        if e.kind in ("yellow", "red"):
+            self._card(e)
+            return
         if e.kind == "decision" and e.detail != "offside":
             self._decision(e)
             return
@@ -374,6 +379,39 @@ class HighlightsScene(Scene):
             return " The travelling support are raging!"
         self.app.sound.play("goal", volume=0.25)
         return ""
+
+    def _card(self, e):
+        """The referee reaches for his pocket."""
+        team = self.hc.name if e.side == "home" else self.ac.name
+        m = f"{e.minute}'  "
+        self.app.sound.play("whistle")
+        if e.kind == "yellow":
+            self.caption, self.caption_col, self.card_colour = "YELLOW CARD", T.YELLOW, (250, 220, 40)
+            self.commentary = f"{m}{e.player} ({team}) goes into the book."
+            if e.side == "home":
+                self.app.sound.play("boo", volume=0.35)  # the home fans don't agree
+        else:
+            self.caption, self.caption_col, self.card_colour = "RED CARD!", T.LIGHT_RED, (220, 30, 30)
+            short = self.hc.short if e.side == "home" else self.ac.short
+            if e.detail == "second_yellow":
+                text = f"Second yellow for {e.player} - off! {short} down to ten men."
+            else:
+                text = f"STRAIGHT RED! {e.player} is off! {short} down to ten men."
+            self._crowd_reaction(e.side)  # boos from his own fans
+            self.commentary = m + text
+            self.flash = 1.2
+            self._send_off(e.side)
+        self.phase = "outcome"
+        self.timer = 2.2
+
+    def _send_off(self, side):
+        """Take one outfield player off the idle formation for the rest of the match."""
+        start = 0 if side == "home" else 5
+        for i in range(start + 3, start - 1, -1):  # outfield players are the first four of each side
+            if i not in self.dismissed:
+                self.dismissed.add(i)
+                self.idle[i].hidden = True
+                return
 
     def _decision(self, e):
         team = self.hc.name if e.side == "home" else self.ac.name
@@ -454,7 +492,7 @@ class HighlightsScene(Scene):
         for i, (sp, (x, y)) in enumerate(zip(self.idle, self.first_half_spots)):
             # everyone emerges from the tunnel and runs to the opposite end
             sp.x, sp.y = TUNNEL[0] + (i % 5 - 2) * 0.6, TUNNEL[1]
-            sp.hidden = False
+            sp.hidden = i in self.dismissed  # sent-off players don't come back out
             sp.tx, sp.ty = 105 - x, y
             sp.speed = 13 if sp.kit in KEEPER_KITS else 11
 
@@ -604,7 +642,13 @@ class HighlightsScene(Scene):
                 col = T.WHITE
             else:
                 col = self.caption_col
-            T.big_text(surf, self.caption, (CX, 170), col, scale=scale, center=True, shadow=T.BLACK)
+            w = T.big_text(surf, self.caption, (CX, 170), col, scale=scale, center=True, shadow=T.BLACK)
+            if self.caption in ("YELLOW CARD", "RED CARD!") and self.card_colour:
+                # the card itself, held up to the left of the caption
+                cx, cy = CX - w // 2 - 36, 158
+                pygame.draw.rect(surf, T.BLACK, (cx + 3, cy + 3, 24, 34))
+                pygame.draw.rect(surf, self.card_colour, (cx, cy, 24, 34))
+                pygame.draw.rect(surf, T.WHITE, (cx, cy, 24, 34), 1)
 
         if self.phase == "halftime":
             self._draw_half_time_panel(surf)

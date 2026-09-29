@@ -29,6 +29,8 @@ class Player:
     injury: int = 0  # weeks remaining out
     goals: int = 0
     apps: int = 0
+    yellows: int = 0  # bookings this season
+    suspended: int = 0  # matches still to serve
 
     @property
     def short_name(self) -> str:
@@ -40,7 +42,7 @@ class Player:
 
     @property
     def available(self) -> bool:
-        return self.injury == 0
+        return self.injury == 0 and self.suspended == 0
 
     @property
     def effective(self) -> float:

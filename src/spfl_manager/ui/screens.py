@@ -227,10 +227,11 @@ class SquadScene(Scene):
                 ("Skill", 222, "r"),
                 ("Fit", 262, "r"),
                 ("Age", 296, "r"),
-                ("Value", 370, "r"),
-                ("Wage", 430, "r"),
-                ("Gls", 466, "r"),
-                ("Status", 480, "l"),
+                ("Value", 364, "r"),
+                ("Wage", 420, "r"),
+                ("Gls", 450, "r"),
+                ("Bk", 476, "r"),
+                ("Status", 488, "l"),
             ],
             L,
             TOP + 58,
@@ -252,8 +253,13 @@ class SquadScene(Scene):
         sel = set(g.club.selected)
         rows = []
         for p in g.squad(g.club_name):
-            status = f"INJ {p.injury}w" if p.injury else ("PICKED" if p.id in sel else "")
-            color = T.YELLOW if p.id in sel else (T.LIGHT_RED if p.injury else T.WHITE)
+            if p.suspended:
+                status = f"SUSP {p.suspended}"
+            elif p.injury:
+                status = f"INJ {p.injury}w"
+            else:
+                status = "PICKED" if p.id in sel else ""
+            color = T.YELLOW if p.id in sel else (T.LIGHT_RED if not p.available else T.WHITE)
             rows.append(
                 (
                     [
@@ -266,6 +272,7 @@ class SquadScene(Scene):
                         T.money(p.value),
                         T.money(p.wage),
                         str(p.goals),
+                        str(p.yellows or ""),
                         status,
                     ],
                     color,
@@ -1052,7 +1059,33 @@ class ResultsScene(Scene):
                 for i, e in enumerate(mine):
                     T.text(surf, f"{e.player} {e.minute}'", (x, y + i * 13), T.WHITE, size=11, right=right)
                 rows = max(rows, len(mine))
-            y += rows * 13 + 8
+            y += rows * 13 + 4
+            # discipline: bookings and anyone sent off
+            yh = sum(1 for e in r.events if e.kind == "yellow" and e.side == "home")
+            ya = sum(1 for e in r.events if e.kind == "yellow" and e.side == "away")
+            if yh or ya:
+                T.text(
+                    surf,
+                    f"Bookings: {g._short(r.home)} {yh}   {g._short(r.away)} {ya}",
+                    (T.CANVAS_W // 2, y),
+                    T.YELLOW,
+                    center=True,
+                    size=10,
+                )
+                y += 12
+            for e in (e for e in r.events if e.kind == "red"):
+                club = r.home if e.side == "home" else r.away
+                how = "straight red" if e.detail == "straight" else "second yellow"
+                T.text(
+                    surf,
+                    f"Sent off: {e.player} ({g._short(club)}) {e.minute}' - {how}",
+                    (T.CANVAS_W // 2, y),
+                    T.LIGHT_RED,
+                    center=True,
+                    size=10,
+                )
+                y += 12
+            y += 4
         cup = not rep.label.startswith("League")
         lines = rep.results
         heading = "Other results"
