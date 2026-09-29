@@ -8,6 +8,7 @@ import pygame
 
 from ..core import cup as cupmod
 from ..core import data
+from ..core import league_cup as lcup
 from ..core.game import MAX_SQUAD, Game, save_path
 from ..core.models import team_strength
 from . import theme as T
@@ -427,14 +428,40 @@ class TableScene(Scene):
         if is_back(ev):
             self.app.pop()
         elif ev.type == pygame.KEYDOWN and ev.key in (pygame.K_LEFT, pygame.K_RIGHT):
-            self.div = (self.div + (1 if ev.key == pygame.K_RIGHT else -1)) % 4
+            pages = 5 if self.g.league_cup.get("groups") else 4  # 5th page: League Cup groups
+            self.div = (self.div + (1 if ev.key == pygame.K_RIGHT else -1)) % pages
             self.table.index = self.table.top = 0
-            self.refresh()
-        else:
+            if self.div < 4:
+                self.refresh()
+        elif self.div < 4:
             self.table.handle(ev)
+
+    def draw_league_cup_groups(self, surf):
+        g = self.g
+        st = g.league_cup
+        T.header(surf, "LEAGUE CUP - GROUP STAGE", f"{g.season_label}  {g.event_label()}")
+        for gi in range(8):
+            col, row = gi % 2, gi // 2
+            x, y = L + col * 300, TOP + 4 + row * 72
+            T.text(surf, f"GROUP {lcup.GROUP_NAMES[gi]}", (x, y), T.YELLOW, size=10, bold=True)
+            T.text(surf, "P  Pts", (x + 280, y), T.GREY, size=10, right=True)
+            for i, team in enumerate(lcup.standings(st, gi)):
+                r = st["tables"][team]
+                ty = y + 12 + i * 11
+                colr = T.YELLOW if team == g.club_name else (T.LIGHT_GREEN if i == 0 else T.WHITE)
+                T.text(surf, cupmod.display_name(team, 26), (x, ty), colr, size=10)
+                T.text(surf, f"{r['P']}  {r['Pts']:>3}", (x + 280, ty), colr, size=10, right=True)
+        note = "Winners and the 3 best runners-up join the 5 European clubs in the Second Round."
+        T.text(surf, note, (L, TOP + 4 + 4 * 72 + 2), T.LIGHT_GREY, size=10)
+        T.footer(
+            surf, "Win 3 pts, draw goes to penalties: winner 2, loser 1   LEFT/RIGHT: tables   ESC: back"
+        )
 
     def draw(self, surf):
         T.frame(surf)
+        if self.div == 4:
+            self.draw_league_cup_groups(surf)
+            return
         extra = ""
         if self.div == 0:
             extra = "  (split: top 6 / bottom 6)" if self.g.split else "  (splits after 33 games)"
@@ -456,7 +483,7 @@ class TableScene(Scene):
             T.LIGHT_GREY,
             size=11,
         )
-        T.footer(surf, "LEFT/RIGHT: other divisions   Right-click/ESC: back")
+        T.footer(surf, "LEFT/RIGHT: other divisions and League Cup groups   Right-click/ESC: back")
 
 
 # --------------------------------------------------------------------------- fixtures
@@ -496,7 +523,13 @@ class FixturesScene(Scene):
         for r in g.player_results:
             if not r["label"].startswith("League"):
                 score = f"{r['home_goals']}-{r['away_goals']}" + (" p" if r["pens"] else "")
-                tag = "P/O" if r["label"].startswith("Play-offs") else "CUP"
+                tag = (
+                    "P/O"
+                    if r["label"].startswith("Play-offs")
+                    else "LC"
+                    if r["label"].startswith("League Cup")
+                    else "CUP"
+                )
                 rows.append(([tag, r["home"], score, r["away"]], T.CYAN if tag == "CUP" else T.YELLOW, None))
         self.table.set_rows(rows)
         if current is not None:
@@ -787,7 +820,17 @@ class PreMatchScene(Scene):
         if not self.fixture:
             T.big_text(surf, "NO MATCH THIS WEEK", (T.CANVAS_W // 2, 90), T.YELLOW, center=True)
             kind = g.calendar[g.week][0]
-            if kind == "cup":
+            if kind in ("lcup_group", "lcup"):
+                status = g.league_cup_status()
+                if kind == "lcup_group" and g.league_cup_group() is not None:
+                    msg = "Your club has no League Cup game this matchday."
+                elif status.startswith("Enter in"):
+                    msg = "As a European club you enter the League Cup in the Second Round."
+                elif status in ("Out", "Winners!"):
+                    msg = "Your club is out of the League Cup." if status == "Out" else "League Cup winners!"
+                else:
+                    msg = "No League Cup game for your club this week."
+            elif kind == "cup":
                 status = g.cup_status()
                 if status.startswith("Enter in"):
                     msg = f"Your club enters the Scottish Cup in the {status[len('Enter in ') :]}."
@@ -928,11 +971,30 @@ class ResultsScene(Scene):
             T.text(surf, text, (x, y), col, size=10)
         y = y0 + per_col * line_h + 8
         T.text(surf, "* won on penalties   White: SPFL clubs   Grey: non-league", (L, y), T.GREY, size=10)
-        cup = g.cup
-        if cup.get("winner"):
-            T.text(surf, f"{cup['winner']} win the Scottish Cup!", (L, y + 16), T.YELLOW, size=11)
-        elif cup.get("ties") or cup.get("byes"):
-            T.text(surf, f"Next: {g.cup_next_label()}", (L, y + 16), T.CYAN, size=11)
+        if label.startswith("League Cup"):
+            st = g.league_cup
+            if st.get("winner"):
+                T.text(surf, f"{st['winner']} win the League Cup!", (L, y + 16), T.YELLOW, size=11)
+            elif g.league_cup_next_label():
+                T.text(surf, f"Next: {g.league_cup_next_label()}", (L, y + 16), T.CYAN, size=11)
+            group = g.league_cup_group()
+            if "Group Matchday" in label and group is not None:
+                gy = y + 34
+                T.text(surf, f"GROUP {lcup.GROUP_NAMES[group]}", (L, gy), T.YELLOW, size=10, bold=True)
+                T.text(surf, "P  W  PW PL  L   F  A  Pts", (L + 360, gy), T.GREY, size=10, right=True)
+                for i, team in enumerate(lcup.standings(st, group)):
+                    r = st["tables"][team]
+                    colr = T.YELLOW if team == g.club_name else T.WHITE
+                    ry = gy + 12 + i * 11
+                    T.text(surf, team, (L, ry), colr, size=10)
+                    line = f"{r['P']}  {r['W']}  {r['PW']}  {r['PL']}  {r['L']}  {r['F']:>2} {r['A']:>2}  {r['Pts']:>3}"
+                    T.text(surf, line, (L + 360, ry), colr, size=10, right=True)
+        else:
+            cup = g.cup
+            if cup.get("winner"):
+                T.text(surf, f"{cup['winner']} win the Scottish Cup!", (L, y + 16), T.YELLOW, size=11)
+            elif cup.get("ties") or cup.get("byes"):
+                T.text(surf, f"Next: {g.cup_next_label()}", (L, y + 16), T.CYAN, size=11)
         more = self.page + 1 < self.pages
         T.footer(surf, "Press any key for the next results" if more else "Press any key to continue")
 
@@ -1036,8 +1098,8 @@ class ResultsScene(Scene):
                 T.text(surf, line, (L, y), col, size=10)
                 y += 12
         if self.pages > 1:
-            rounds = ", ".join(label.replace("Scottish Cup ", "") for label, _ in rep.cup_rounds)
-            T.footer(surf, f"Press any key: Scottish Cup {rounds} results")
+            rounds = ", ".join(label for label, _ in rep.cup_rounds)
+            T.footer(surf, f"Press any key: {rounds} results"[:96])
         else:
             T.footer(surf, "Press any key to continue")
 
@@ -1077,7 +1139,10 @@ class SeasonEndScene(Scene):
             y += 14
         T.text(surf, f"{data.CUP_NAME} winners:", (L + 20, y), T.LIGHT_GREY, size=12)
         T.text(surf, s.get("cup_winner", ""), (L + 280, y), T.CYAN, size=12)
-        y += 20
+        y += 14
+        T.text(surf, "League Cup winners:", (L + 20, y), T.LIGHT_GREY, size=12)
+        T.text(surf, s.get("league_cup_winner", ""), (L + 280, y), T.CYAN, size=12)
+        y += 18
         for label, names, col in (
             ("Promoted: ", s["promoted"], T.LIGHT_GREEN),
             ("Relegated: ", s["relegated"], T.LIGHT_RED),

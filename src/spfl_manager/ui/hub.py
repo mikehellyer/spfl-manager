@@ -114,10 +114,10 @@ class HubScene(Scene):
             ("League position", f"{ordinal(pos)} of {len(g.divisions[club.division])}"),
             ("Played / Points", f"{row['P']} / {row['Pts']}"),
             ("Record W-D-L", f"{row['W']}-{row['D']}-{row['L']}   form {row['form'] or '-'}"),
-            ("Bank balance", T.money(g.balance)),
-            ("Bank loan", T.money(g.loan)),
+            ("Bank balance", T.money(g.balance) + (f"  (loan {T.money(g.loan)})" if g.loan else "")),
             ("Weekly wages", T.money(g.wage_bill())),
             ("Scottish Cup", g.cup_status()),
+            ("League Cup", g.league_cup_status()),
         ]
         for label, val in stats:
             T.text(surf, label, (x, y), T.LIGHT_GREY)

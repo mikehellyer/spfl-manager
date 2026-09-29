@@ -35,7 +35,7 @@ def test_divisions_sizes():
 
 def test_new_game_setup():
     g = Game.new("Mike", "Stranraer", seed=3, db=SquadDB.load_default())
-    assert len(g.clubs) == 42
+    assert sum(1 for c in g.clubs.values() if c.division < 4) == 42
     assert g.club.division == 3
     assert all(len(g.squad(c)) >= 12 for c in g.clubs)
     assert len(g.club.selected) == 11
@@ -269,7 +269,7 @@ def test_long_career_stays_healthy():
         while summary is None:
             summary = g.play_week().season_summary
         assert [len(d) for d in g.divisions] == [12, 10, 10, 10]
-        assert all(len(g.squad(c)) >= 18 for c in g.clubs)
+        assert all(len(g.squad(c)) >= 18 for c in g.clubs if g.clubs[c].division < 4)
         assert len([c for c in g.non_league if c["name"] not in g.clubs]) >= 2
     assert Game.from_dict(g.to_dict()).to_dict() == g.to_dict()
 
@@ -325,12 +325,19 @@ def test_decisions_are_flavour_only():
     assert seen == {"offside", "penalty", "free_kick", "booking"}
 
 
+def lcup_alive(g):
+    from spfl_manager.core import league_cup
+
+    return league_cup.alive(g.league_cup)
+
+
 def _play_season(g):
     rounds, summary = {}, None
     while summary is None:
         rep = g.play_week()
         for name, results in rep.cup_rounds:
-            rounds[name.replace("Scottish Cup ", "")] = results
+            if name.startswith("Scottish Cup "):
+                rounds[name.replace("Scottish Cup ", "")] = results
         summary = rep.season_summary
     return rounds, summary
 
@@ -371,8 +378,10 @@ def test_scottish_cup_follows_the_official_format():
     for name in ("Preliminary Round One", "Preliminary Round Two", "Preliminary Round Three", "First Round"):
         assert not any({r.home, r.away} & spfl for r in rounds[name])
     assert summary["cup_winner"]
-    # every non-league side has gone home by the new season
-    assert all(c.division < 4 for c in g.clubs.values()) and len(g.clubs) == 42
+    # every non-league cup side has gone home - only the new season's three League Cup
+    # entrants are around
+    assert sum(1 for c in g.clubs.values() if c.division < 4) == 42
+    assert {n for n, c in g.clubs.items() if c.division == 4} <= lcup_alive(g)
 
 
 def test_non_league_opponent_exists_from_the_draw_until_the_week_after():
@@ -402,6 +411,8 @@ def test_legacy_save_moves_onto_the_new_cup():
     # what a v0.9 save looked like at the same point: old calendar index 3, old-style cup
     d["cup"] = {"round": 0, "ties": [["Clyde", "Stranraer"]], "byes": ["Celtic"], "winner": "", "out": False}
     d["week"] = 3
+    for newer in ("calendar", "league_cup", "europe", "prev_order"):  # a v0.9 save had none of these
+        d.pop(newer)
     h = Game.from_dict(d)
     assert "remaining" in h.cup
     assert h.calendar[h.week] == ["league", 3]
@@ -409,3 +420,87 @@ def test_legacy_save_moves_onto_the_new_cup():
     for _ in range(12):
         h.play_week()
     assert h.cup["round"] >= 5
+
+
+def test_league_cup_follows_the_2026_27_format():
+    from spfl_manager.core import league_cup as lc
+
+    g = Game.new("Mike", "Elgin City", seed=101, db=SquadDB.load_default())
+    st = g.league_cup
+    # season one uses the real draw: Elgin in Group H
+    assert st["groups"][7] == ["Kilmarnock", "Raith Rovers", "Peterhead", "Hamilton Academical", "Elgin City"]
+    assert set(st["europe"]) == {"Celtic", "Heart of Midlothian", "Rangers", "Motherwell", "Hibernian"}
+    assert sum(len(gr) for gr in st["groups"]) == 40
+    # the group stage comes first, before the league
+    assert [ev[0] for ev in g.calendar[:5]] == ["lcup_group"] * 5
+    rounds = {}
+    while g.league_cup.get("stage") != "done":
+        rep = g.play_week()
+        for name, results in rep.cup_rounds:
+            if name.startswith("League Cup"):
+                rounds[name] = results
+    tables = g.league_cup["tables"]
+    for row in tables.values():
+        assert row["P"] == 4
+        # points: 3 per win, 2 per shoot-out win, 1 per shoot-out loss
+        assert row["Pts"] == 3 * row["W"] + 2 * row["PW"] + row["PL"]
+        assert row["W"] + row["PW"] + row["PL"] + row["L"] == 4
+    for md in range(5):
+        games = rounds[f"League Cup Group Matchday {md + 1}"]
+        assert len(games) == 16
+    home_games = {}
+    for md in range(5):
+        for r in rounds[f"League Cup Group Matchday {md + 1}"]:
+            home_games[r.home] = home_games.get(r.home, 0) + 1
+    assert len(home_games) == 40 and set(home_games.values()) == {2}  # two home, two away each
+    r2 = rounds["League Cup Second Round"]
+    assert len(r2) == 8
+    in_r2 = {t for r in r2 for t in (r.home, r.away)}
+    assert {"Celtic", "Heart of Midlothian", "Rangers", "Motherwell", "Hibernian"} <= in_r2
+    assert len(rounds["League Cup Quarter-Final"]) == 4
+    assert len(rounds["League Cup Semi-Final"]) == 2
+    assert len(rounds["League Cup Final"]) == 1
+    assert g.league_cup["winner"] == rounds["League Cup Final"][0].winner
+    assert g.cup_neutral("League Cup Semi-Final") and g.cup_neutral("League Cup Final")
+    assert not g.cup_neutral("League Cup Quarter-Final")
+    # the final is in December (after league week 19), long before the end of the season
+    assert lc.KO_ROUNDS[-1][1] == 19
+
+
+def test_next_season_europe_and_league_cup_draw():
+    g = Game.new("Mike", "Hibernian", seed=102, db=SquadDB.load_default())
+    summary = None
+    while summary is None:
+        rep = g.play_week()
+        summary = rep.season_summary
+    assert summary["league_cup_winner"]
+    assert len(g.europe) == 5 and len(set(g.europe)) == 5
+    assert g.europe[:4] == g.prev_order[:4]  # top four in the Premiership
+    st = g.league_cup  # the new season's competition
+    assert sum(len(gr) for gr in st["groups"]) == 40
+    teams = {t for gr in st["groups"] for t in gr}
+    assert not teams & set(g.europe)
+    non_league = [t for t in teams if g.clubs[t].division == 4]
+    assert len(non_league) == 3
+
+
+def test_v010_save_gets_the_league_cup():
+    g = Game.new("Mike", "Elgin City", seed=103, db=SquadDB.load_default())
+    d = g.to_dict()
+    # a v0.10 save at League Week 4: no calendar, no League Cup, v0.10 calendar indexes
+    from spfl_manager.core.game import calendar_v10
+
+    old = calendar_v10()
+    d["week"] = old.index(["league", 3])
+    for newer in ("calendar", "league_cup", "europe", "prev_order"):
+        d.pop(newer)
+    h = Game.from_dict(d)
+    assert h.calendar[h.week] == ["league", 3]
+    st = h.league_cup
+    assert st["stage"] == "knockout" and st["round"] == 1  # groups and Second Round caught up
+    assert any("League Cup" in n for n in h.news)
+    for _ in range(40):
+        if h.league_cup["stage"] == "done":
+            break
+        h.play_week()
+    assert h.league_cup["stage"] == "done" and h.league_cup["winner"]

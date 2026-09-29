@@ -41,6 +41,9 @@ def test_every_management_screen_draws(tmp_path, monkeypatch):
     for scene in scenes:
         scene.update(1 / 60)
         scene.draw(app.canvas)
+    league_cup_page = screens.TableScene(app)
+    league_cup_page.div = 4  # the League Cup groups page
+    league_cup_page.draw(app.canvas)
     results = screens.ResultsScene(app, report)
     for page in range(results.pages):
         results.page = page

@@ -14,6 +14,7 @@ DECISIONS = ["offside", "penalty", "free_kick", "booking"]
 DECISION_WEIGHTS = [3, 2, 3, 4]
 DECISIONS_PER_TEAM = 0.8
 HOME_BONUS = 1.06
+FORM_ON_THE_DAY = 0.08  # spread of each side's day-to-day form (log scale)
 
 
 @dataclass
@@ -100,16 +101,20 @@ def simulate_match(
     cup: bool = False,
 ) -> MatchResult:
     hs, as_ = team_strength(home_xi), team_strength(away_xi)
-    hm = (0.9 + 0.2 * home_morale / 100) * HOME_BONUS
-    am = 0.9 + 0.2 * away_morale / 100
+    # form on the day: a little randomness so the underdog can sometimes spring a shock
+    hm = (0.9 + 0.2 * home_morale / 100) * HOME_BONUS * math.exp(rng.gauss(0, FORM_ON_THE_DAY))
+    am = (0.9 + 0.2 * away_morale / 100) * math.exp(rng.gauss(0, FORM_ON_THE_DAY))
 
     h_mid, a_mid = hs.midfield * hm, as_.midfield * am
-    poss_home = h_mid**2 / (h_mid**2 + a_mid**2)
+    poss_home = h_mid**1.5 / (h_mid**1.5 + a_mid**1.5)
 
     def chances_and_conversion(att, opp_def, poss):
+        # The quality gap raises both the number of chances and how many go in, but
+        # gently: overall goals scale roughly in proportion to the gap (not its square),
+        # so Premiership v League Two is typically 3-0 or 4-0 rather than 10-0.
         ratio = att / max(1.0, opp_def)
-        expected = 9.0 * poss * ratio**0.8
-        conv = min(0.6, max(0.08, 0.30 * ratio**1.2))
+        expected = 9.0 * poss * ratio**0.4
+        conv = min(0.5, max(0.08, 0.30 * ratio**0.6))
         return expected, conv
 
     h_exp, h_conv = chances_and_conversion(hs.attack * hm, as_.defence * am, poss_home)
