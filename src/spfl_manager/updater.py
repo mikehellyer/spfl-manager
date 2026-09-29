@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import re
+import ssl
 import sys
 import threading
 import urllib.request
@@ -26,13 +27,34 @@ def is_newer(latest: str, current: str = __version__) -> bool:
     return parse_version(latest) > parse_version(current)
 
 
+def ssl_context() -> ssl.SSLContext:
+    """HTTPS certificates to trust.
+
+    A packaged app can't rely on the computer's Python/OpenSSL certificate store (on a
+    Mac the bundled OpenSSL looks in a folder from the build machine that doesn't
+    exist), so use certifi's bundle, which ships inside the app.
+    """
+    try:
+        import certifi
+
+        return ssl.create_default_context(cafile=certifi.where())
+    except (ImportError, OSError):
+        return ssl.create_default_context()
+
+
+def latest_release(timeout: float = 5.0) -> dict:
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
+    req = urllib.request.Request(
+        url, headers={"Accept": "application/vnd.github+json", "User-Agent": f"SPFL-Manager/{__version__}"}
+    )
+    with urllib.request.urlopen(req, timeout=timeout, context=ssl_context()) as resp:
+        return json.load(resp)
+
+
 def check_for_update(timeout: float = 5.0) -> dict | None:
     if not GITHUB_REPO:
         return None
-    url = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
-    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json"})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        release = json.load(resp)
+    release = latest_release(timeout)
     tag = release.get("tag_name", "")
     if tag and is_newer(tag):
         assets = [{"name": a["name"], "url": a["browser_download_url"]} for a in release.get("assets", [])]

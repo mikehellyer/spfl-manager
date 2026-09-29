@@ -19,6 +19,11 @@ def self_test(report_path: str = "") -> int:
         lines.append(f"version {__version__}: {len(db.clubs)} clubs, {players} real players")
         ok &= len(db.clubs) == 42 and players > 1000
         missing = [f for f in CROWD_FILES if not (ASSETS / f"{f}.wav").exists()]
+        import certifi
+
+        certs = Path(certifi.where()).exists()
+        lines.append(f"HTTPS certificates for the update check: {'bundled' if certs else 'MISSING'}")
+        ok &= certs
         icon = Path(ASSETS).parent / "icon.png"
         lines.append(f"sounds missing: {missing or 'none'}; icon: {icon.exists()}")
         ok &= not missing and icon.exists()
@@ -36,7 +41,28 @@ def self_test(report_path: str = "") -> int:
     return 0 if ok else 1
 
 
+def check_update_report(report_path: str = "") -> int:
+    """Diagnostics: can this build reach GitHub and see the latest release? Exit code 0 = yes."""
+    from . import __version__, updater
+
+    try:
+        release = updater.latest_release(timeout=10)
+        tag = release.get("tag_name", "?")
+        text = f"This is v{__version__}. Latest release on GitHub: {tag}."
+        text += " An update is available." if updater.is_newer(tag) else " You're up to date."
+        code = 0
+    except Exception as exc:
+        text, code = f"Update check FAILED: {exc!r}", 1
+    print(text)
+    if report_path:
+        Path(report_path).write_text(text + "\n")
+    return code
+
+
 def main():
+    if "--check-update" in sys.argv:
+        i = sys.argv.index("--check-update")
+        sys.exit(check_update_report(sys.argv[i + 1] if len(sys.argv) > i + 1 else ""))
     if "--self-test" in sys.argv:
         i = sys.argv.index("--self-test")
         sys.exit(self_test(sys.argv[i + 1] if len(sys.argv) > i + 1 else ""))

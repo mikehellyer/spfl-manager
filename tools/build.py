@@ -65,8 +65,21 @@ def freeze():
     )
 
 
+def set_mac_version(app: Path):
+    """PyInstaller leaves the app's version as 0.0.0 - set the real one (shown in Finder)."""
+    import plistlib
+
+    plist = app / "Contents" / "Info.plist"
+    info = plistlib.loads(plist.read_bytes())
+    info["CFBundleShortVersionString"] = __version__
+    info["CFBundleVersion"] = __version__
+    info["NSHumanReadableCopyright"] = "MIT licence - github.com/mikehellyer/spfl-manager"
+    plist.write_bytes(plistlib.dumps(info))
+
+
 def build_mac() -> Path:
     app = DIST / f"{APP_NAME}.app"
+    set_mac_version(app)
     stage = DIST / "dmg"
     shutil.rmtree(stage, ignore_errors=True)
     stage.mkdir()

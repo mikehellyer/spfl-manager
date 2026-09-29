@@ -1,1 +1,2 @@
 pygame-ce>=2.5
+certifi  # HTTPS certificates for the update check (the packaged app has none of its own)
