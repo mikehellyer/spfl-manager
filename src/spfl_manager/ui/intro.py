@@ -39,8 +39,6 @@ class BootScene(Scene):
 
     def update(self, dt):
         self.t += dt
-        if self.app.update_info and not self._menu_has_update:
-            self._build_menu()  # the background update check has just found a new version
         if self.t > 6.2:
             self.app.replace(TitleScene(self.app))
 
@@ -205,6 +203,8 @@ class TitleScene(Scene):
 
     def update(self, dt):
         self.t += dt
+        if self.app.update_info and not self._menu_has_update:
+            self._build_menu()  # the background update check has just found a new version
 
     def draw(self, surf):
         t = self.t
