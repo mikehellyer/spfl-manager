@@ -38,7 +38,8 @@ In the highlights, **SPACE** switches to fast-forward and **ESC** skips to full 
 
 - C64 boot/loading intro, then a demo-style title screen (rasterbars, sine scroller, chiptune)
 - Choose any club in any division (League Two is the classic "start at the bottom")
-- Squad screen: pick your XI in any shape; defence/midfield/attack ratings, fitness, injuries
+- Squad screen: pick your XI in any shape; defence/midfield/attack ratings, fitness, injuries,
+  matches played (Pl) and goals this season, and each player's form
 - 38-game Premiership with the real split: after 33 games it splits into a top six and a bottom
   six, each club plays the other five in its half once, and nobody can cross the split
 - 36-game Championship, League One and League Two. Their play-offs start while the Premiership
@@ -70,6 +71,9 @@ In the highlights, **SPACE** switches to fast-forward and **ESC** skips to full 
     drop out of the SPFL, which ends the game. Clubs that drop out can come back up later.
 - Season awards, ageing, retirements and a youth intake that tops squads up to 18
 - Fitness matters: tired players play worse, so rotate your squad (the pre-match screen warns you)
+- Form: players who've been winning, scoring and keeping clean sheets play above their skill (up to
+  10% better when *Hot*), while a bad run leaves them *Poor* or *Cold*. Form fades back to *OK*
+  when a player is left out, and resets at the start of each season
 - Autosave every week (`~/.spfl_manager/savegame.json`)
 - Update checker: tells you when a newer release is out on GitHub (it never downloads anything by itself)
 
@@ -78,8 +82,8 @@ In the highlights, **SPACE** switches to fast-forward and **ESC** skips to full 
 The editor works on two things:
 
 - **Current save:** your career in progress. Open it with *Squad Editor* on the in-game main menu,
-  or from the title screen. You can edit a player's name, position, skill, age, fitness and
-  injury, and add, delete or move players. It works on a copy, so nothing changes until you
+  or from the title screen. You can edit a player's name, position, skill, age, fitness,
+  injury and form, and add, delete or move players. It works on a copy, so nothing changes until you
   press **S**, and choosing *Discard* leaves your career exactly as it was. Clubs must keep at
   least 13 players. The border is orange so you can tell you're editing a save.
 - **Squad database:** the players every **new** game starts with (title screen → Squad Editor →

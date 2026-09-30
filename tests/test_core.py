@@ -643,3 +643,48 @@ def test_playoff_shootout_is_kept_for_the_highlights():
     tie = next(t for t in g.playoffs["ties"] if {t["a"], t["b"]} == {found.home, found.away})
     assert tie["winner"] == (found.home if home > away else found.away)
     assert po.aggregate(tie)[0] == po.aggregate(tie)[1]
+
+
+def test_form_changes_how_well_a_player_plays():
+    from spfl_manager.core.models import FORM_MAX, Player
+
+    p = Player(1, "A Player", "ATT", 70, 25, "Clyde")
+    assert p.form_label == "OK" and p.effective == 70
+    p.form = FORM_MAX
+    assert p.form_label == "Hot" and round(p.effective) == 77
+    p.form = -FORM_MAX
+    assert p.form_label == "Cold" and round(p.effective) == 63
+    # saves from before form existed still load
+    d = p.to_dict()
+    del d["form"]
+    assert Player.from_dict(d).form == 0
+
+
+def test_form_follows_results():
+    from spfl_manager.core.match import MatchEvent, MatchResult
+
+    g = Game.new("Mike", "Elgin City", seed=7, db=SquadDB.load_default())
+    home_xi, away_xi = g.auto_pick("Elgin City"), g.auto_pick("Clyde")
+    striker = next(g.players[i] for i in home_xi if g.players[i].pos == "ATT")
+    defender = next(g.players[i] for i in away_xi if g.players[i].pos == "DEF")
+    rested = next(p for p in g.squad("Elgin City") if p.id not in home_xi)
+    rested.form = 3
+    for _ in range(4):  # a run of heavy wins
+        res = MatchResult("Elgin City", "Clyde", 4, 0, home_xi=home_xi, away_xi=away_xi)
+        res.events = [MatchEvent(10 * i, "home", "goal", striker.name, "", striker.id) for i in range(4)]
+        g._update_form([res])
+    assert striker.form_label == "Hot"
+    assert defender.form_label in ("Poor", "Cold")
+    assert rested.form == 0  # left out: back to average, a point a week
+
+
+def test_appearances_count_every_competition_and_reset_each_season():
+    g = Game.new("Mike", "Elgin City", seed=3, db=SquadDB.load_default())
+    games = 0
+    for _ in range(12):
+        rep = g.play_week()
+        games += rep.player_result is not None
+    most = max(p.apps for p in g.squad("Elgin City"))
+    assert most == games  # a regular has played in every one of the club's games so far
+    g._start_season()
+    assert all(p.apps == p.goals == p.form == 0 for p in g.players.values())

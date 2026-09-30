@@ -5,6 +5,11 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 
 POSITIONS = ("GK", "DEF", "MID", "ATT")
+# form runs from -FORM_MAX (out of form) to +FORM_MAX (on fire); each point is worth 1% of a
+# player's ability, so a 70-skill player at full form plays like a 77
+FORM_MAX = 10
+FORM_EFFECT = 0.01
+FORM_LABELS = ((6, "Hot"), (2, "Good"), (-1, "OK"), (-5, "Poor"), (-FORM_MAX, "Cold"))
 
 
 def round_money(amount: float) -> int:
@@ -31,6 +36,7 @@ class Player:
     apps: int = 0
     yellows: int = 0  # bookings this season
     suspended: int = 0  # matches still to serve
+    form: int = 0  # recent performances, -FORM_MAX..FORM_MAX
 
     @property
     def short_name(self) -> str:
@@ -46,8 +52,12 @@ class Player:
 
     @property
     def effective(self) -> float:
-        """Skill adjusted for fitness - a tired player plays worse."""
-        return self.skill * (0.65 + 0.35 * self.energy / 100)
+        """Skill adjusted for fitness and form - a tired player plays worse, one on form better."""
+        return self.skill * (0.65 + 0.35 * self.energy / 100) * (1 + FORM_EFFECT * self.form)
+
+    @property
+    def form_label(self) -> str:
+        return next(label for floor, label in FORM_LABELS if self.form >= floor)
 
     @property
     def value(self) -> int:

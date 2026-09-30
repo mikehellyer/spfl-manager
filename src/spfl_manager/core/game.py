@@ -15,7 +15,7 @@ from .database import START_YEAR, SquadDB
 from .fixtures import cup_draw, league_schedule
 from .match import MatchResult, simulate_match
 from .match import shootout as run_shootout
-from .models import Club, Player, round_money
+from .models import FORM_MAX, Club, Player, round_money
 from .names import FIRST_NAMES, SURNAMES
 
 SQUAD_TEMPLATE = ["GK", "GK"] + ["DEF"] * 5 + ["MID"] * 5 + ["ATT"] * 4
@@ -24,6 +24,16 @@ MAX_SQUAD = 32
 MIN_SQUAD = 13
 SAVE_VERSION = 2
 YOUTH_TARGET = 18  # at the end of each season clubs promote youngsters up to this squad size
+# form: how a match went for a player (win/lose, goals, clean sheets, red cards), scaled onto
+# -FORM_MAX..FORM_MAX and blended into their form. Players left out drift back towards 0.
+FORM_RESULT = 3
+FORM_PENS_RESULT = 1  # a shoot-out is closer to a draw than a win or a defeat
+FORM_GOAL = 3
+FORM_CLEAN_SHEET = 2  # keepers and defenders; they lose as much after conceding 3 or more
+FORM_RED_CARD = -4
+FORM_SCALE = 1.5
+FORM_NOISE = 2.0  # a good or a bad day that the scoreline doesn't show
+FORM_KEEP = 0.65  # share of the old form kept after each match
 
 
 @dataclass
@@ -227,7 +237,7 @@ class Game:
         self.split = {}
         self._new_league_cup()
         for p in self.players.values():
-            p.goals = p.apps = 0
+            p.goals = p.apps = p.form = 0
         self._refresh_market()
 
     # ------------------------------------------------------------ properties
@@ -1012,7 +1022,46 @@ class Game:
                 p.injury = weeks + 1  # +1 because the countdown ticks at the start of next week
                 if p.club == self.club_name:
                     report.news.append(f"{p.name} is injured - out for {weeks} week(s).")
+        self._update_form(all_results)
         self._apply_discipline(all_results, report)
+
+    def _update_form(self, all_results: list[MatchResult]):
+        """Blend each player's match into their form; anyone who didn't play drifts back to 0."""
+        rating: dict[int, float] = {}
+        for res in all_results:
+            for club, xi, conceded in (
+                (res.home, res.home_xi, res.away_goals),
+                (res.away, res.away_xi, res.home_goals),
+            ):
+                result = FORM_PENS_RESULT if res.pens else FORM_RESULT
+                if res.winner is None:
+                    result = 0
+                elif res.winner != club:
+                    result = -result
+                for pid in xi:
+                    p = self.players.get(pid)
+                    if p is None:  # a non-league cup side's player
+                        continue
+                    r = result
+                    if p.pos in ("GK", "DEF"):
+                        if conceded == 0:
+                            r += FORM_CLEAN_SHEET
+                        elif conceded >= 3:
+                            r -= FORM_CLEAN_SHEET
+                    rating[pid] = rating.get(pid, 0) + r
+            for e in res.events:
+                if e.player_id in rating:
+                    if e.kind == "goal":
+                        rating[e.player_id] += FORM_GOAL
+                    elif e.kind == "red":
+                        rating[e.player_id] += FORM_RED_CARD
+        for p in self.players.values():
+            if p.id in rating:
+                match = (rating[p.id] + self.rng.gauss(0, FORM_NOISE)) * FORM_SCALE
+                match = max(-FORM_MAX, min(FORM_MAX, match))
+                p.form = round(FORM_KEEP * p.form + (1 - FORM_KEEP) * match)
+            elif p.form:
+                p.form -= 1 if p.form > 0 else -1
 
     def _drop_from_selection(self, p: Player):
         club = self.clubs.get(p.club)

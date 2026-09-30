@@ -13,6 +13,7 @@ import pygame
 from ..core import data
 from ..core.database import POSITIONS, SquadDB, user_file
 from ..core.game import Game, save_path
+from ..core.models import FORM_MAX
 from . import theme as T
 from .app import Scene
 from .screens import TOP, L, MessageScene
@@ -306,8 +307,10 @@ class SaveBackend:
         ("Age", 312, "r"),
         ("Fit", 360, "r"),
         ("Inj", 400, "r"),
-        ("Gls", 440, "r"),
-        ("Notes", 458, "l"),
+        ("Pl", 434, "r"),
+        ("Gls", 466, "r"),
+        ("Form", 478, "l"),
+        ("Notes", 522, "l"),
     ]
     legend = "Changes apply to your CURRENT career when you save.   Yellow = in the starting XI"
 
@@ -344,7 +347,9 @@ class SaveBackend:
             str(p.age),
             f"{p.energy}%",
             str(p.injury or ""),
+            str(p.apps),
             str(p.goals),
+            p.form_label,
             notes,
         ]
         return cells, color
@@ -363,6 +368,9 @@ class SaveBackend:
             Field("age", "Age", "int", p.age if p else 21, 15, 45),
             Field("energy", "Fitness %", "int", p.energy if p else 100, 0, 100),
             Field("injury", "Injured (weeks)", "int", p.injury if p else 0, 0, 30),
+            Field(
+                "form", f"Form ({-FORM_MAX} to {FORM_MAX})", "int", p.form if p else 0, -FORM_MAX, FORM_MAX
+            ),
         ]
 
     def apply(self, club, p, f: dict) -> str:
@@ -374,6 +382,7 @@ class SaveBackend:
         p.age = f["age"].value
         p.energy = f["energy"].value
         p.injury = f["injury"].value
+        p.form = f["form"].value
         sel = self.game.clubs[club].selected
         if p.injury and p.id in sel:
             sel.remove(p.id)
