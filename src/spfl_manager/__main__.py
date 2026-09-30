@@ -29,7 +29,10 @@ def self_test(report_path: str = "") -> int:
         ok &= not missing and icon.exists()
         g = Game.new("Self Test", "Elgin City", seed=1, db=db)
         report = g.play_week()
-        lines.append(f"played {report.label}: {len(report.results)} results")
+        # A cup week's matches are in cup_rounds, not results (the player's league)
+        played = len(report.results) + sum(len(res) for _, res in report.cup_rounds)
+        lines.append(f"played {report.label}: {played} matches")
+        ok &= played > 0
     except Exception as exc:  # report anything, never crash silently
         lines.append(f"FAILED: {exc!r}")
         ok = False
