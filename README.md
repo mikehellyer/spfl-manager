@@ -70,6 +70,11 @@ In the highlights, **SPACE** switches to fast-forward and **ESC** skips to full 
   - League Two: the bottom club plays the Highland/Lowland League play-off winner. Lose and you
     drop out of the SPFL, which ends the game. Clubs that drop out can come back up later.
 - Season awards, ageing, retirements and a youth intake that tops squads up to 18
+- Stats & Records (main menu): your squad's season stats and record in all competitions, the
+  Golden Boot race in every division, the SPFL's most in-form players, a roll of honour
+  (Premiership champions and both cup winners, season by season) and your manager record:
+  trophies, best finish, biggest win, heaviest defeat, best season scorer and every club you've managed.
+  LEFT/RIGHT (or click the title bar) turns the page
 - Fitness matters: tired players play worse, so rotate your squad (the pre-match screen warns you)
 - Form: players who've been winning, scoring and keeping clean sheets play above their skill (up to
   10% better when *Hot*), while a bad run leaves them *Poor* or *Cold*. Form fades back to *OK*

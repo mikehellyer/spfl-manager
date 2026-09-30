@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from . import cup as cupmod
-from . import data
+from . import data, stats
 from . import league_cup as lcup
 from . import playoffs as po
 from .database import START_YEAR, SquadDB
@@ -137,6 +137,7 @@ class Game:
         self.market: list = []  # [[player_id, asking_price]]
         self.news: list[str] = []
         self.history: list[dict] = []
+        self.records: dict = {}  # the manager's biggest win, heaviest defeat, best scorer
         self.player_results: list = []  # the manager's own results this season
         self.next_id = 1
         self.board_warnings = 0
@@ -987,6 +988,7 @@ class Game:
         d = res.to_dict()
         d["label"] = self.event_label()
         self.player_results.append(d)
+        stats.note_result(self.records, d, self.club_name, self.season_label)
 
     def _update_morale(self, res: MatchResult):
         for name in (res.home, res.away):
@@ -1362,13 +1364,27 @@ class Game:
         for name in [n for n, c in self.clubs.items() if c.division == 4]:
             self._remove_club(name)
 
-        top_scorer = max(
-            (p for p in self.players.values() if self.clubs[p.club].division == my_div),
-            key=lambda p: p.goals,
-            default=None,
-        )
-        if top_scorer:
-            summary["top_scorer"] = f"{top_scorer.name} ({top_scorer.club}) {top_scorer.goals} goals"
+        # top scorers by the division each club finished in (before promotion and relegation)
+        finished_in = {club: d for d, order in enumerate(finals) for club in order}
+        top_scorers = []
+        for d in range(4):
+            best = max(
+                (p for p in self.players.values() if finished_in.get(p.club) == d),
+                key=lambda p: p.goals,
+                default=None,
+            )
+            top_scorers.append([best.name, best.club, best.goals] if best and best.goals else None)
+        if top_scorers[my_div]:
+            name, club, goals = top_scorers[my_div]
+            summary["top_scorer"] = f"{name} ({club}) {goals} goals"
+        mine = max(self.squad(self.club_name), key=lambda p: p.goals, default=None)
+        if mine and mine.goals > self.records.get("top_scorer", {}).get("goals", 0):
+            self.records["top_scorer"] = {
+                "name": mine.name,
+                "goals": mine.goals,
+                "season": self.season_label,
+                "club": self.club_name,
+            }
 
         self.history.append(
             {
@@ -1376,6 +1392,11 @@ class Game:
                 "club": self.club_name,
                 "division": summary["division"],
                 "position": my_pos,
+                "points": self.tables[self.club_name]["Pts"],
+                "champions": summary["champions"],
+                "cup_winner": summary["cup_winner"],
+                "league_cup_winner": summary["league_cup_winner"],
+                "top_scorers": top_scorers,
             }
         )
 
@@ -1433,6 +1454,7 @@ class Game:
             "market": self.market,
             "news": self.news,
             "history": self.history,
+            "records": self.records,
             "player_results": self.player_results,
             "next_id": self.next_id,
             "board_warnings": self.board_warnings,
@@ -1473,6 +1495,7 @@ class Game:
         g.market = d["market"]
         g.news = d["news"]
         g.history = d["history"]
+        g.records = d.get("records", {})
         g.player_results = d["player_results"]
         g.next_id = d["next_id"]
         g.board_warnings = d["board_warnings"]

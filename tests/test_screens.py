@@ -48,6 +48,15 @@ def test_every_management_screen_draws(tmp_path, monkeypatch):
     for page in range(results.pages):
         results.page = page
         results.draw(app.canvas)
+    from spfl_manager.ui import records
+
+    stats_page = records.StatsScene(app)
+    g.history.append(
+        {"season": "2025/26", "club": "Elgin City", "division": "SPFL League Two", "position": 3}
+    )
+    for _ in records.PAGES:
+        stats_page.draw(app.canvas)
+        stats_page.turn(1)
     pygame.quit()
 
 

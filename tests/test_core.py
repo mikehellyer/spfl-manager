@@ -94,6 +94,13 @@ def test_full_season_and_promotion():
     assert g.cup["winner"] == "" and g.week == 0 and g.season == 2027
     assert summary["cup_winner"]
     assert all(len(g.squad(c)) >= 12 for c in g.clubs)
+    # the season goes into the history for the Stats & Records screen
+    h = g.history[-1]
+    assert h["season"] == "2026/27" and h["club"] == "Hibernian"
+    assert h["champions"] == summary["champions"] and h["cup_winner"] == summary["cup_winner"]
+    assert h["league_cup_winner"] == summary["league_cup_winner"] and h["points"] > 0
+    assert all(ts and ts[2] > 0 for ts in h["top_scorers"])
+    assert g.records["top_scorer"]["goals"] > 0 and "biggest_win" in g.records
 
 
 def test_save_round_trip(tmp_path):
@@ -688,3 +695,73 @@ def test_appearances_count_every_competition_and_reset_each_season():
     assert most == games  # a regular has played in every one of the club's games so far
     g._start_season()
     assert all(p.apps == p.goals == p.form == 0 for p in g.players.values())
+
+
+def test_biggest_win_and_heaviest_defeat():
+    from spfl_manager.core import stats
+
+    rec = {}
+
+    def game(home, away, hg, ag, label="League Week 1"):
+        res = {"home": home, "away": away, "home_goals": hg, "away_goals": ag, "label": label}
+        stats.note_result(rec, res, "Clyde", "2026/27")
+
+    game("Clyde", "Elgin City", 3, 0)
+    game("Stranraer", "Clyde", 1, 4)  # same margin, more goals: the new record
+    game("Clyde", "Annan Athletic", 2, 2)  # draws never count
+    game("Clyde", "Peterhead", 4, 1)  # equal to the record: the first one stays
+    game("Forfar Athletic", "Clyde", 5, 0, "Scottish Cup Round 2")
+    game("Clyde", "Dumbarton", 0, 1)
+    assert rec["biggest_win"]["score"] == "4-1" and rec["biggest_win"]["opponent"] == "Stranraer"
+    assert rec["biggest_win"]["venue"] == "away"
+    assert rec["heaviest_defeat"]["score"] == "0-5"
+    assert rec["heaviest_defeat"]["competition"] == "Scottish Cup Round 2"
+
+
+def test_trophies_and_best_finish():
+    from spfl_manager.core import stats
+
+    history = [
+        {
+            "season": "2026/27",
+            "club": "Clyde",
+            "division": "SPFL League Two",
+            "position": 1,
+            "champions": ["Celtic", "Dunfermline Athletic", "Alloa Athletic", "Clyde"],
+            "cup_winner": "Celtic",
+            "league_cup_winner": "Rangers",
+        },
+        {
+            "season": "2027/28",
+            "club": "Clyde",
+            "division": "SPFL League One",
+            "position": 4,
+            "champions": ["Celtic", "Ayr United", "Montrose", "Elgin City"],
+            "cup_winner": "Clyde",
+            "league_cup_winner": "Rangers",
+        },
+        {"season": "2028/29", "club": "Clyde", "division": "SPFL League One", "position": 7},  # an old save
+    ]
+    assert stats.trophies(history) == ["2026/27  League Two champions", "2027/28  Scottish Cup"]
+    assert stats.best_finish(history)["season"] == "2027/28"  # 4th in League One beats 1st in League Two
+    assert stats.trophies([]) == [] and stats.best_finish([]) is None
+
+
+def test_season_stats_pages():
+    from spfl_manager.core import stats
+
+    g = Game.new("Mike", "Aberdeen", seed=4, db=SquadDB.load_default())
+    assert stats.top_scorers(g, 0) == [] and stats.in_form(g) == []
+    for _ in range(10):
+        g.play_week()
+    scorers = stats.top_scorers(g, 0)
+    assert scorers and all(g.clubs[p.club].division == 0 for p in scorers)
+    assert [p.goals for p in scorers] == sorted((p.goals for p in scorers), reverse=True)
+    hot = stats.in_form(g)
+    assert all(p.apps >= stats.IN_FORM_MIN_APPS and p.form > 0 for p in hot)
+    rec = stats.season_record(g)
+    assert rec["P"] == len(g.player_results) == rec["W"] + rec["D"] + rec["L"]
+    # saves from before records existed still load
+    d = g.to_dict()
+    del d["records"]
+    assert Game.from_dict(d).records == {}

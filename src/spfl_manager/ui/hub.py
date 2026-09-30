@@ -8,6 +8,7 @@ from ..core import data
 from ..core.game import Game, save_path
 from . import theme as T
 from .app import Scene
+from .records import StatsScene
 from .screens import (
     TOP,
     FinanceScene,
@@ -40,6 +41,7 @@ class HubScene(Scene):
             ("Transfer Market", lambda: app.push(MarketScene(app))),
             ("Finances & Bank", lambda: app.push(FinanceScene(app))),
             ("News", lambda: app.push(NewsScene(app))),
+            ("Stats & Records", lambda: app.push(StatsScene(app))),
             ("Squad Editor", self.editor),
             ("Save Game", self.save),
             ("Quit to Title", self.quit),
